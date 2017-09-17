@@ -61,7 +61,7 @@ module.exports = {
     historyApiFallback: true,
     port: process.env["PORT"],
     host: process.env["IP"],
-    public: "slt-poulet42.c9users.io",
+    public: process.env["C9_HOSTNAME"],
     watchOptions: {
       ignored: /node_modules/
     }
