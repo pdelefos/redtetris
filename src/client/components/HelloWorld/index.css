@@ -1,0 +1,8 @@
+.a {
+    background: blue;
+}
+
+.test {
+    composes: a;
+    color: green;
+}
