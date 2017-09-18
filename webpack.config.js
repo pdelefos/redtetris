@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -10,9 +11,11 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     publicPath: '/'
   },
+
   resolve: {
     extensions: ['.js', '.jsx', '.css']
   },
+
   module: {
     rules: [
       {
@@ -45,13 +48,20 @@ module.exports = {
       },
     ],
   },
+
   plugins: [
     new webpack.NamedModulesPlugin(),
     new HtmlWebpackPlugin({
       inject: true,
       template: './src/client/index.html',
     }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('development')
+      }
+    })
   ],
+  
   devServer: {
     contentBase: './src/client',
     overlay: {
@@ -61,7 +71,6 @@ module.exports = {
     historyApiFallback: true,
     port: process.env["PORT"],
     host: process.env["IP"],
-    public: process.env["C9_HOSTNAME"],
     watchOptions: {
       ignored: /node_modules/
     }
