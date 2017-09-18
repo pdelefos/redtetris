@@ -1,58 +1,26 @@
 var path = require('path');
 var webpack = require('webpack');
 
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+var sharedConf = require('./webpack.shared')
+var merge = require('webpack-merge')
 
-module.exports = {
-  entry: './src/client/entry.js',
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'build')
-  },
-
-  resolve: {
-    extensions: ['.js', '.jsx', '.css']
-  },
-
+module.exports = merge(sharedConf, {
   devtool: 'source-map',
 
-  module: {
+  modules: {
     rules: [
       {
         test: /\.jsx?$/,
         use: ['babel-loader'],
         exclude: /node_modules/
       },
-      {
-        test: /\.s?css$/,
-        exclude: /node_modules/,
-        use: [
-          { loader: 'style-loader' },
-          {
-            loader: 'css-loader',
-            options: {
-              minimize: true,
-              modules: true,
-              importLoaders: 1
-            }
-          },
-          { loader: 'postcss-loader' },
-        ]
-      }
     ]
   },
 
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      comments: false
-    }),
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: './src/client/index.html',
-    }),
     new ExtractTextPlugin("[name].css"),
     new webpack.DefinePlugin({
       'process.env': {
@@ -60,4 +28,4 @@ module.exports = {
       }
     })
   ]
-}
+})

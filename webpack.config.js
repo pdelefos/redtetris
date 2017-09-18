@@ -1,22 +1,14 @@
-const webpack = require('webpack');
-const path = require('path');
+var path = require('path');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+var webpack = require('webpack');
+var sharedConf = require('./webpack.shared')
+var merge = require('webpack-merge')
 
-module.exports = {
-  entry: ['react-hot-loader/patch', './src/client/entry.js'],
-  
-  output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'build'),
-    publicPath: '/'
-  },
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-  resolve: {
-    extensions: ['.js', '.jsx', '.css']
-  },
-
-  module: {
+var conf = {
+  entry: ['react-hot-loader/patch'],
+  modules: {
     rules: [
       {
         test: /\.html$/,
@@ -28,40 +20,10 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loaders: ['react-hot-loader/webpack', 'babel-loader'],
-      },
-      {
-        test: /\.s?css$/,
-        exclude: /node_modules/,
-        use: [
-          { loader: 'style-loader' },
-          {
-            loader: 'css-loader',
-            options: {
-              minimize: false,
-              modules: true,
-              importLoaders: 1
-            }
-          },
-          { loader: 'postcss-loader' },
-        ]
-      },
-    ],
-  },
-
-  plugins: [
-    new webpack.NamedModulesPlugin(),
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: './src/client/index.html',
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('development')
+        loaders: ['react-hot-loader/webpack', 'babel-loader']
       }
-    })
-  ],
-  
+    ]
+  },
   devServer: {
     contentBase: './src/client',
     overlay: {
@@ -69,10 +31,22 @@ module.exports = {
       errors: true
     },
     historyApiFallback: true,
-    port: process.env["PORT"],
-    host: process.env["IP"],
     watchOptions: {
       ignored: /node_modules/
     }
   },
+  plugins: [
+    new webpack.NamedModulesPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('development')
+      }
+    })
+  ]
 }
+
+var x = merge(conf, sharedConf)
+console.log(x)
+console.log(x.modules)
+
+module.exports = x
