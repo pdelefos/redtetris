@@ -4,11 +4,10 @@ var merge = require('webpack-merge')
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var sharedConfig = {
-  entry: ['react-hot-loader/patch', '../src/client/entry.js'],
+  entry: ['react-hot-loader/patch', './src/client/entry.js'],
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'build'),
-    publicPath: '/'
+    path: path.resolve(__dirname,'..', 'build')
   },
   module: {
     rules: [
@@ -42,7 +41,7 @@ var sharedConfig = {
   plugins: [
     new HtmlWebpackPlugin({
         inject: true,
-        template: '../src/client/index.html',
+        template: './src/client/index.html',
     })
   ]
 }
