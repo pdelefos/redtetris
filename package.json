@@ -7,8 +7,8 @@
   "license": "mit",
   "scripts": {
     "clean": "rm -rf ./build/*",
-    "dev": "webpack-dev-server --hot --inline --config config/webpack.shared.js",
-    "prod": "webpack --config config/webpack.shared.js"
+    "dev": "webpack-dev-server --hot --inline --config config/webpack.config.development.js",
+    "prod": "webpack --config config/webpack.config.production.js"
   },
   "dependencies": {
     "react": "^15.6.1",

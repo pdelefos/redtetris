@@ -3,7 +3,7 @@ var path = require('path');
 var merge = require('webpack-merge')
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-var sharedConfig = {
+module.exports = {
   entry: ['react-hot-loader/patch', './src/client/entry.js'],
   output: {
     filename: '[name].bundle.js',
@@ -45,8 +45,3 @@ var sharedConfig = {
     })
   ]
 }
-
-var resolvedEnv = process.env.NODE_ENV || "development"
-var envConfig = require(`./webpack.config.${resolvedEnv}`);
-console.log(merge(sharedConfig, envConfig));
-module.exports = merge(sharedConfig, envConfig);

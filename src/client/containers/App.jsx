@@ -7,7 +7,7 @@ const App = () => {
     <div>
         {/* <LyingHasToStop /> */}
         {/* <p>(ca sera la musique de fond du lobby)</p> */}
-        <HelloWorld name="World, this are props" />
+        <HelloWorld name="World, these are props" />
     </div>
     )
 }
