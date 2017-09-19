@@ -6,9 +6,8 @@ var merge = require('webpack-merge')
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-var conf = {
-  entry: ['react-hot-loader/patch'],
-  modules: {
+module.exports = {
+  module: {
     rules: [
       {
         test: /\.html$/,
@@ -45,8 +44,4 @@ var conf = {
   ]
 }
 
-var x = merge(conf, sharedConf)
-console.log(x)
-console.log(x.modules)
-
-module.exports = x
+// var x = merge(conf, sharedConf)
