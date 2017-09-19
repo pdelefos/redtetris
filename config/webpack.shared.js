@@ -4,7 +4,7 @@ var merge = require('webpack-merge')
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var sharedConfig = {
-  entry: ['react-hot-loader/patch', './src/client/entry.js'],
+  entry: ['react-hot-loader/patch', '../src/client/entry.js'],
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'build'),
@@ -42,12 +42,12 @@ var sharedConfig = {
   plugins: [
     new HtmlWebpackPlugin({
         inject: true,
-        template: './src/client/index.html',
+        template: '../src/client/index.html',
     })
   ]
 }
 
 var resolvedEnv = process.env.NODE_ENV || "development"
 var envConfig = require(`./webpack.config.${resolvedEnv}`);
-
+console.log(merge(sharedConfig, envConfig));
 module.exports = merge(sharedConfig, envConfig);
