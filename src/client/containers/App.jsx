@@ -1,15 +1,23 @@
-import React from 'react';
-import HelloWorld from '../components/HelloWorld';
-import LyingHasToStop from '../components/LyingHasToStop';
+import React from "react"
+import { Route, Link } from "react-router-dom"
+import HelloWorld from "../components/HelloWorld"
+import LyingHasToStop from "../components/LyingHasToStop"
 
 const App = () => {
-    return (
+  return (
     <div>
-        {/* <LyingHasToStop /> */}
-        {/* <p>(ca sera la musique de fond du lobby)</p> */}
-        <HelloWorld name="World, these are props" />
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/lying">Lying has to stop</Link>
+        </li>
+      </ul>
+      <HelloWorld name="World, these are props" />
+      <Route exact path="/lying" component={LyingHasToStop} />
     </div>
-    )
+  )
 }
 
-export default App;
+export default App
