@@ -1,7 +1,7 @@
 import React from "react"
 import { Route, Link } from "react-router-dom"
-import HelloWorld from "../components/HelloWorld"
-import LyingHasToStop from "../components/LyingHasToStop"
+import Hello from "../components/Hello"
+import World from "../components/World"
 
 const App = () => {
   return (
@@ -11,11 +11,14 @@ const App = () => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/lying">Lying has to stop</Link>
+          <Link to="/hello">Hello</Link>
+        </li>
+        <li>
+          <Link to="/world">World</Link>
         </li>
       </ul>
-      <HelloWorld name="World, these are props" />
-      <Route exact path="/lying" component={LyingHasToStop} />
+      <Route exact path="/hello" component={Hello} />
+      <Route exact path="/world" component={World} />
     </div>
   )
 }

@@ -1,0 +1,12 @@
+.a {
+    background: blue;
+  }
+  
+  @value primary: green;
+  
+  .test {
+    composes: a;
+    color: primary;
+    font-family: "Roboto Condensed";
+  }
+  
