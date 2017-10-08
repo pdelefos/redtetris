@@ -1,31 +1,36 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import { BrowserRouter as Router } from "react-router-dom"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { AppContainer } from 'react-hot-loader'
 
-import { AppContainer } from "react-hot-loader"
-import App from "./containers/App"
+import store from './store/initStore' 
+import App from './App'
 
-const render = Component => {
+
+const render = App => {
   ReactDOM.render(
-    <AppContainer>
-      <Router>
-        <Component />
-      </Router>
-    </AppContainer>,
-    document.getElementById("root")
+      <Provider store={ store }>
+        <AppContainer>
+          <Router>
+            <App />
+          </Router>
+        </AppContainer>
+      </Provider>,
+    document.getElementById('root')
   )
 }
 
-if (process.env.NODE_ENV !== "production") {
-  console.log("[entry.js] Looks like we are in development mode!")
+if (process.env.NODE_ENV !== 'production') {
+  console.log('[entry.js] Looks like we are in development mode!')
 } else {
-  console.log("[entry.js] Looks like we are in prod mode!")
+  console.log('[entry.js] Looks like we are in prod mode!')
 }
 
 render(App)
 
 if (module.hot) {
-  module.hot.accept("./containers/App", () => {
+  module.hot.accept('./App', () => {
     render(App)
   })
 }

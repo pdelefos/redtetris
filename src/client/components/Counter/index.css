@@ -1,0 +1,11 @@
+.number {
+  font-family: "Roboto Condensed";
+  font-size: 50px;
+  margin-left: 50px;
+}
+
+.button {
+  width: 100px;
+  height: 50px;
+  margin-left: 10px;
+}
