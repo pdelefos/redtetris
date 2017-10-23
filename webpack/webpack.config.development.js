@@ -1,10 +1,9 @@
-var path = require('path');
-
 var webpack = require('webpack');
-var sharedConf = require('./webpack.shared')
 var merge = require('webpack-merge')
-
+var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+
+var sharedConf = require('./webpack.shared')
 
 module.exports = merge(sharedConf, {
   module: {

@@ -1,11 +1,9 @@
-.a {
-  background: blue;
+.a
+{
+    background: blue;
 }
 
-@value primary: yellow;
-
-.test {
-  composes: a;
-  color: primary;
-  font-family: "Roboto Condensed";
+.test
+{
+    color: blue;
 }

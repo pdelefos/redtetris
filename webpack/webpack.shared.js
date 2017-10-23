@@ -7,7 +7,7 @@ module.exports = {
   entry: ['react-hot-loader/patch', './src/client/entry.js'],
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname,'..', 'build')
+    path: path.resolve(__dirname, '..', 'build')
   },
   module: {
     rules: [
@@ -17,22 +17,10 @@ module.exports = {
         loaders: ['react-hot-loader/webpack', 'babel-loader']
       },
       {
-        test: /\.s?css$/,
-        exclude: /node_modules/,
-        use: [
-          { loader: 'style-loader' },
-          {
-            loader: 'css-loader',
-            options: {
-              minimize: process.env.NODE_ENV === "production",
-              modules: true,
-              importLoaders: 1,
-
-            }
-          },
-          { loader: 'postcss-loader' },
-        ]
-      },
+        test: /\.css$/,
+        include: /src\/client/,
+        loaders: 'style-loader!css-loader'
+      }
     ]
   },
   resolve: {
@@ -40,8 +28,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-        inject: true,
-        template: './src/client/index.html',
+      inject: true,
+      template: './src/client/index.html',
     })
   ]
 }
