@@ -4,7 +4,7 @@
   "description": "React Redux Generic Boilerplate ES6",
   "main": "index.js",
   "author": "pdelefos-dylandjian-corentinprune",
-  "license": "mit",
+  "license": "MIT",
   "scripts": {
     "clean": "rm -rf ./build/*",
     "client-dev": "webpack-dev-server --hot --inline --config webpack/webpack.config.development.js",
