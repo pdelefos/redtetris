@@ -30,16 +30,10 @@ const xx = server.listen(port, function () {
 const io = require('socket.io')(xx)
 const tt = []
 
-io.on('connection', (socket) => {  
-  console.log('a user connected', socket.id)
+io.on('connection', (evt) => {  
+  console.log('a user connected', evt.id)
 
-  tt.push(socket.id)
-  console.log(tt)
-  socket.on('disconnect', () => {
-    console.log('user disconnected')
-  })
-
-  socket.on('cc', (k) => {
-    console.log(k)
+  evt.on('disconnect', () => {
+    console.log('user disconnected', evt.id)
   })
 })

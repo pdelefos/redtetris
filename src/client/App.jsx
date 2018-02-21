@@ -1,10 +1,13 @@
 import React from "react"
 import AppRouter from "./router/initRouter"
 
+import "./App.css"
+
 const App = () => {
   return (
     <div>
-      <AppRouter />
+      {/* <AppRouter /> */}
+      sdkldfk
     </div>
   )
 }

@@ -2,7 +2,7 @@ var process = require('process')
 var path = require('path');
 var merge = require('webpack-merge')
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-
+console.log(__dirname)
 module.exports = {
   entry: ['react-hot-loader/patch', './src/client/entry.js'],
   output: {
