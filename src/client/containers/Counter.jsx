@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import { increment, decrement, reset } from '../actions/counter'
 import Counter from '../components/Counter'
+import { socket } from '../socket'
 
 
 const mapStateToProps = state => {
@@ -15,6 +16,7 @@ const mapDispatchToProps = dispatch => {
   return {
     increment: () => {
       dispatch(increment(4))
+      socket.emit('cc')
     },
     decrement: () => {
       dispatch(decrement(2))

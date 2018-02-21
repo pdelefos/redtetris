@@ -23,23 +23,26 @@ const port = process.env.PORT || config.server.port
 const server = http.createServer(app)
 
 // Start the server
-const xx = server.listen(port, function () {
+const connection = server.listen(port, function () {
   console.log('Server is running on http://localhost:' + port)
 })
 
-const io = require('socket.io')(xx)
-const tt = []
+const io = require('socket.io')(connection)
+const userLists = []
 
 io.on('connection', (socket) => {  
   console.log('a user connected', socket.id)
 
-  tt.push(socket.id)
-  console.log(tt)
+  userLists.push(socket.id)
+  console.log(userLists)
   socket.on('disconnect', () => {
     console.log('user disconnected')
+    userLists.splice(userLists.indexOf(socket.id), 1)
+    console.log(userLists)
   })
 
-  socket.on('cc', (k) => {
-    console.log(k)
+  socket.on('cc', () => {
+    console.log('\n\nCECI EST UN APPEL SOCKET\n\n')
+    console.log('le socket id est: ', socket.id)
   })
 })
