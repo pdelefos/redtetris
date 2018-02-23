@@ -4,12 +4,7 @@ import AppRouter from "./router/initRouter"
 import "./App.css"
 
 const App = () => {
-  return (
-    <div>
-      {/* <AppRouter /> */}
-      sdkldfk
-    </div>
-  )
+  return <div>rotiroti</div>
 }
 
 export default App

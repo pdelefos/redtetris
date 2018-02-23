@@ -1,29 +1,14 @@
-var webpack = require('webpack');
-var merge = require('webpack-merge')
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+var webpack = require("webpack")
+var merge = require("webpack-merge")
+var path = require("path")
+var HtmlWebpackPlugin = require("html-webpack-plugin")
 
-var sharedConf = require('./webpack.shared')
+var sharedConf = require("./webpack.shared")
 
 module.exports = merge(sharedConf, {
-  module: {
-    rules: [
-      {
-        test: /\.html$/,
-        loader: 'html-loader',
-        options: {
-          minimize: true,
-        }
-      },
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loaders: ['react-hot-loader/webpack', 'babel-loader']
-      }
-    ]
-  },
   devServer: {
-    contentBase: './src/client',
+    contentBase: "../src/client",
+    hot: true,
     overlay: {
       warnings: false,
       errors: true
@@ -34,11 +19,12 @@ module.exports = merge(sharedConf, {
     }
   },
   plugins: [
-    new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('development')
+      "process.env": {
+        NODE_ENV: JSON.stringify("development")
       }
-    })
+    }),
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ]
 })

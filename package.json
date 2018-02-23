@@ -1,15 +1,15 @@
 {
-  "name": "RRG-Boilerplate",
+  "name": "redtetris",
   "version": "0.0.1",
-  "description": "React Redux Generic Boilerplate ES6",
-  "main": "index.js",
+  "description": "4 players online Tetris",
   "author": "pdelefos-dylandjian-corentinprune",
   "license": "MIT",
   "scripts": {
-    "clean": "rm -rf ./build/*",
-    "client-dev": "webpack-dev-server --hot --inline --config webpack/webpack.config.development.js",
+    "clear": "rm -rf ./build/*",
+    "client-dev":
+      "webpack-dev-server --inline --config webpack/webpack.shared.js",
     "client-prod": "webpack --config webpack/webpack.config.production.js",
-    "srv-dev": "babel-watch -w src/server src/server/server.js"
+    "srv-dev": "babel-node src/server/server.js"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -23,22 +23,22 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
     "redux": "^3.7.2",
+    "redux-persist": "^5.9.1",
     "socket.io": "^2.0.3"
   },
   "devDependencies": {
-    "babel": "^6.23.0",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.1",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "babel-watch": "^2.0.7",
+    "@babel/cli": "^7.0.0-beta.40",
+    "@babel/core": "^7.0.0-beta.40",
+    "@babel/node": "^7.0.0-beta.40",
+    "@babel/preset-env": "^7.0.0-beta.40",
+    "@babel/preset-react": "^7.0.0-beta.40",
+    "@babel/preset-stage-2": "^7.0.0-beta.40",
+    "babel-loader": "8.0.0-beta.0",
     "css-loader": "^0.28.4",
     "extract-text-webpack-plugin": "^3.0.0",
     "html-loader": "^0.5.0",
     "html-webpack-plugin": "^2.29.0",
-    "react-hot-loader": "next",
+    "react-hot-loader": "^3.1.3",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "socket.io-client": "^2.0.3",
