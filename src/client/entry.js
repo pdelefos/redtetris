@@ -32,6 +32,7 @@ render(App)
 
 if (module.hot) {
   module.hot.accept('./App', () => {
+		require('./App')
     render(App)
   })
 }

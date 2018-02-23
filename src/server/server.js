@@ -28,21 +28,7 @@ const connection = server.listen(port, function () {
 })
 
 const io = require('socket.io')(connection)
-const userLists = []
 
-io.on('connection', (socket) => {  
-  console.log('a user connected', socket.id)
+import { Manager } from './controller/manager'
 
-  userLists.push(socket.id)
-  console.log(userLists)
-  socket.on('disconnect', () => {
-    console.log('user disconnected')
-    userLists.splice(userLists.indexOf(socket.id), 1)
-    console.log(userLists)
-  })
-
-  socket.on('cc', () => {
-    console.log('\n\nCECI EST UN APPEL SOCKET\n\n')
-    console.log('le socket id est: ', socket.id)
-  })
-})
+let manager = new Manager(io)
