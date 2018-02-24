@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import move from './move'
+import user from './user'
 
 const tetriStore = combineReducers({
-  move
+  user
 })
 
 export default tetriStore

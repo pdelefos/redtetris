@@ -7,17 +7,14 @@ import { AppContainer } from "react-hot-loader"
 import store from "./store/initStore"
 import App from "./App"
 
-const io = require("socket.io-client")
-const socket = io("http://localhost:8081/")
-
 const render = App => {
   ReactDOM.render(
     <AppContainer>
-      {/* <Provider store={store}>
-        <Router> */}
-      <App />
-      {/* </Router>
-      </Provider> */}
+      <Provider store={store}>
+        <Router>
+          <App />
+        </Router>
+      </Provider>
     </AppContainer>,
     document.getElementById("root")
   )

@@ -1,12 +1,14 @@
-import React from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import React from "react"
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 
-// Components
-import Login from "../containers/Login"
+// Containers
+import Connection from "../containers/Connection"
 
 const AppRouter = () => (
   <Router>
-		<Login/>
+    <div>
+      <Route exact path="/" component={Connection} />
+    </div>
   </Router>
 )
 
