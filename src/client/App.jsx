@@ -4,7 +4,7 @@ import AppRouter from "./router/initRouter"
 import "./App.css"
 
 const App = () => {
-  return <div>rotiroti</div>
+  return <div>toto</div>
 }
 
 export default App

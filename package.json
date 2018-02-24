@@ -7,7 +7,7 @@
   "scripts": {
     "clear": "rm -rf ./build/*",
     "client-dev":
-      "webpack-dev-server --inline --config webpack/webpack.shared.js",
+      "webpack-dev-server --inline --config webpack/webpack.config.development.js",
     "client-prod": "webpack --config webpack/webpack.config.production.js",
     "srv-dev": "babel-node src/server/server.js"
   },
