@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
 import user from './user'
+import notification from './notification'
 
-const tetriStore = combineReducers({
-  user
+const store = combineReducers({
+	user,
+	notification
 })
 
-export default tetriStore
+export default store

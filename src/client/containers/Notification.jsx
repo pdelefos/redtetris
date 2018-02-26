@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
-import { createUser } from '../actions/user'
-import Connection from '../components/Connection'
+import { addNotif,  } from '../actions/notification'
+import Notification from '../components/Connection'
 
 
 const mapStateToProps = state => {
@@ -9,7 +9,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    pushUser: (username) => {
+    closeNotif: () => {
 			dispatch(createUser(username, socket))
 		}
   }
@@ -18,6 +18,6 @@ const mapDispatchToProps = dispatch => {
 const FinalConnection = connect(
 	mapStateToProps,
   mapDispatchToProps
-)(Connection)
+)(Notification)
 
 export default FinalConnection

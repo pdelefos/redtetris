@@ -3,9 +3,9 @@ import { applyMiddleware, createStore } from "redux"
 import logger from "redux-logger"
 import thunk from "redux-thunk"
 
-import tetriStore from "../reducers"
+import store from "../reducers"
 
 const middleware = applyMiddleware(thunk, logger)
-let store = createStore(tetriStore, middleware)
+let finalStore = createStore(store, middleware)
 
-export default store
+export default finalStore

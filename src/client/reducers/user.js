@@ -8,7 +8,7 @@ const user = (state = initialState, action) => {
     case 'CREATE_USER':
 		  return {
 				...state, 
-				username: action.name,
+				username: action.username,
 				socketId: action.id
 			}
     default:

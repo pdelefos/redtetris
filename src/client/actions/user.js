@@ -1,6 +1,12 @@
-export const createUser = (username) => {
+import { socket } from '../socket'
+
+function createUser(username, socketId) {
+	socket.emit('createUser', username)
   return {
-		type: 'NAME',
-		username
+		type: 'CREATE_USER',
+		username,
+		socketId
   }
 }
+
+export { createUser }
