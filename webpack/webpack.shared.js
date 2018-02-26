@@ -9,6 +9,32 @@ module.exports = {
     path: path.resolve(__dirname, "..", "build"),
     publicPath: "/"
   },
+  module: {
+    rules: [
+      {
+        test: /\.html$/,
+        loader: "html-loader",
+        options: {
+          minimize: true
+        }
+      },
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"]
+          }
+        }
+      },
+      {
+        test: /\.css$/,
+        include: /src\/client/,
+        loaders: "style-loader!css-loader"
+      }
+    ]
+  },
   resolve: {
     extensions: [".js", ".jsx", ".css"]
   },
