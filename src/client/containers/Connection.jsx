@@ -9,7 +9,7 @@ const mapDispatchToProps = dispatch => {
   return {
     createUser: username => {
       console.log(username)
-      dispatch(socket.emit("createUser", username))
+      socket.emit("createUser", username)
     },
     notif: message => {
       socket.on("addUsername", message => {
@@ -19,5 +19,5 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const FinalConnection = connect(mapStateToProps, mapDispatchToProps)(Connection)
+const FinalConnection = connect(mapDispatchToProps)(Connection)
 export default FinalConnection
