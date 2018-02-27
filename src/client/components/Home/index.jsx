@@ -1,19 +1,13 @@
 import React from "react"
 import "./style.css"
+import Connection from '../../containers/Connection'
+import NotificationList from '../../containers/NotificationList'
 
 let Home = () => {
   return (
 		<div>
-			<input type="text" id="username" />
-			<button
-				className="button"
-				onClick={
-					() => {
-						pushUser(document.getElementById("username").value)
-					}
-				}>
-				Send user!
-			</button>
+			<Connection />
+			<NotificationList />
 		</div>
   )
 }

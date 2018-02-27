@@ -14,7 +14,7 @@ class Player {
 			this.socket.on('createUser', (username) => {
 				this.username = username
 				console.log("the current player %s is now named %s", this.socket.id, username)
-				this.socket.emit('addUsername', 'The user has succesfully been created')
+				this.socket.emit('notification', 'The user has succesfully been created')
 			})
 		}
 

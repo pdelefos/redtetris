@@ -10,7 +10,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     pushUser: (username) => {
-			dispatch(createUser(username, socket))
+			dispatch(createUser(username))
 		}
   }
 }

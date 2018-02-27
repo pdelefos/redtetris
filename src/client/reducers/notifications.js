@@ -1,11 +1,11 @@
-const notification = (state = [], action) => {
+const notifications = (state = [], action) => {
   switch (action.type) {
     case 'ADD_NOTIF':
 		  return [
 				...state,
 				{
 					id: action.id,
-					content: action.message,
+					message: action.message,
 					state: 0
 				}
 			]
@@ -13,7 +13,7 @@ const notification = (state = [], action) => {
 			return state.filter(
 				(message) => message.content !== action.id
 			)
-		case 'UPDATE_NOTIF_STATUS':
+		case 'UPDATE_NOTIF':
 			return state.map(
 				(message) => (message.id === action.id)
 					? message.status = 1
@@ -24,4 +24,4 @@ const notification = (state = [], action) => {
   }
 }
   
-export default notification
+export default notifications

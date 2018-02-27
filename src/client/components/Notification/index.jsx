@@ -1,10 +1,10 @@
 import React from "react"
 import "./style.css"
 
-let Notification = ({ closeNotification, message, id, status }) => {
+let Notification = ({ message, id, status, closeNotification }) => {
   return (
 		<li>
-			<div class="notification">
+			<div className="notification">
 				<span> { message } </span>
 				<button onClick={ closeNotification }></button>
 			</div>

@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import user from './user'
-import notification from './notification'
+import notifications from './notifications'
 
 const store = combineReducers({
 	user,
-	notification
+	notifications
 })
 
 export default store
