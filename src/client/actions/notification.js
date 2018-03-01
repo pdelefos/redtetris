@@ -1,21 +1,21 @@
 import { socket } from '../socket'
 
-let nextNotifId = 0
+let nextNotificationId = 0
 
 const notification = (message) => ({
-  type: 'ADD_NOTIF',
-  id: nextNotifId++,
+  type: 'ADD_NOTIFICATION',
+  id: nextNotificationId++,
   status: 0,
   message
 })
 
-export const addNotif = () => (dispatch) => {
+export const addNotification = (dispatch) => {
   socket.on('notification', (message) => {
     dispatch(notification(message))
-  })
+	})
 }
 
-export const removeNotif = (id) => ({
-  type: 'DELETE_NOTIF',
+export const removeNotification = (id) => ({
+  type: 'DELETE_NOTIFICATION',
   id
 })

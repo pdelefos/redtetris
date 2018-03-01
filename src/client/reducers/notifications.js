@@ -1,6 +1,6 @@
 const notifications = (state = [], action) => {
   switch (action.type) {
-    case 'ADD_NOTIF':
+    case 'ADD_NOTIFICATION':
 		  return [
 				...state,
 				{
@@ -9,15 +9,9 @@ const notifications = (state = [], action) => {
 					state: 0
 				}
 			]
-		case 'DELETE_NOTIF':
+		case 'DELETE_NOTIFICATION':
 			return state.filter(
-				(message) => message.content !== action.id
-			)
-		case 'UPDATE_NOTIF':
-			return state.map(
-				(message) => (message.id === action.id)
-					? message.status = 1
-					: message
+				(message) => message.id !== action.id
 			)
     default:
       return state

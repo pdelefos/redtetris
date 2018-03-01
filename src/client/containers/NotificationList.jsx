@@ -11,8 +11,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
+	NotificationActions.addNotification(dispatch)
   return {
-    actions: bindActionCreators(NotificationActions, dispatch)
+    actions: bindActionCreators(NotificationActions, dispatch) 
   }
 }
 
