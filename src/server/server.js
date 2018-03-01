@@ -29,6 +29,6 @@ const connection = server.listen(port, function() {
 
 const io = require("socket.io")(connection)
 
-import { Manager } from "./controller/manager"
+import { Player } from "./controller/player"
 
-let manager = new Manager(io)
+let manager = new Player(io)
