@@ -6,9 +6,11 @@
   "license": "MIT",
   "scripts": {
     "clear": "rm -rf ./build/*",
-    "client-dev": "webpack-dev-server --inline --config webpack/webpack.config.development.js",
+    "client-dev":
+      "webpack-dev-server --inline --config webpack/webpack.config.development.js",
     "client-prod": "webpack --config webpack/webpack.config.production.js",
-    "srv-dev": "babel-node src/server/server.js"
+    "babel-node": "babel-node --presets=@babel/preset-env",
+    "srv-dev": "nodemon --exec npm run babel-node -- src/server/server.js"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
