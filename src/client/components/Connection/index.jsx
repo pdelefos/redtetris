@@ -1,18 +1,18 @@
 import React from "react"
 import "./style.css"
 
-let Login = ({ createUser, notif }) => {
-  notif() // changer le nom pour un truc du style listenNotif()
+let Connection = ({ pushUser, notif }) => {
   return (
     <div>
       <div>
         <input type="text" id="username" />
         <button
           className="button"
-          onClick={() => {
-            createUser(document.getElementById("username").value)
-          }}
-        >
+          onClick={
+						() => {
+          		pushUser(document.getElementById("username").value)
+						}
+					}>
           Send user!
         </button>
       </div>
@@ -20,4 +20,4 @@ let Login = ({ createUser, notif }) => {
   )
 }
 
-export default Login
+export default Connection

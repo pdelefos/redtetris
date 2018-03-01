@@ -1,23 +1,23 @@
-import { connect } from "react-redux"
-import { createUser } from "../actions/user"
-import Connection from "../components/Connection"
-import { socket } from "../socket"
+import { connect } from 'react-redux'
+import { createUser } from '../actions/user'
+import Connection from '../components/Connection'
 
-const mapStateToProps = state => {}
+
+const mapStateToProps = state => {
+	return { }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
-    createUser: username => {
-      console.log(username)
-      socket.emit("createUser", username)
-    },
-    notif: message => {
-      socket.on("addUsername", message => {
-        alert(message)
-      })
-    }
+    pushUser: (username) => {
+			dispatch(createUser(username))
+		}
   }
 }
 
-const FinalConnection = connect(mapDispatchToProps)(Connection)
+const FinalConnection = connect(
+	mapStateToProps,
+  mapDispatchToProps
+)(Connection)
+
 export default FinalConnection
