@@ -1,8 +1,8 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import { BrowserRouter as Router } from "react-router-dom"
-import { Provider } from "react-redux"
 import { AppContainer } from "react-hot-loader"
+import { Provider } from "react-redux"
+import { HashRouter as Router } from "react-router-dom"
 
 import store from "./store/initStore"
 import App from "./components/App"

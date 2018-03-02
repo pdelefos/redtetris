@@ -1,5 +1,7 @@
 import React from "react"
-import AppRouter from "../../router/initRouter"
+import { Switch, Route } from "react-router-dom"
+import FinalConnection from "../../containers/Connection"
+import Lobby from "../Lobby"
 import Home from "../Home"
 
 import "./style.css"
@@ -7,7 +9,10 @@ import "./style.css"
 const App = () => {
   return (
     <div>
-      <Home />
+      <Switch>
+        <Route exact path="/" component={FinalConnection} />
+        <Route path="/lobby" component={Lobby} />
+      </Switch>
     </div>
   )
 }

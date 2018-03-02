@@ -1,8 +1,8 @@
 import React from "react"
 import "./style.css"
 
-const Connection = ({ pushUser, notif }) => {
-  let username = null
+let username = null
+const Connection = ({ history, pushUser, notif }) => {
   return (
     <div>
       <input
@@ -15,6 +15,7 @@ const Connection = ({ pushUser, notif }) => {
         className="button"
         onClick={() => {
           pushUser(username.value)
+          history.push("/lobby")
         }}
       >
         Send user!

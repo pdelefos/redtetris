@@ -5,6 +5,7 @@ var path = require("path")
 var sharedConf = require("./webpack.shared")
 
 module.exports = merge(sharedConf, {
+  devtool: "eval-source-map",
   devServer: {
     contentBase: "../src/client",
     hot: true,
