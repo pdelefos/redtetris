@@ -1,25 +1,26 @@
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as NotificationActions from '../actions/notification'
-import NotificationList from '../components/NotificationList'
-
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+import {
+  addNotification,
+  deleteNotification
+} from "../actions/notification"
+import NotificationList from "../components/NotificationList"
 
 const mapStateToProps = state => {
-	return {
+  return {
     notifications: state.notifications
   }
 }
 
 const mapDispatchToProps = dispatch => {
-	NotificationActions.addNotification(dispatch)
+  addNotification(dispatch)
   return {
-    actions: bindActionCreators(NotificationActions, dispatch) 
+    deleteNotification: bindActionCreators(deleteNotification, dispatch)
   }
 }
 
-const FinalConnection = connect(
-	mapStateToProps,
-  mapDispatchToProps
-)(NotificationList)
+const FinalNotification = connect(mapStateToProps, mapDispatchToProps)(
+  NotificationList
+)
 
-export default FinalConnection
+export default FinalNotification

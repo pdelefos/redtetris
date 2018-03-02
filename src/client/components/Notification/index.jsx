@@ -1,17 +1,17 @@
 import React from "react"
 import "./style.css"
 
-let Notification = ({ message, id, status, removeNotification }) => {
-	console.log('remove notif', removeNotification)
+let Notification = ({ message, id, status, deleteNotification }) => {
   return (
-		<li>
-			<div className="notification">
-				<span> { message } </span>
-				<button onClick={
-					() => removeNotification(id)
-				} className="button-notif"></button>
-			</div>
-		</li>
+    <li>
+      <div className="notification">
+        <span> {message} </span>
+        <button
+          onClick={() => deleteNotification(id)}
+          className="button-notif"
+        />
+      </div>
+    </li>
   )
 }
 

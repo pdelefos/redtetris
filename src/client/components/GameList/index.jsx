@@ -3,7 +3,7 @@ import { socket } from "../../socket"
 
 let gameName
 
-const Lobby = () => {
+const GameList = () => {
   return (
     <div>
       <input type="text" ref={input => (gameName = input.value)} />
@@ -12,7 +12,9 @@ const Lobby = () => {
         onClick={() => {
           socket.emit("createGame", gameName)
         }}
-      />
+      >
+        Create Game
+      </button>
       <button
         className="button"
         onClick={() => {
@@ -21,9 +23,11 @@ const Lobby = () => {
             console.log(games)
           })
         }}
-      />
+      >
+        Fetch games
+      </button>
     </div>
   )
 }
 
-export default Lobby
+export default GameList

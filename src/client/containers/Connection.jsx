@@ -1,23 +1,20 @@
-import { connect } from 'react-redux'
-import { createUser } from '../actions/user'
-import Connection from '../components/Connection'
-
+import { connect } from "react-redux"
+import { createUser } from "../actions/user"
+import { bindActionCreators } from "redux"
+import Connection from "../components/Connection"
 
 const mapStateToProps = state => {
-	return { }
+  return {}
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    pushUser: (username) => {
-			dispatch(createUser(username))
-		}
+    pushUser: bindActionCreators(createUser, dispatch)
   }
 }
 
-const FinalConnection = connect(
-	mapStateToProps,
-  mapDispatchToProps
-)(Connection)
+const FinalConnection = connect(mapStateToProps, mapDispatchToProps)(
+  Connection
+)
 
 export default FinalConnection

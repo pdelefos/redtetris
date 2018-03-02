@@ -1,27 +1,54 @@
 import crypto from "crypto"
 
 class Game {
-  constructor(socket) {
+  constructor(params) {
     this.hashName = crypto.randomBytes(20).toString("hex")
-    this.socket = socket
-    this.players = [socket.id]
+    this.name = params.name
+    this.io = params.io
+    this.players = {}
 
-    socket.emit("gameCreated", this.hashName)
+    this.io.sockets.emit("gameCreated", this.hashName)
     console.log("Game created, hash room name: ", this.hashName)
   }
 
-  // removePlayer = () => {
-  //   this.socket.on("leaveRoom", socket => {
-  //     socket.broadcast.to(this.hashName).emit("playerLeft", socket.id)
-  //     socket.leave(this.hashName)
-  //     this.players = this.players.splice(this.players.indexOf(socket.id), 1)
-  //   })
-  // }
+  addPlayer = player => {
+    if (Object.keys(this.players).length <= 3) {
+      this.players[player.id] = player
+      player.socket.join(this.hashName)
+      this.io
+        .to(this.hashName)
+        .emit(
+          "notification",
+          `The player ${player.username} has joined the game !`
+        )
+    } else
+      player.socket.emit(
+        "fullRoom",
+        "The room you are trying to join is full"
+      )
+  }
+
+  deletePlayer = player => {
+    if (player.id in this.players) {
+      delete this.players[player.id]
+      player.socket.broadcast
+        .to(this.hashName)
+        .emit(
+          "notification",
+          `The player ${player.name} has left the game !`
+        )
+      socket.leave(this.hashName)
+    }
+  }
 
   _to_json = () => {
     return {
-      players: this.players.length,
-      hashName: this.hashName
+      players: Object.values(this.players).map(player => ({
+        username: player.username,
+        id: player.id
+      })),
+      hashName: this.hashName,
+      name: this.name
     }
   }
 }

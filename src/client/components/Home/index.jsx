@@ -1,15 +1,15 @@
 import React from "react"
 import "./style.css"
-import Connection from "../../containers/Connection"
-import NotificationList from "../../containers/NotificationList"
-import Lobby from "../Lobby"
+import FinalConnection from "../../containers/Connection"
+import FinalNotification from "../../containers/NotificationList"
+import GameList from "../GameList"
 
 let Home = () => {
   return (
     <div>
-      <Connection />
-      <NotificationList />
-      <Lobby />
+      <FinalConnection />
+      <FinalNotification />
+      <GameList />
     </div>
   )
 }
