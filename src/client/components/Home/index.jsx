@@ -2,14 +2,14 @@ import React from "react"
 import "./style.css"
 import FinalConnection from "../../containers/Connection"
 import FinalNotification from "../../containers/NotificationList"
-import GameList from "../GameList"
+import Lobby from "../Lobby"
 
 let Home = () => {
   return (
     <div>
       <FinalConnection />
       <FinalNotification />
-      <GameList />
+      <Lobby />
     </div>
   )
 }

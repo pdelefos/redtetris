@@ -1,21 +1,24 @@
 import React from "react"
 import "./style.css"
 
-let Connection = ({ pushUser, notif }) => {
+const Connection = ({ pushUser, notif }) => {
+  let username = null
   return (
     <div>
-      <div>
-        <input type="text" id="username" />
-        <button
-          className="button"
-          onClick={
-						() => {
-          		pushUser(document.getElementById("username").value)
-						}
-					}>
-          Send user!
-        </button>
-      </div>
+      <input
+        type="text"
+        ref={input => {
+          username = input
+        }}
+      />
+      <button
+        className="button"
+        onClick={() => {
+          pushUser(username.value)
+        }}
+      >
+        Send user!
+      </button>
     </div>
   )
 }

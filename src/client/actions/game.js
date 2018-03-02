@@ -14,6 +14,22 @@ export const addGame = dispatch => {
   })
 }
 
+export const createGame = gameName => {
+  socket.emit("createGame", gameName)
+}
+
+export const fetchGameList = () => {
+  socket.emit("fetchGameList")
+}
+
+export const updateGameList = dispatch => {
+  socket.on("updateGameList", games => {
+    games.map(newGame => {
+      dispatch(game(newGame))
+    })
+  })
+}
+
 export const deleteGame = id => ({
   type: "DELETE_GAME",
   id

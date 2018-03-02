@@ -1,32 +1,15 @@
 import React from "react"
-import { socket } from "../../socket"
+import Game from "../Game"
 
 let gameName
 
-const GameList = () => {
+const GameList = ({ games }) => {
   return (
-    <div>
-      <input type="text" ref={input => (gameName = input.value)} />
-      <button
-        className="button"
-        onClick={() => {
-          socket.emit("createGame", gameName)
-        }}
-      >
-        Create Game
-      </button>
-      <button
-        className="button"
-        onClick={() => {
-          socket.emit("fetchGames")
-          socket.on("resultFetchGames", games => {
-            console.log(games)
-          })
-        }}
-      >
-        Fetch games
-      </button>
-    </div>
+    <ul>
+      {games.map(game => {
+        return <Game key={game.id} {...game} />
+      })}
+    </ul>
   )
 }
 

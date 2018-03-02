@@ -3,7 +3,7 @@ import crypto from "crypto"
 class Game {
   constructor(params) {
     this.hashName = crypto.randomBytes(20).toString("hex")
-    this.name = params.name
+    this.gameName = params.gameName
     this.io = params.io
     this.players = {}
 
@@ -48,7 +48,7 @@ class Game {
         id: player.id
       })),
       hashName: this.hashName,
-      name: this.name
+      gameName: this.gameName
     }
   }
 }

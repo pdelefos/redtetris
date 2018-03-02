@@ -4,9 +4,9 @@ const games = (state = [], action) => {
       return [
         ...state,
         {
-          players: action.players,
-          hashName: action.hashName,
-          name: action.name,
+          players: action.newGame.players,
+          hashName: action.newGame.hashName,
+          gameName: action.newGame.gameName,
           id: action.id
         }
       ]

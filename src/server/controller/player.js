@@ -55,13 +55,14 @@ class Player {
   }
 
   createGame = socket => {
-    socket.on("createGame", name => {
+    socket.on("createGame", gameName => {
       let newGame = new Game({
         io: this.io,
-        name: name
+        gameName: gameName
       })
       newGame.addPlayer(this.players[socket.id])
       this.games[newGame.hashName] = newGame
+      this.io.sockets.emit("addGame", newGame._to_json())
     })
   }
 
@@ -92,9 +93,9 @@ class Player {
   }
 
   fetchGames = socket => {
-    socket.on("fetchGames", () => {
+    socket.on("fetchGameList", () => {
       socket.emit(
-        "resultFetchGames",
+        "updateGameList",
         Object.values(this.games).map(game => {
           console.log(game._to_json())
           return game._to_json()

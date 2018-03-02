@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
-import { addGame, deleteGame } from "../actions/Game"
+import * as GameActions from "../actions/game"
 import GameList from "../components/GameList"
 
 const mapStateToProps = state => {
@@ -10,12 +10,16 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  addGame(dispatch)
+  GameActions.addGame(dispatch)
+  GameActions.fetchGameList()
+  GameActions.updateGameList(dispatch)
   return {
-    deleteGame: bindActionCreators(deleteGame, dispatch)
+    deleteGame: bindActionCreators(GameActions.deleteGame, dispatch)
   }
 }
 
-const FinalGame = connect(mapStateToProps, mapDispatchToProps)(GameList)
+const FinalGameList = connect(mapStateToProps, mapDispatchToProps)(
+  GameList
+)
 
-export default FinalGame
+export default FinalGameList
