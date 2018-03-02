@@ -1,11 +1,10 @@
-import { Game } from "./game"
+import Game from "./game"
 
 class Player {
   constructor(io) {
     this.io = io
     this.players = {}
     this.games = []
-
     this.addPlayer()
   }
 
