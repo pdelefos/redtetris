@@ -2,7 +2,7 @@ import React from "react"
 import "./style.css"
 import Notification from "../Notification"
 
-let NotificationList = ({ notifications, actions }) => {
+let NotificationList = ({ notifications, deleteNotification }) => {
   return (
     <ul>
       {notifications.map(notification => {
@@ -10,7 +10,7 @@ let NotificationList = ({ notifications, actions }) => {
           <Notification
             key={notification.id}
             {...notification}
-            removeNotification={actions.removeNotification}
+            deleteNotification={deleteNotification}
           />
         )
       })}

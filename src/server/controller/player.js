@@ -4,20 +4,30 @@ class Player {
   constructor(io) {
     this.io = io
     this.players = {}
-    this.games = []
-    this.addPlayer()
+    this.games = {}
+
+    io.on("connection", socket => {
+      this.players[socket.id] = {
+        username: "",
+        id: socket.id,
+        socket: socket,
+        inGame: null
+      }
+      this.initSockets(socket)
+    })
   }
 
-  addPlayer = () => {
-    this.io.on("connection", socket => {
-      this.players[socket.id] = {
-        username: ""
-      }
-      this.deletePlayer(socket)
-      this.addUsername(socket)
-      this.joinGame(socket)
-      this.createGame(socket)
-      this.fetchGames(socket)
+  initSockets = socket => {
+    let methods = [
+      "deletePlayer",
+      "addUsername",
+      "joinGame",
+      "createGame",
+      "fetchGames"
+    ]
+
+    methods.map(method => {
+      this[method](socket)
     })
   }
 
@@ -29,34 +39,61 @@ class Player {
     })
   }
 
-  joinGame = socket => {
-    socket.on("joinGame", hashName => {
-      if (this.players.length <= 3) {
-        this.players.push(socket.id)
-        socket.join(this.hashName)
-      } else socket.emit("fullRoom", "The room you are trying to join is full")
-    })
-  }
-
   deletePlayer = socket => {
     socket.on("disconnect", () => {
       console.log("Player %s destroyed", socket.id)
-      this.players[socket.id] = null
+      let hashName = this.players[socket.id].inGame
+      if (hashName) {
+        this.games[hashName].deletePlayer(this.players[socket.id])
+      }
+      delete this.players[socket.id]
     })
   }
 
   createGame = socket => {
-    socket.on("createGame", () => {
-      let newGame = new Game(socket)
-      this.games.push(newGame)
+    socket.on("createGame", gameName => {
+      let newGame = new Game({
+        io: this.io,
+        gameName: gameName
+      })
+      newGame.addPlayer(this.players[socket.id])
+      this.games[newGame.hashName] = newGame
+      this.io.sockets.emit("addGame", newGame._to_json())
+    })
+  }
+
+  joinGame = socket => {
+    socket.on("joinGame", hashName => {
+      if (hashName in this.games) {
+        this.games[hashName].addPlayer(this.players[socket.id])
+        this.players[socket.id].inGame = hashName
+      } else
+        socket.emit(
+          "notification",
+          "The room you are trying to join doesnt exist"
+        )
+    })
+  }
+
+  leaveGame = socket => {
+    socket.on("leaveGame", hashName => {
+      if (hashName in this.games) {
+        this.games[hashName].deletePlayer(this.players[socket.id])
+        this.players[socket.id].inGame = null
+      } else
+        socket.emit(
+          "notification",
+          "The room you are trying to join doesnt exist"
+        )
     })
   }
 
   fetchGames = socket => {
-    socket.on("fetchGames", () => {
+    socket.on("fetchGameList", () => {
       socket.emit(
-        "resultFetchGames",
-        this.games.map(game => {
+        "updateGameList",
+        Object.values(this.games).map(game => {
+          console.log(game._to_json())
           return game._to_json()
         })
       )

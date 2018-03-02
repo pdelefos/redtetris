@@ -1,27 +1,22 @@
 import React from "react"
-import { socket } from "../../socket"
+import FinalGameList from "../../containers/GameList"
+import { createGame } from "../../actions/game"
 
-let gameName
+let gameName = null
 
 const Lobby = () => {
   return (
     <div>
-      <input type="text" ref={input => (gameName = input.value)} />
+      <input type="text" ref={input => (gameName = input)} />
       <button
         className="button"
         onClick={() => {
-          socket.emit("createGame", gameName)
+          createGame(gameName.value)
         }}
-      />
-      <button
-        className="button"
-        onClick={() => {
-          socket.emit("fetchGames")
-          socket.on("resultFetchGames", games => {
-            console.log(games)
-          })
-        }}
-      />
+      >
+        Create Game
+      </button>
+      <FinalGameList />
     </div>
   )
 }
