@@ -5,8 +5,9 @@
   "author": "pdelefos-dylandjian-corentinprune",
   "license": "MIT",
   "scripts": {
-    "clear": "rm -rf ./build/*",
-    "client-dev": "webpack-dev-server --inline --config webpack/webpack.config.development.js",
+    "clear": "rm -rf ./build",
+    "client-dev":
+      "webpack-dev-server --inline --config webpack/webpack.config.development.js",
     "client-prod": "webpack --config webpack/webpack.config.production.js",
     "babel-node": "babel-node --presets=@babel/preset-env",
     "srv-dev": "nodemon --exec npm run babel-node -- src/server/server.js"
