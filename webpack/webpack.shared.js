@@ -29,14 +29,23 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
+        test: /\.s?css$/,
         include: /src\/client/,
-        loaders: "style-loader!css-loader"
+        loaders: ["style-loader", "css-loader", "sass-loader"]
+      },
+      {
+        test: /\.(woff|eot|ttf|svg)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {}
+          }
+        ]
       }
     ]
   },
   resolve: {
-    extensions: [".js", ".jsx", ".css"]
+    extensions: [".js", ".jsx", ".css", ".scss"]
   },
   plugins: [
     new HtmlWebpackPlugin({
