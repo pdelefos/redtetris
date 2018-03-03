@@ -2,7 +2,6 @@ import React from "react"
 import { Switch, Route } from "react-router-dom"
 import FinalConnection from "../../containers/Connection"
 import Lobby from "../Lobby"
-import Home from "../Home"
 
 import "./style.css"
 

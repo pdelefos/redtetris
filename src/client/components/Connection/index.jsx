@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import "./style.css"
 
 let username = null
@@ -11,15 +12,15 @@ const Connection = ({ history, pushUser, notif }) => {
           username = input
         }}
       />
-      <button
+      <Link
         className="button"
+        to="/lobby"
         onClick={() => {
           pushUser(username.value)
-          history.push("/lobby")
         }}
       >
         Send user!
-      </button>
+      </Link>
     </div>
   )
 }
