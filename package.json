@@ -26,6 +26,7 @@
     "react-router-redux": "^4.0.8",
     "redux": "^3.7.2",
     "redux-persist": "^5.9.1",
+    "resolve-url-loader": "^2.3.0",
     "sass-loader": "^6.0.7",
     "socket.io": "^2.0.3"
   },

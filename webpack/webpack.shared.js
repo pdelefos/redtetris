@@ -30,15 +30,21 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
-        include: /src\/client/,
-        loaders: ["style-loader", "css-loader", "sass-loader"]
+        exclude: /node_modules/,
+        loaders: [
+          "style-loader",
+          "css-loader",
+          "resolve-url-loader",
+          "sass-loader?sourceMap"
+        ]
       },
       {
         test: /\.(woff|eot|ttf|svg)$/,
+        exclude: /node_modules/,
         use: [
           {
             loader: "file-loader",
-            options: {}
+            options: "[path][name].[ext]"
           }
         ]
       }
