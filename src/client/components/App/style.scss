@@ -1,12 +1,45 @@
 @import "fonts";
+@import "colors";
 
 body {
   margin: 0;
   padding: 0;
-  background-color: #212121;
+  background-color: $dark-grey;
 }
 
 div,
-span {
+span,
+a,
+input {
   box-sizing: border-box;
+}
+
+// BUTTON
+a.button,
+.button {
+  background-color: red;
+  text-decoration: none;
+  padding: 10px 25px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border: none;
+  // STATE STYLE
+  &:hover {
+    background-color: blue;
+  }
+  &:active {
+    background-color: green;
+  }
+}
+
+// INPUT
+.input-label {
+  font-weight: 400;
+}
+.input--text {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding-left: 5px;
 }

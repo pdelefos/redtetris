@@ -3,13 +3,22 @@
 
   .bloc {
     width: 50%;
+    height: 100vh;
+  }
+
+  .bloc--vh-align {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
 .logo {
-  font-family: "Barlow";
-  font-weight: 900;
+  font-size: 180px;
+  font-weight: bold;
   font-style: italic;
-  font-size: 6em;
-  color: white;
+  background: url("https://media.giphy.com/media/dxXvA7SPqI5JC/giphy.gif");
+  background-size: cover;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
 }

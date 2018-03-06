@@ -1,0 +1,9 @@
+.input-btn-grp {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  & > * {
+    height: 100%;
+    vertical-align: middle;
+  }
+}
