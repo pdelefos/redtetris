@@ -1,5 +1,5 @@
 import React from "react"
-import Connection from "../Connection/index"
+import Connection from "../../containers/Connection"
 
 import "./style.scss"
 
