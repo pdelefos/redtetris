@@ -39,7 +39,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(woff|eot|ttf|svg)$/,
+        test: /\.(woff|eot|ttf|svg|jpg)$/,
         exclude: /node_modules/,
         use: [
           {
