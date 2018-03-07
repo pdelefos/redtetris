@@ -1,34 +1,40 @@
-"use strict"
-
-// Main starting point of the application
 import express from "express"
 import http from "http"
 import bodyParser from "body-parser"
 import yaml from "node-yaml-config"
 import path from "path"
 
+import Player from "./controller/player"
 import router from "./router"
 
 const config = yaml.load(path.join(__dirname, "config.yml"))
-
-// App Setup
-const app = express()
-app.use(express.static(path.join(__dirname, "config.yml")))
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json({ type: "*/*" }))
-router(app)
-
-// Server setup
 const port = process.env.PORT || config.server.port
-const server = http.createServer(app)
 
-// Start the server
-const connection = server.listen(port, function() {
-  console.log("Server is running on http://localhost:" + port)
-})
+const initApp = () => {
+  const app = express()
+  app.use(express.static(path.join(__dirname, "config.yml")))
+  app.use(bodyParser.urlencoded({ extended: false }))
+  app.use(bodyParser.json({ type: "*/*" }))
+  router(app)
+  return http.createServer(app)
+}
 
-const io = require("socket.io")(connection)
+const initEngine = io => {
+  let manager = new Player(io)
+}
 
-import Player from "./controller/player"
+const wrapIOApp = server => {
+  const io = require("socket.io")(server)
+  return io
+}
 
-let manager = new Player(io)
+export const initServer = () => {
+  const server = initApp()
+  const io = wrapIOApp(server)
+  server.listen(port, () => {
+    initEngine(io)
+    console.log("Server is running on localhost:" + port)
+  })
+}
+
+initServer()
