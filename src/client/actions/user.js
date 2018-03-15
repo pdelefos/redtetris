@@ -7,3 +7,11 @@ export const createUser = username => {
     username
   }
 }
+
+export const joinRoom = hashName => {
+  socket.emit("joinRoom", hashName)
+  return {
+    type: "JOIN_ROOM",
+    hashName
+  }
+}

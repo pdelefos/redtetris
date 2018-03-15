@@ -51,22 +51,29 @@ class Player {
   }
 
   createGame = socket => {
-    socket.on("createGame", gameName => {
+    socket.on("createRoom", gameName => {
       let newGame = new Game({
         io: this.io,
         gameName: gameName
       })
       newGame.addPlayer(this.players[socket.id])
       this.games[newGame.hashName] = newGame
-      this.io.sockets.emit("addGame", newGame._to_json())
+      this.io.sockets.emit("addRoom", newGame._to_json())
     })
   }
 
   joinGame = socket => {
-    socket.on("joinGame", hashName => {
+    socket.on("joinRoom", hashName => {
       if (hashName in this.games) {
         this.games[hashName].addPlayer(this.players[socket.id])
         this.players[socket.id].inGame = hashName
+        this.io.sockets.emit(
+          "updateRoomList",
+          Object.values(this.games).map(game => {
+            console.log(game._to_json())
+            return game._to_json()
+          })
+        )
       } else
         socket.emit(
           "notification",
@@ -76,7 +83,7 @@ class Player {
   }
 
   leaveGame = socket => {
-    socket.on("leaveGame", hashName => {
+    socket.on("leaveRoom", hashName => {
       if (hashName in this.games) {
         this.games[hashName].deletePlayer(this.players[socket.id])
         this.players[socket.id].inGame = null
@@ -89,9 +96,9 @@ class Player {
   }
 
   fetchGames = socket => {
-    socket.on("fetchGameList", () => {
+    socket.on("fetchRoomList", () => {
       socket.emit(
-        "updateGameList",
+        "updateRoomList",
         Object.values(this.games).map(game => {
           console.log(game._to_json())
           return game._to_json()

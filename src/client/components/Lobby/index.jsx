@@ -1,22 +1,22 @@
 import React from "react"
-import FinalGameList from "../../containers/GameList"
-import { createGame } from "../../actions/game"
+import FinalRoomList from "../../containers/RoomList"
+import { createRoom } from "../../actions/room"
 
-let gameName = null
+let roomName = null
 
 const Lobby = () => {
   return (
     <div>
-      <input type="text" ref={input => (gameName = input)} />
+      <input type="text" ref={input => (roomName = input)} />
       <button
         className="button"
         onClick={() => {
-          createGame(gameName.value)
+          createRoom(roomName.value)
         }}
       >
-        Create Game
+        Create a room
       </button>
-      <FinalGameList />
+      <FinalRoomList />
     </div>
   )
 }

@@ -1,0 +1,24 @@
+.connection-view {
+  display: flex;
+
+  .bloc {
+    width: 50%;
+    height: 100vh;
+  }
+
+  .bloc--vh-align {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.logo {
+  font-size: 180px;
+  font-weight: bold;
+  font-style: italic;
+  background: url("../assets/images/suminagashi.jpg");
+  background-size: cover;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
