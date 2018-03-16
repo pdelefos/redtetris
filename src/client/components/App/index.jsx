@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom"
 
 import ConnectionView from "../view.Connection"
 import Lobby from "../Lobby"
+import Board from "../Board"
 
 import "./style.scss"
 
@@ -12,6 +13,7 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={ConnectionView} />
         <Route path="/lobby" component={Lobby} />
+        <Route path="/board" component={Board} />
       </Switch>
     </div>
   )

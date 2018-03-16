@@ -1,0 +1,56 @@
+$cell-size: 30px;
+
+.board {
+  display: flex;
+  justify-content: center;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  background-color: #aaa;
+}
+
+.grid__line {
+  display: flex;
+  flex-direction: row;
+}
+
+.grid__cell {
+  width: $cell-size;
+  height: $cell-size;
+  border-radius: 2px;
+  margin: 1px;
+}
+
+.piece {
+  background-color: lightgrey;
+}
+
+.piece--stick {
+  background-color: lightblue;
+}
+
+.piece--square {
+  background-color: lightyellow;
+}
+
+.piece--pyramid {
+  background-color: mediumpurple;
+}
+
+.piece--right-snake {
+  background-color: lightgreen;
+}
+
+.piece--left-snake {
+  background-color: mediumvioletred;
+}
+
+.piece--gamma {
+  background-color: mediumblue;
+}
+
+.piece--alpha {
+  background-color: lightsalmon;
+}
