@@ -6,7 +6,7 @@ import Room from "../components/Room"
 
 const mapStateToProps = state => {
   return {
-    room: state.rooms.find(room => room.hashName === state.user.currentRoom)
+    room: state.rooms[state.user.currentRoom]
   }
 }
 

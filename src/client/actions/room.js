@@ -1,10 +1,7 @@
 import { socket } from "../socket"
 
-let nextRoomId = 0
-
 const room = newRoom => ({
   type: "ADD_ROOM",
-  id: nextRoomId++,
   newRoom
 })
 
@@ -13,8 +10,27 @@ export const deleteRoom = id => ({
   id
 })
 
+export const addPlayer = dispatch => {
+  socket.on("addPlayer", player =>
+    dispatch({
+      type: "ADD_PLAYER",
+      player
+    })
+  )
+}
+
+export const deletePlayer = dispatch => {
+  socket.on("deletePlayer", player =>
+    dispatch({
+      type: "DELETE_PLAYER",
+      player
+    })
+  )
+}
+
 export const addRoom = dispatch => {
   socket.on("addRoom", newRoom => {
+    console.log("newRoom", newRoom)
     dispatch(room(newRoom))
   })
 }

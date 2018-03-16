@@ -11,7 +11,7 @@ class Player {
         username: "",
         id: socket.id,
         socket: socket,
-        inGame: null
+        currentGame: null
       }
       this.initSockets(socket)
     })
@@ -42,7 +42,7 @@ class Player {
   deletePlayer = socket => {
     socket.on("disconnect", () => {
       console.log("Player %s destroyed", socket.id)
-      let hashName = this.players[socket.id].inGame
+      let hashName = this.players[socket.id].currentGame
       if (hashName) {
         this.games[hashName].deletePlayer(this.players[socket.id])
       }
@@ -66,14 +66,7 @@ class Player {
     socket.on("joinRoom", hashName => {
       if (hashName in this.games) {
         this.games[hashName].addPlayer(this.players[socket.id])
-        this.players[socket.id].inGame = hashName
-        this.io.sockets.emit(
-          "updateRoomList",
-          Object.values(this.games).map(game => {
-            console.log(game._to_json())
-            return game._to_json()
-          })
-        )
+        this.players[socket.id].currentGame = hashName
       } else
         socket.emit(
           "notification",
@@ -86,7 +79,7 @@ class Player {
     socket.on("leaveRoom", hashName => {
       if (hashName in this.games) {
         this.games[hashName].deletePlayer(this.players[socket.id])
-        this.players[socket.id].inGame = null
+        this.players[socket.id].currentGame = null
       } else
         socket.emit(
           "notification",

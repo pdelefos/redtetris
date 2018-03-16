@@ -5,8 +5,8 @@ const Room = ({ room }) => (
   <div>
     <div>{room.hashName}</div>
     <ul>
-      {room.players.map(player => {
-        return <li>{player.username}</li>
+      {Object.keys(room.players).map(key => {
+        return <li key={key}>{room.players[key].username}</li>
       })}
     </ul>
   </div>

@@ -6,10 +6,11 @@ let roomName
 const RoomList = ({ rooms, username, joinRoom, deleteGame }) => {
   return (
     <ul>
-      {rooms.map(room => {
+      {Object.keys(rooms).map(key => {
+        let room = rooms[key]
         return (
           <RoomItem
-            key={room.id}
+            key={key}
             {...room}
             joinRoom={joinRoom}
             username={username}

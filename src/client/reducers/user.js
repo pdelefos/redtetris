@@ -1,7 +1,6 @@
 let initialState = {
   username: "",
-  currentRoom: null,
-  ready: false
+  currentRoom: null
 }
 
 const user = (state = initialState, action) => {

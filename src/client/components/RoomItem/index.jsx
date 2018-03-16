@@ -7,7 +7,7 @@ let RoomItem = ({ gameName, players, hashName, username, joinRoom }) => {
     <div>
       <span> Game Name: {gameName} </span>
       <br />
-      <span> Number of players: {players.length} / 4</span>
+      <span> Number of players: {Object.keys(players).length} / 4</span>
       <br />
       <Link
         className="button"

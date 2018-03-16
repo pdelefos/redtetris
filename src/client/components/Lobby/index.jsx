@@ -1,6 +1,7 @@
 import React from "react"
 import FinalRoomList from "../../containers/RoomList"
 import { createRoom } from "../../actions/room"
+import { Link } from "react-router-dom"
 
 let roomName = null
 
@@ -8,14 +9,16 @@ const Lobby = () => {
   return (
     <div>
       <input type="text" ref={input => (roomName = input)} />
-      <button
+      <Link
         className="button"
+        to="/"
         onClick={() => {
-          createRoom(roomName.value)
+          let x = createRoom(roomName.value)
+          console.log("new room", x)
         }}
       >
         Create a room
-      </button>
+      </Link>
       <FinalRoomList />
     </div>
   )

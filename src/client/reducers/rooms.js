@@ -1,17 +1,18 @@
-const rooms = (state = [], action) => {
+import omit from "lodash/omit"
+
+const rooms = (state = {}, action) => {
   switch (action.type) {
     case "ADD_ROOM":
-      return [
+      return {
         ...state,
-        {
+        [action.newRoom.hashName]: {
           players: action.newRoom.players,
-          hashName: action.newRoom.hashName,
           gameName: action.newRoom.gameName,
-          id: action.id
+          hashName: action.newRoom.hashName
         }
-      ]
+      }
     case "DELETE_ROOM":
-      return state.filter(room => room.id !== action.id)
+      return _.omit(state, action.hashName)
     default:
       return state
   }
