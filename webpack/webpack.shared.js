@@ -29,14 +29,29 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
-        include: /src\/client/,
-        loaders: "style-loader!css-loader"
+        test: /\.s?css$/,
+        exclude: /node_modules/,
+        loaders: [
+          "style-loader",
+          "css-loader",
+          "resolve-url-loader",
+          "sass-loader?sourceMap"
+        ]
+      },
+      {
+        test: /\.(woff|eot|ttf|svg|jpg)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: "file-loader",
+            options: "[path][name].[ext]"
+          }
+        ]
       }
     ]
   },
   resolve: {
-    extensions: [".js", ".jsx", ".css"]
+    extensions: [".js", ".jsx", ".css", ".scss"]
   },
   plugins: [
     new HtmlWebpackPlugin({

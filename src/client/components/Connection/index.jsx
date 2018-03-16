@@ -1,26 +1,30 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import "./style.css"
+import "./style.scss"
 
 let username = null
 const Connection = ({ history, pushUser, notif }) => {
   return (
     <div>
-      <input
-        type="text"
-        ref={input => {
-          username = input
-        }}
-      />
-      <Link
-        className="button"
-        to="/lobby"
-        onClick={() => {
-          pushUser(username.value)
-        }}
-      >
-        Send user!
-      </Link>
+      <h2 className="input-label font--normal">Choose your player name</h2>
+      <div className="input-btn-grp">
+        <input
+          className="input--text"
+          type="text"
+          ref={input => {
+            username = input
+          }}
+        />
+        <Link
+          className="button"
+          to="/lobby"
+          onClick={() => {
+            pushUser(username.value)
+          }}
+        >
+          Start
+        </Link>
+      </div>
     </div>
   )
 }
