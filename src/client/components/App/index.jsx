@@ -1,8 +1,8 @@
 import React from "react"
 import { Switch, Route } from "react-router-dom"
 
-import ConnectionView from "../view.Connection"
-import Lobby from "../Lobby"
+import ConnectionView from "../../views/Connection"
+import LobbyView from "../../views/Lobby"
 import Game from "../../views/Game"
 
 import "./style.scss"
@@ -12,7 +12,7 @@ const App = () => {
     <div>
       <Switch>
         <Route exact path="/" component={ConnectionView} />
-        <Route path="/lobby" component={Lobby} />
+        <Route path="/lobby" component={LobbyView} />
         <Route path="/game" component={Game} />
         <Route path="" component={() => <div>404</div>} />
       </Switch>

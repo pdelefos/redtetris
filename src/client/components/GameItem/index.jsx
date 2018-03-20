@@ -3,15 +3,10 @@ import "./style.css"
 
 let GameItem = ({ gameName, players, hashName }) => {
   return (
-    <div>
-      <span> Game Name: {gameName} </span>
-      <br />
-      <span> Number of players: {players.length} / 4</span>
-      <br />
+    <div className="game-item">
+      <span>Game Name: {gameName}</span>
+      <span>{players.length} / 4</span>
       <button className="button">Join !</button>
-      <br />
-      <br />
-      <br />
     </div>
   )
 }
