@@ -3,15 +3,15 @@ import { Redirect } from "react-router"
 
 let roomName = null
 
-const Lobby = props => {
-	if (!props.currentGame)
+const Lobby = ({ currentGame, username, createRoom }) => {
+	if (!currentGame)
 		return (
 			<div>
 				<input type="text" ref={input => (roomName = input)} />
 				<button
 					className="button"
 					onClick={() => {
-						props.createRoom(roomName.value)
+						createRoom(roomName.value)
 					}}
 				>
 					Create a room
@@ -21,7 +21,7 @@ const Lobby = props => {
 	else
 		return (
 			<div>
-				<Redirect to={`/${props.currentGame}[${props.username}]`} />
+				<Redirect to={`/${currentGame}[${username}]`} />
 			</div>
 		)
 }

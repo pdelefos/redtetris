@@ -2,7 +2,6 @@ import { connect } from "react-redux"
 import { createRoom } from "../actions/room"
 import { forceJoinRoom } from "../actions/user"
 import { bindActionCreators } from "redux"
-import { withRouter } from "react-router-dom"
 
 import CreateGame from "../components/CreateGame"
 
@@ -22,4 +21,4 @@ const mapDispatchToProps = dispatch => {
 
 const FinalLobby = connect(mapStateToProps, mapDispatchToProps)(CreateGame)
 
-export default withRouter(FinalLobby)
+export default FinalLobby
