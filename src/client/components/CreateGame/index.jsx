@@ -1,28 +1,33 @@
 import React from "react"
-import { createGame } from "../../actions/game"
+import { Redirect } from "react-router"
 
-let gameName = null
+let roomName = null
 
-const CreateGame = () => {
-  return (
-    <div>
+const Lobby = ({ currentGame, username, createRoom }) => {
+  if (!currentGame)
+    return (
       <div className="input-btn-grp">
         <input
           className="input--text"
           type="text"
-          ref={input => (gameName = input)}
+          ref={input => (roomName = input)}
         />
         <button
           className="button"
           onClick={() => {
-            createGame(gameName.value)
+            createRoom(roomName.value)
           }}
         >
-          Create Game
+          Create a room
         </button>
       </div>
-    </div>
-  )
+    )
+  else
+    return (
+      <div>
+        <Redirect to={`/${currentGame}[${username}]`} />
+      </div>
+    )
 }
 
-export default CreateGame
+export default Lobby

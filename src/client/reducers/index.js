@@ -1,12 +1,12 @@
 import { combineReducers } from "redux"
 import user from "./user"
 import notifications from "./notifications"
-import games from "./games"
+import rooms from "./rooms"
 
 const store = combineReducers({
   user,
   notifications,
-  games
+  rooms
 })
 
 export default store

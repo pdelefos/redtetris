@@ -1,5 +1,6 @@
 let initialState = {
-  username: ""
+  username: "",
+  currentRoom: null
 }
 
 const user = (state = initialState, action) => {
@@ -9,6 +10,8 @@ const user = (state = initialState, action) => {
         ...state,
         username: action.username
       }
+    case "JOIN_ROOM":
+      return { ...state, currentRoom: action.hashName }
     default:
       return state
   }
