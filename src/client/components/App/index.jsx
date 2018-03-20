@@ -1,8 +1,8 @@
 import React from "react"
 import { Switch, Route } from "react-router-dom"
 
-import ConnectionView from "../view.Connection"
-import LobbyView from "../view.Lobby"
+import ConnectionView from "../../views/Connection"
+import LobbyView from "../../views/Lobby"
 
 import "./style.scss"
 

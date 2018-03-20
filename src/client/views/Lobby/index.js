@@ -1,6 +1,6 @@
 import React from "react"
-import Panel from "../Panel"
-import CreateGame from "../CreateGame"
+import Panel from "../../components/Panel"
+import CreateGame from "../../components/CreateGame"
 import FinalGamelist from "../../containers/GameList"
 import "./style.scss"
 
