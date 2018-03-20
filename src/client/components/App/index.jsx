@@ -2,7 +2,7 @@ import React from "react"
 import { Switch, Route } from "react-router-dom"
 
 import ConnectionView from "../../views/Connection"
-import Lobby from "../Lobby"
+import Lobby from "../../views/Lobby"
 import RoomView from "../../views/Room"
 
 import "./style.scss"

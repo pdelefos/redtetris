@@ -7,7 +7,7 @@ class Game {
     this.io = params.io
     this.players = {}
 
-    this.io.sockets.emit("gameCreated", this.hashName)
+    // this.io.sockets.emit("gameCreated", this.hashName)
     console.log("Game created, hash room name: ", this.hashName)
   }
 

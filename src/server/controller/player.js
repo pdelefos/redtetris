@@ -59,6 +59,7 @@ class Player {
       newGame.addPlayer(this.players[socket.id])
       this.games[newGame.hashName] = newGame
       this.io.sockets.emit("addRoom", newGame._to_json())
+      socket.emit("forceJoinRoom", newGame.hashName)
     })
   }
 

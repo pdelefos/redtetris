@@ -30,7 +30,6 @@ export const deletePlayer = dispatch => {
 
 export const addRoom = dispatch => {
   socket.on("addRoom", newRoom => {
-    console.log("newRoom", newRoom)
     dispatch(room(newRoom))
   })
 }
