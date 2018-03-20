@@ -2,7 +2,7 @@ import React from "react"
 import { Switch, Route } from "react-router-dom"
 
 import ConnectionView from "../view.Connection"
-import Lobby from "../Lobby"
+import LobbyView from "../view.Lobby"
 
 import "./style.scss"
 
@@ -11,7 +11,7 @@ const App = () => {
     <div>
       <Switch>
         <Route exact path="/" component={ConnectionView} />
-        <Route path="/lobby" component={Lobby} />
+        <Route path="/lobby" component={LobbyView} />
       </Switch>
     </div>
   )
