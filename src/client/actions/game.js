@@ -1,4 +1,5 @@
 import { socket } from "../socket"
+import { setInterval } from "timers"
 
 let nextGameId = 0
 

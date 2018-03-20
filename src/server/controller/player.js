@@ -23,7 +23,8 @@ class Player {
       "addUsername",
       "joinGame",
       "createGame",
-      "fetchGames"
+      "fetchGames",
+      "toto"
     ]
 
     methods.map(method => {

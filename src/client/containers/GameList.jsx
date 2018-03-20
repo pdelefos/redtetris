@@ -18,8 +18,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const FinalGameList = connect(mapStateToProps, mapDispatchToProps)(
-  GameList
-)
+const FinalGameList = connect(mapStateToProps, mapDispatchToProps)(GameList)
 
 export default FinalGameList

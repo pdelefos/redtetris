@@ -22,10 +22,7 @@ class Game {
           `The player ${player.username} has joined the game !`
         )
     } else
-      player.socket.emit(
-        "fullRoom",
-        "The room you are trying to join is full"
-      )
+      player.socket.emit("fullRoom", "The room you are trying to join is full")
   }
 
   deletePlayer = player => {
@@ -33,10 +30,7 @@ class Game {
       delete this.players[player.id]
       player.socket.broadcast
         .to(this.hashName)
-        .emit(
-          "notification",
-          `The player ${player.name} has left the game !`
-        )
+        .emit("notification", `The player ${player.name} has left the game !`)
       socket.leave(this.hashName)
     }
   }
