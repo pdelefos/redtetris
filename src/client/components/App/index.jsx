@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom"
 import ConnectionView from "../../views/Connection"
 import LobbyView from "../../views/Lobby"
 import RoomView from "../../views/Room"
-import Game from "../../views/Game"
+import Game from "../../containers/Game"
 
 import "./style.scss"
 

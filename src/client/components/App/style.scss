@@ -30,6 +30,7 @@ a.button,
   // STATE STYLE
   &:hover {
     transform: scale(1.1);
+    cursor: pointer;
   }
   &:active {
     background-color: green;

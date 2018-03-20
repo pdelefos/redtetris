@@ -7,18 +7,24 @@ const Board = ({ grid }) => <div className="board">{_createGrid(grid)}</div>
 
 const _createGrid = boardArray => {
   let lines = []
-  boardArray.forEach(line => {
-    lines.push(_createLine(line))
+  boardArray.forEach((line, index) => {
+    lines.push(_createLine(line, index))
   })
   return <div className="grid">{lines}</div>
 }
 
-const _createLine = lineArray => {
+const _createLine = (lineArray, lineIndex) => {
   let columns = []
-  lineArray.forEach(cell => {
-    columns.push(<div className={_cellClassColor(cell)} />)
+  lineArray.forEach((cell, index) => {
+    columns.push(
+      <div key={lineIndex + index} className={_cellClassColor(cell)} />
+    )
   })
-  return <div className="grid__line">{columns}</div>
+  return (
+    <div key={lineIndex} className="grid__line">
+      {columns}
+    </div>
+  )
 }
 
 const _cellClassColor = cellValue => {

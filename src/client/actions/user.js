@@ -5,6 +5,11 @@ const room = hashName => ({
   hashName
 })
 
+const updateGrid = grid => ({
+  type: "UPDATE_GRID",
+  grid
+})
+
 export const createUser = username => {
   socket.emit("createUser", username)
   return {
@@ -21,5 +26,15 @@ export const joinRoom = hashName => {
 export const forceJoinRoom = dispatch => {
   socket.on("forceJoinRoom", hashName => {
     dispatch(room(hashName))
+  })
+}
+
+export const startGame = () => {
+  socket.emit("startGame")
+}
+
+export const getGrid = dispatch => {
+  socket.on("sendGrid", grid => {
+    dispatch(updateGrid(grid))
   })
 }

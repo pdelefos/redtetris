@@ -5,6 +5,30 @@ class Player {
     this.io = io
     this.players = {}
     this.games = {}
+    this.grid = [
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+    this.i = 0
+    this.j = 0
 
     io.on("connection", socket => {
       this.players[socket.id] = {
@@ -23,7 +47,8 @@ class Player {
       "addUsername",
       "joinGame",
       "createGame",
-      "fetchGames"
+      "fetchGames",
+      "sendGrid"
     ]
 
     methods.map(method => {
@@ -98,6 +123,26 @@ class Player {
           return game._to_json()
         })
       )
+    })
+  }
+
+  sendGrid = socket => {
+    socket.on("startGame", () => {
+      setInterval(() => {
+        socket.emit("sendGrid", this.grid)
+        this.grid[this.j][this.i] = Math.floor(Math.random() * 7) + 1
+        // if (this.i < 10) {
+        //   this.i++
+        //   if (this.i === 10) {
+        //     this.j++
+        //     this.i = 0
+        //   }
+        //   if (this.j === 20) {
+        //     this.j = 0
+        //     this.i = 0
+        //   }
+        // }
+      }, 500)
     })
   }
 }
