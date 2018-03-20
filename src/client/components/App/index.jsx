@@ -14,6 +14,7 @@ const App = () => {
         <Route exact path="/" component={ConnectionView} />
         <Route path="/lobby" component={Lobby} />
         <Route path="/board" component={Board} />
+        <Route path="" component={() => <div>404</div>} />
       </Switch>
     </div>
   )

@@ -1,7 +1,7 @@
 import React from "react"
 import "./style.css"
 
-let Game = ({ gameName, players, hashName }) => {
+let GameItem = ({ gameName, players, hashName }) => {
   return (
     <div>
       <span> Game Name: {gameName} </span>
@@ -16,4 +16,4 @@ let Game = ({ gameName, players, hashName }) => {
   )
 }
 
-export default Game
+export default GameItem
