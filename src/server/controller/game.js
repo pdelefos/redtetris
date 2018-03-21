@@ -1,14 +1,16 @@
 import crypto from "crypto"
+import omit from "lodash/omit"
 
-class Game {
+const REMOVE_FIELDS = ["currentRoom", "id"]
+
+class Room {
   constructor(params) {
     this.hashName = crypto.randomBytes(4).toString("hex")
-    this.gameName = params.gameName
-    this.io = params.io
+    this.roomName = params.roomName
+    this.status = 0
     this.players = {}
 
-    // this.io.sockets.emit("gameCreated", this.hashName)
-    console.log("Game created, hash room name: ", this.hashName)
+    console.log("Room created, hash room name: ", this.hashName)
   }
 
   addPlayer = player => {
@@ -16,40 +18,27 @@ class Game {
       player.score = 0
       player.ready = false
       this.players[player.id] = player
-      player.socket.join(this.hashName)
-      this.io
-        .to(this.hashName)
-        .emit(
-          "notification",
-          `The player ${player.username} has joined the game !`
-        )
-    } else
-      player.socket.emit("fullRoom", "The room you are trying to join is full")
+    }
   }
 
   deletePlayer = player => {
     if (player.id in this.players) {
       delete this.players[player.id]
-      player.socket.broadcast
-        .to(this.hashName)
-        .emit("notification", `The player ${player.name} has left the game !`)
-      player.socket.leave(this.hashName)
     }
   }
 
+  playerCount = () => {
+    return Object.keys(this.players).length
+  }
+
   _to_json = () => {
-    let players = {}
-    Object.values(this.players).forEach(player => {
-      let finalPlayer = { ...player }
-      delete finalPlayer["socket"]
-      players[player.id] = finalPlayer
-    })
     return {
-      players: players,
+      players: this.playerCount(),
       hashName: this.hashName,
-      gameName: this.gameName
+      roomName: this.roomName,
+      status: this.status
     }
   }
 }
 
-export default Game
+export default Room
