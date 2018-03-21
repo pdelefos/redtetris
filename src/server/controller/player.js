@@ -1,10 +1,12 @@
 import Game from "./game"
+import { socket } from "../../client/socket"
 
 class Player {
   constructor(io) {
     this.io = io
     this.players = {}
     this.games = {}
+    this.currentPiece = [[0, 0, 0], [0, 1, 0], [1, 1, 1]]
     this.grid = [
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -27,8 +29,9 @@ class Player {
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
-    this.i = 0
-    this.j = 0
+    this.pos = { x: 0, y: 0 }
+    this.dropCounter = 0
+    this.dropInterval = 1000 // 1s
 
     io.on("connection", socket => {
       this.players[socket.id] = {
@@ -48,7 +51,10 @@ class Player {
       "joinGame",
       "createGame",
       "fetchGames",
-      "sendGrid"
+      "sendGrid",
+      "moveLeft",
+      "moveRight",
+      "moveDown"
     ]
 
     methods.map(method => {
@@ -126,24 +132,47 @@ class Player {
     })
   }
 
-  sendGrid = socket => {
-    socket.on("startGame", () => {
-      setInterval(() => {
-        socket.emit("sendGrid", this.grid)
-        this.grid[this.j][this.i] = Math.floor(Math.random() * 7) + 1
-        // if (this.i < 10) {
-        //   this.i++
-        //   if (this.i === 10) {
-        //     this.j++
-        //     this.i = 0
-        //   }
-        //   if (this.j === 20) {
-        //     this.j = 0
-        //     this.i = 0
-        //   }
-        // }
-      }, 500)
+  moveLeft = socket => {
+    socket.on("moveLeft", () => {
+      this.pos.x--
     })
+  }
+
+  moveRight = socket => {
+    socket.on("moveRight", () => {
+      this.pos.x++
+    })
+  }
+
+  moveDown = socket => {
+    socket.on("moveDown", () => {
+      this.pos.y++
+      this.dropCounter = 0
+    })
+  }
+
+  sendGrid = socket => {
+    let deltaTime = 30
+    socket.on("startGame", () => {
+      setInterval((time = 0) => {
+        this.dropCounter += deltaTime
+        if (this.dropCounter > this.dropInterval) {
+          this.pos.y++
+          this.dropCounter = 0
+        }
+        socket.emit("sendGrid", this._drawMatrix(this.currentPiece, this.pos))
+      }, deltaTime)
+    })
+  }
+
+  _drawMatrix = (matrix, offset) => {
+    let actualGrid = JSON.parse(JSON.stringify(this.grid))
+    matrix.forEach((line, lineIndex) => {
+      line.forEach((cell, cellIndex) => {
+        actualGrid[lineIndex + offset.y][cellIndex + offset.x] = cell
+      })
+    })
+    return actualGrid
   }
 }
 

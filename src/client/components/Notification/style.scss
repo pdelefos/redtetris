@@ -1,0 +1,21 @@
+@import "../App/colors";
+
+.notification {
+  background-color: $grey;
+  padding: 10px 15px;
+  display: flex;
+
+  .notification__content {
+    width: 90%;
+  }
+  .notification__button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+  }
+}
+
+.button--close {
+  cursor: pointer;
+}

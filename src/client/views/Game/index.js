@@ -1,12 +1,28 @@
 import React from "react"
 import Board from "../../components/Board"
 import "./style.scss"
+import { moveLeft } from "../../actions/user"
 
-const piece = [[0, 1, 0], [1, 1, 1], [0, 0, 0]]
-
-const Game = ({ startGame, grid }) => {
+const Game = ({ startGame, grid, moveLeft, moveRight, moveDown }) => {
   return (
-    <div>
+    <div
+      onKeyDown={evt => {
+        switch (evt.key) {
+          case "ArrowLeft":
+            moveLeft()
+            break
+          case "ArrowRight":
+            moveRight()
+            break
+          case "ArrowDown":
+            moveDown()
+            break
+          default:
+            break
+        }
+      }}
+      tabIndex="0"
+    >
       <button
         className="button"
         onClick={() => {

@@ -38,3 +38,15 @@ export const getGrid = dispatch => {
     dispatch(updateGrid(grid))
   })
 }
+
+export const moveLeft = () => {
+  socket.emit("moveLeft")
+}
+
+export const moveRight = () => {
+  socket.emit("moveRight")
+}
+
+export const moveDown = () => {
+  socket.emit("moveDown")
+}
