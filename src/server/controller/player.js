@@ -1,8 +1,11 @@
+import Game from "./game"
+
 class Player {
   constructor(id) {
     this.username = ""
     this.id = id
     this.currentRoom = null
+    this.game = new Game()
   }
 
   addUsername = username => {

@@ -1,44 +1,38 @@
-import crypto from "crypto"
-import omit from "lodash/omit"
-
-const REMOVE_FIELDS = ["currentRoom", "id"]
-
-class Room {
-  constructor(params) {
-    this.hashName = crypto.randomBytes(4).toString("hex")
-    this.roomName = params.roomName
-    this.status = 0
-    this.players = {}
-
-    console.log("Room created, hash room name: ", this.hashName)
+class Game {
+  constructor() {
+    this.STEP_INTERVAL = 1000
+    this.grid = this._iniGrid(20, 10)
+    this.pos = { x: 0, y: 0 }
+    this.piece = [[0, 0, 0], [0, 1, 0], [1, 1, 1]]
   }
 
-  addPlayer = player => {
-    if (Object.keys(this.players).length <= 3) {
-      player.score = 0
-      player.ready = false
-      this.players[player.id] = player
-    }
+  _iniGrid = (nbLine, nbColumn) => {
+    return Array(nbLine)
+      .fill(0)
+      .map(x => Array(nbColumn).fill(0))
   }
 
-  deletePlayer = player => {
-    if (player.id in this.players) {
-      delete this.players[player.id]
-    }
+  moveLeft = (count = 1) => {
+    this.pos.x -= count
   }
 
-  playerCount = () => {
-    return Object.keys(this.players).length
+  moveRight = (count = 1) => {
+    this.pos.x += count
   }
 
-  _to_json = () => {
-    return {
-      players: this.playerCount(),
-      hashName: this.hashName,
-      roomName: this.roomName,
-      status: this.status
-    }
+  moveDown = (count = 1) => {
+    this.pos.y += count
+  }
+
+  drawPiece = () => {
+    let actualGrid = JSON.parse(JSON.stringify(this.grid))
+    this.piece.forEach((line, lineIndex) => {
+      line.forEach((cell, cellIndex) => {
+        actualGrid[lineIndex + this.pos.y][cellIndex + this.pos.x] = cell
+      })
+    })
+    return actualGrid
   }
 }
 
-export default Room
+export default Game

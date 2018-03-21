@@ -1,5 +1,5 @@
 import Player from "./player"
-import Game from "./game"
+import Room from "./room"
 import Notification from "./notification"
 
 class Manager {
@@ -24,6 +24,11 @@ class Manager {
       this.createRoom(socket)
       this.leaveRoom(socket)
       this.fetchRooms(socket)
+
+      this.moveLeft(socket)
+      this.moveRight(socket)
+      this.moveDown(socket)
+      this.startGame(socket)
     })
   }
 
@@ -57,7 +62,7 @@ class Manager {
   createRoom = socket => {
     socket.on("createRoom", roomName => {
       let currentPlayer = this.players[socket.id]
-      let newRoom = new Game({
+      let newRoom = new Room({
         io: this.io,
         roomName: roomName
       })
@@ -119,6 +124,46 @@ class Manager {
         Object.values(this.rooms).map(game => game._to_json())
       )
     })
+  }
+
+  // GAME LOGIC
+
+  moveLeft = socket => {
+    socket.on("moveLeft", () => {
+      let currentPlayer = this.players[socket.id]
+      currentPlayer.game.moveLeft()
+      socket.emit("updateGame", currentPlayer.game.drawPiece())
+    })
+  }
+
+  moveRight = socket => {
+    socket.on("moveRight", () => {
+      let currentPlayer = this.players[socket.id]
+      currentPlayer.game.moveRight()
+      socket.emit("updateGame", currentPlayer.game.drawPiece())
+    })
+  }
+
+  moveDown = socket => {
+    socket.on("moveDown", () => {
+      let currentPlayer = this.players[socket.id]
+      currentPlayer.game.moveDown()
+      socket.emit("updateGame", currentPlayer.game.drawPiece())
+    })
+  }
+
+  startGame = socket => {
+    socket.on("startGame", () => {
+      this.updateGame(socket)
+    })
+  }
+
+  updateGame = socket => {
+    let currentPlayer = this.players[socket.id]
+    setInterval(() => {
+      // currentPlayer.game.moveDown()
+      socket.emit("updateGame", currentPlayer.game.drawPiece())
+    }, currentPlayer.game.STEP_INTERVAL)
   }
 }
 
