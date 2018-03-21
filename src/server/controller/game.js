@@ -1,7 +1,9 @@
 class Game {
   constructor() {
+    this.BOARD_COLS = 10
+    this.BOARD_ROWS = 20
     this.STEP_INTERVAL = 1000
-    this.grid = this._iniGrid(20, 10)
+    this.grid = this._iniGrid(this.BOARD_ROWS, this.BOARD_COLS)
     this.pos = { x: 0, y: 0 }
     this.piece = [[0, 0, 0], [0, 1, 0], [1, 1, 1]]
   }
@@ -22,16 +24,44 @@ class Game {
 
   moveDown = (count = 1) => {
     this.pos.y += count
+    if (this._collide()) {
+      this.grid = this._merge()
+      this.pos.y = 0
+    }
   }
 
   drawPiece = () => {
     let actualGrid = JSON.parse(JSON.stringify(this.grid))
-    this.piece.forEach((line, lineIndex) => {
-      line.forEach((cell, cellIndex) => {
-        actualGrid[lineIndex + this.pos.y][cellIndex + this.pos.x] = cell
+    this.piece.forEach((line, y) => {
+      line.forEach((cell, x) => {
+        if (cell !== 0) {
+          actualGrid[y + this.pos.y][x + this.pos.x] = cell
+        }
       })
     })
     return actualGrid
+  }
+
+  _merge = () => {
+    this.piece.forEach((line, y) => {
+      line.forEach((cell, x) => {
+        if (cell !== 0) {
+          this.grid[y + this.pos.y][x + this.pos.x] = cell
+        }
+      })
+    })
+  }
+
+  _collide = () => {
+    this.piece.forEach((line, y) => {
+      line.forEach((cell, x) => {
+        let outOfBoard =
+          y + this.pos.y >= this.BOARD_ROWS || x + this.pos.x >= this.BOARD_COLS
+        if (outOfBoard || this.grid[y + this.pos.y][x + this.pos.x] !== 0)
+          return true
+      })
+    })
+    return false
   }
 }
 

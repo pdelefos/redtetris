@@ -161,7 +161,7 @@ class Manager {
   updateGame = socket => {
     let currentPlayer = this.players[socket.id]
     setInterval(() => {
-      // currentPlayer.game.moveDown()
+      currentPlayer.game.moveDown()
       socket.emit("updateGame", currentPlayer.game.drawPiece())
     }, currentPlayer.game.STEP_INTERVAL)
   }
