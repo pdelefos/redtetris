@@ -5,9 +5,9 @@ const room = hashName => ({
   hashName
 })
 
-const updateGrid = grid => ({
-  type: "UPDATE_GRID",
-  grid
+const updateGame = game => ({
+  type: "UPDATE_GAME",
+  game
 })
 
 export const createUser = username => {
@@ -33,9 +33,9 @@ export const startGame = () => {
   socket.emit("startGame")
 }
 
-export const getGrid = dispatch => {
-  socket.on("sendGrid", grid => {
-    dispatch(updateGrid(grid))
+export const updateGame = dispatch => {
+  socket.on("updateGame", game => {
+    dispatch(updateGame(game))
   })
 }
 

@@ -1,54 +1,20 @@
-import crypto from "crypto"
-
 class Game {
-  constructor(params) {
-    this.hashName = crypto.randomBytes(4).toString("hex")
-    this.gameName = params.gameName
-    this.io = params.io
-    this.players = {}
-
-    // this.io.sockets.emit("gameCreated", this.hashName)
-    console.log("Game created, hash room name: ", this.hashName)
+  constructor() {
+    this.STEP_INTERVAL = 1000
+    this.position = { x: 0, y: 0 }
+    this.board = []
+    this.dropCounter = 0
+    // this.dropInterval = 1000 // 1s
   }
 
-  addPlayer = player => {
-    if (Object.keys(this.players).length <= 3) {
-      player.score = 0
-      player.ready = false
-      this.players[player.id] = player
-      player.socket.join(this.hashName)
-      this.io
-        .to(this.hashName)
-        .emit(
-          "notification",
-          `The player ${player.username} has joined the game !`
-        )
-    } else
-      player.socket.emit("fullRoom", "The room you are trying to join is full")
-  }
-
-  deletePlayer = player => {
-    if (player.id in this.players) {
-      delete this.players[player.id]
-      player.socket.broadcast
-        .to(this.hashName)
-        .emit("notification", `The player ${player.name} has left the game !`)
-      player.socket.leave(this.hashName)
-    }
-  }
-
-  _to_json = () => {
-    let players = {}
-    Object.values(this.players).forEach(player => {
-      let finalPlayer = { ...player }
-      delete finalPlayer["socket"]
-      players[player.id] = finalPlayer
+  _drawPiece = (matrix, offset) => {
+    let actualGrid = JSON.parse(JSON.stringify(this.grid))
+    matrix.forEach((line, lineIndex) => {
+      line.forEach((cell, cellIndex) => {
+        actualGrid[lineIndex + offset.y][cellIndex + offset.x] = cell
+      })
     })
-    return {
-      players: players,
-      hashName: this.hashName,
-      gameName: this.gameName
-    }
+    return actualGrid
   }
 }
 

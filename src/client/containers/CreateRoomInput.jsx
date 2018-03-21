@@ -3,11 +3,11 @@ import { createRoom } from "../actions/room"
 import { forceJoinRoom } from "../actions/user"
 import { bindActionCreators } from "redux"
 
-import CreateGame from "../components/CreateGame"
+import CreateRoomInput from "../components/CreateRoomInput"
 
 const mapStateToProps = state => {
 	return {
-		currentGame: state.user.currentRoom,
+		currentRoom: state.user.currentRoom,
 		username: state.user.username
 	}
 }
@@ -19,6 +19,6 @@ const mapDispatchToProps = dispatch => {
 	}
 }
 
-const FinalLobby = connect(mapStateToProps, mapDispatchToProps)(CreateGame)
+const FinalCreateRoomInput = connect(mapStateToProps, mapDispatchToProps)(CreateRoomInput)
 
-export default FinalLobby
+export default FinalCreateRoomInput
