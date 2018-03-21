@@ -1,10 +1,10 @@
 import React from "react"
-import "./style.css"
+import "./style.scss"
 import Notification from "../Notification"
 
 let NotificationList = ({ notifications, deleteNotification }) => {
   return (
-    <ul>
+    <ul className="notification-list">
       {notifications.map(notification => {
         return (
           <Notification
