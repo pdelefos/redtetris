@@ -28,6 +28,7 @@ class Manager {
       this.moveLeft(socket)
       this.moveRight(socket)
       this.moveDown(socket)
+      this.moveUp(socket)
       this.startGame(socket)
     })
   }
@@ -148,6 +149,14 @@ class Manager {
     socket.on("moveDown", () => {
       let currentPlayer = this.players[socket.id]
       currentPlayer.game.moveDown()
+      socket.emit("updateGame", currentPlayer.game.drawPiece())
+    })
+  }
+
+  moveUp = socket => {
+    socket.on("moveUp", () => {
+      let currentPlayer = this.players[socket.id]
+      currentPlayer.game.moveUp()
       socket.emit("updateGame", currentPlayer.game.drawPiece())
     })
   }

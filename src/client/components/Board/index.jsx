@@ -42,6 +42,9 @@ const handleKeyDown = (methods, evt) => {
     case "ArrowDown":
       methods.moveDown()
       break
+    case "ArrowUp":
+      methods.moveUp()
+      break
     default:
       break
   }

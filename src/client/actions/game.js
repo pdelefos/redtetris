@@ -24,3 +24,7 @@ export const moveRight = () => {
 export const moveDown = () => {
   socket.emit("moveDown")
 }
+
+export const moveUp = () => {
+  socket.emit("moveUp")
+}
