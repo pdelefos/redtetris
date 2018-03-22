@@ -1,6 +1,6 @@
 import React from "react"
 
-let roomName = null
+let roomNameInput = null
 
 const CreateRoomInput = ({ createRoom }) => {
   return (
@@ -9,6 +9,8 @@ const CreateRoomInput = ({ createRoom }) => {
         className="input--text"
         type="text"
         ref={input => (roomName = input)}
+        onKeyDown={evt => handleKeyDown(createRoom, evt)}
+        tabIndex="0"
       />
       <button
         className="button"
@@ -20,6 +22,10 @@ const CreateRoomInput = ({ createRoom }) => {
       </button>
     </div>
   )
+}
+
+const handleKeyDown = (createRoomCallback, evt) => {
+  if (evt.key === "Enter") createRoomCallback(roomNameInput.value)
 }
 
 export default CreateRoomInput

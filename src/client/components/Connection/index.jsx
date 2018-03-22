@@ -2,7 +2,9 @@ import React from "react"
 import { Link } from "react-router-dom"
 import "./style.scss"
 
-let username = null
+import { Redirect } from "react-router"
+
+let usernameInput = null
 const Connection = ({ history, pushUser, notif }) => {
   return (
     <div>
@@ -12,14 +14,16 @@ const Connection = ({ history, pushUser, notif }) => {
           className="input--text"
           type="text"
           ref={input => {
-            username = input
+            usernameInput = input
           }}
+          onKeyDown={evt => handleKeyDown(pushUser, evt)}
+          tabIndex="0"
         />
         <Link
           className="button"
           to="/lobby"
           onClick={() => {
-            pushUser(username.value)
+            pushUser(usernameInput.value)
           }}
         >
           Start
@@ -27,6 +31,13 @@ const Connection = ({ history, pushUser, notif }) => {
       </div>
     </div>
   )
+}
+
+const handleKeyDown = (pushUserCallback, evt) => {
+  if (evt.key === "Enter") {
+    pushUserCallback(usernameInput.value)
+    return <Redirect to={`/lobby`} />
+  }
 }
 
 export default Connection
