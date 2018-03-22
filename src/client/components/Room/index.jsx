@@ -1,14 +1,21 @@
 import React from "react"
 import "./style.scss"
 
-const Room = ({ room }) => {
-  console.log("room", room)
+const Room = ({ room, ready }) => {
   return (
     <div>
       <div>{room.hashName}</div>
       <ul>
         {Object.keys(room.players).map(key => {
-          return <li key={key}>{room.players[key].username}</li>
+          let player = room.players[key]
+          return (
+            <li key={key}>
+              {player.username}: status: {player.status} score: {player.score}
+              <button className="button" onClick={() => ready()}>
+                {player.status == 0 ? "ready" : "unready"}
+              </button>
+            </li>
+          )
         })}
       </ul>
     </div>

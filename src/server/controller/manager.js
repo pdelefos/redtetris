@@ -24,6 +24,7 @@ class Manager {
       this.createRoom(socket)
       this.leaveRoom(socket)
       this.fetchRooms(socket)
+      this.playerReady(socket)
     })
   }
 
@@ -47,11 +48,11 @@ class Manager {
 
   _join = (player, room) => {
     room.addPlayer(player)
-    player.joinRoom(room.hashName)
     this.notification.gameNotification(
       room.hashName,
       `The player ${player.username} has joined the game !`
     )
+    player.joinRoom(room.hashName)
   }
 
   createRoom = socket => {
@@ -110,6 +111,16 @@ class Manager {
 
   updateRoom = hashName => {
     this.io.sockets.emit("updateRoom", this.rooms[hashName]._to_json())
+  }
+
+  playerReady = socket => {
+    socket.on("playerReady", hashName => {
+      let player = this.players[socket.id]
+      if (hashName in this.rooms) {
+        player.ready()
+        this.updateRoom(hashName)
+      }
+    })
   }
 
   fetchRooms = socket => {

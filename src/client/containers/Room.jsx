@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import { createUser } from "../actions/user"
+import { createUser, updateUserRoom, playerReady } from "../actions/user"
 import { bindActionCreators } from "redux"
 
 import Room from "../components/Room"
@@ -11,7 +11,10 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return {}
+  updateUserRoom(dispatch)
+  return {
+    playerReady: bindActionCreators(playerReady, dispatch)
+  }
 }
 
 const FinalRoom = connect(mapStateToProps, mapDispatchToProps)(Room)
