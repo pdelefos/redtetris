@@ -27,6 +27,11 @@ class Manager {
       this.fetchRooms(socket)
 
       this.playerStatus(socket)
+
+      this.moveDown(socket)
+      this.moveLeft(socket)
+      this.moveRight(socket)
+      this.moveUp(socket)
     })
   }
 
@@ -200,32 +205,32 @@ class Manager {
   moveLeft = socket => {
     socket.on("moveLeft", () => {
       let currentPlayer = this.players[socket.id]
-      currentPlayer.game.moveLeft()
-      socket.emit("updateGame", currentPlayer.game.drawPiece())
+      currentPlayer.board.moveLeft()
+      socket.emit("updateBoard", currentPlayer.board.drawPiece())
     })
   }
 
   moveRight = socket => {
     socket.on("moveRight", () => {
       let currentPlayer = this.players[socket.id]
-      currentPlayer.game.moveRight()
-      socket.emit("updateGame", currentPlayer.game.drawPiece())
+      currentPlayer.board.moveRight()
+      socket.emit("updateBoard", currentPlayer.board.drawPiece())
     })
   }
 
   moveDown = socket => {
     socket.on("moveDown", () => {
       let currentPlayer = this.players[socket.id]
-      currentPlayer.game.moveDown()
-      socket.emit("updateGame", currentPlayer.game.drawPiece())
+      currentPlayer.board.moveDown()
+      socket.emit("updateBoard", currentPlayer.board.drawPiece())
     })
   }
 
   moveUp = socket => {
     socket.on("moveUp", () => {
       let currentPlayer = this.players[socket.id]
-      currentPlayer.game.moveUp()
-      socket.emit("updateGame", currentPlayer.game.drawPiece())
+      currentPlayer.board.moveUp()
+      socket.emit("updateBoard", currentPlayer.board.drawPiece())
     })
   }
 

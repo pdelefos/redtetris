@@ -19,6 +19,8 @@ const Board = ({ board, score, actions }) => {
 }
 
 const handleKeyDown = (actions, evt) => {
+  console.log("evt", evt.key)
+  console.log(actions)
   switch (evt.key) {
     case "ArrowLeft":
       actions.moveLeft()
