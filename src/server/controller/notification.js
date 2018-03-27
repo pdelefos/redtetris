@@ -18,6 +18,10 @@ class Notification {
     this.io.sockets.emit("notification", message)
     console.log("[!!] Server notification: %s [!!]", message)
   }
+
+  log = message => {
+    console.log(message)
+  }
 }
 
 export default Notification

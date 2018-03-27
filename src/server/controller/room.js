@@ -1,34 +1,19 @@
 import crypto from "crypto"
 import omit from "lodash/omit"
+import Game from "./game"
 
 const REMOVE_FIELDS = ["currentRoom", "id"]
 
 class Room {
-  constructor(params) {
+  constructor(name) {
     this.hashName = crypto.randomBytes(4).toString("hex")
-    this.roomName = params.roomName
+    this.roomName = name
     this.status = 0
-    this.players = {}
-
-    console.log("Room created, hash room name: ", this.hashName)
-  }
-
-  addPlayer = player => {
-    if (Object.keys(this.players).length <= 3) {
-      player.score = 0
-      player.ready = false
-      this.players[player.id] = player
-    }
-  }
-
-  deletePlayer = player => {
-    if (player.id in this.players) {
-      delete this.players[player.id]
-    }
+    this.game = new Game()
   }
 
   playerCount = () => {
-    return Object.keys(this.players).length
+    return Object.keys(this.game.players).length
   }
 
   _to_json = () => {

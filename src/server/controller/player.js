@@ -1,23 +1,20 @@
-import Game from "./game"
-
 class Player {
   constructor(id) {
-    this.username = ""
-    this.id = id
+    this.username = null
     this.currentRoom = null
-    this.game = new Game()
+    this.id = id
   }
 
-  addUsername = username => {
+  updateUsername = username => {
     this.username = username
   }
 
-  joinRoom = hashName => {
-    this.currentRoom = hashName
+  joinGame = () => {
+    this.game = Game()
   }
 
-  leaveRoom = () => {
-    this.currentRoom = null
+  updateCurrentRoom = hashName => {
+    this.currentRoom = hashName
   }
 }
 

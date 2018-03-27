@@ -1,5 +1,5 @@
 import { connect } from "react-redux"
-import { createUser } from "../actions/user"
+import { updateUser } from "../actions/user"
 import { bindActionCreators } from "redux"
 
 import Connection from "../components/Connection"
@@ -10,10 +10,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    pushUser: bindActionCreators(createUser, dispatch)
+    updateUser: bindActionCreators(updateUser, dispatch)
   }
 }
 
-const FinalConnection = connect(mapStateToProps, mapDispatchToProps)(Connection)
+const FinalConnection = connect(mapStateToProps, mapDispatchToProps)(
+  Connection
+)
 
 export default FinalConnection

@@ -5,13 +5,15 @@ const room = newRoom => ({
   newRoom
 })
 
-export const createRoom = roomName => {
-  socket.emit("createRoom", roomName)
-}
+const updatedRoom = room => ({
+  type: "UPDATE_ROOM",
+  newRoom
+})
 
-export const fetchRoomList = () => {
-  socket.emit("fetchRoomList")
-}
+const deletedRoom = hashName => ({
+  type: "DELETE_ROOM",
+  hashName
+})
 
 export const addRoom = dispatch => {
   socket.on("addRoom", newRoom => {
@@ -29,18 +31,20 @@ export const createRoomList = dispatch => {
 
 export const updateRoom = dispatch => {
   socket.on("updateRoom", newRoom => {
-    dispatch({
-      type: "UPDATE_ROOM",
-      newRoom
-    })
+    dispatch(updatedRoom(newRoom))
   })
 }
 
 export const deleteRoom = dispatch => {
   socket.on("deleteRoom", hashName => {
-    dispatch({
-      type: "DELETE_ROOM",
-      hashName
-    })
+    dispatch(deletedRoom(hashName))
   })
+}
+
+export const createRoom = roomName => {
+  socket.emit("createRoom", roomName)
+}
+
+export const fetchRoomList = () => {
+  socket.emit("fetchRoomList")
 }

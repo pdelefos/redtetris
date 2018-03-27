@@ -6,7 +6,7 @@ import Room from "../components/Room"
 
 const mapStateToProps = state => {
   return {
-    room: state.rooms[state.user.currentRoom]
+    game: state.game
   }
 }
 

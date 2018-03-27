@@ -1,15 +1,12 @@
 import { connect } from "react-redux"
-import { createRoom } from "../actions/room"
-import * as GameActions from "../actions/game"
+import * as BoardActions from "../actions/board"
 import { bindActionCreators } from "redux"
 import omit from "lodash/omit"
 
 import Board from "../components/Board"
 
 const mapStateToProps = state => {
-  return {
-    game: state.user.game
-  }
+  return {}
 }
 
 const mapDispatchToProps = dispatch => {

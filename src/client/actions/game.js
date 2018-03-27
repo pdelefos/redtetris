@@ -1,30 +1,34 @@
 import { socket } from "../socket"
 
-export const startGame = () => {
-  socket.emit("startGame")
-}
+const game = hashName => ({
+  type: "JOIN_GAME",
+  game
+})
+
+const updatedGame = game => ({
+  type: "UPDATE_GAME",
+  game
+})
 
 export const updateGame = dispatch => {
   socket.on("updateGame", game => {
-    dispatch({
-      type: "UPDATE_GAME",
-      game
-    })
+    dispatch(updatedGame(game))
   })
 }
 
-export const moveLeft = () => {
-  socket.emit("moveLeft")
+export const forceJoinGame = dispatch => {
+  socket.on("forceJoinGame", hashName => {
+    dispatch(Game(hashName))
+  })
 }
 
-export const moveRight = () => {
-  socket.emit("moveRight")
+export const playerReady = () => {
+  socket.emit("playerReady")
+}
+export const joinGame = game => {
+  return game(game)
 }
 
-export const moveDown = () => {
-  socket.emit("moveDown")
-}
-
-export const moveUp = () => {
-  socket.emit("moveUp")
+export const startGame = () => {
+  socket.emit("startGame")
 }

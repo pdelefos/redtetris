@@ -5,7 +5,7 @@ import "./style.scss"
 import { Redirect } from "react-router"
 
 let usernameInput = null
-const Connection = ({ history, pushUser, notif }) => {
+const Connection = ({ history, updateUser, notif }) => {
   return (
     <div>
       <h2 className="input-label font--normal">Choose your player name</h2>
@@ -16,14 +16,14 @@ const Connection = ({ history, pushUser, notif }) => {
           ref={input => {
             usernameInput = input
           }}
-          onKeyDown={evt => handleKeyDown(pushUser, evt)}
+          onKeyDown={evt => handleKeyDown(updateUser, evt)}
           tabIndex="0"
         />
         <Link
           className="button"
           to="/lobby"
           onClick={() => {
-            pushUser(usernameInput.value)
+            updateUser(usernameInput.value)
           }}
         >
           Start
@@ -33,9 +33,9 @@ const Connection = ({ history, pushUser, notif }) => {
   )
 }
 
-const handleKeyDown = (pushUserCallback, evt) => {
+const handleKeyDown = (updateUserCallback, evt) => {
   if (evt.key === "Enter") {
-    pushUserCallback(usernameInput.value)
+    updateUserCallback(usernameInput.value)
     return <Redirect to={`/lobby`} />
   }
 }

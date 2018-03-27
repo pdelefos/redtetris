@@ -1,10 +1,12 @@
 let initialState = {
   status: 0,
   hashName: null,
-  mode: 0
+  mode: 0,
+  players: {}
 }
 
 const game = (state = initialState, action) => {
+  console.log(action)
   switch (action.type) {
     case "PLAYER_JOIN_ROOM":
       return { ...state, hashName: action.hashName }

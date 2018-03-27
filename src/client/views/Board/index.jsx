@@ -3,10 +3,10 @@ import "./style.scss"
 
 import FinalBoard from "../../containers/Board"
 
-const Game = () => (
+const Board = () => (
   <div>
     <FinalBoard />
   </div>
 )
 
-export default Game
+export default Board

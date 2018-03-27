@@ -7,7 +7,7 @@ import CreateRoomWrapper from "../components/CreateRoomWrapper"
 
 const mapStateToProps = state => {
   return {
-    currentRoom: state.user.currentRoom,
+    currentRoom: state.game.hashName,
     username: state.user.username
   }
 }
@@ -19,8 +19,9 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const FinalCreateRoomWrapper = connect(mapStateToProps, mapDispatchToProps)(
-  CreateRoomWrapper
-)
+const FinalCreateRoomWrapper = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CreateRoomWrapper)
 
 export default FinalCreateRoomWrapper

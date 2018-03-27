@@ -17,60 +17,51 @@ class Manager {
       this.players[socket.id] = new Player(socket.id)
       this.notification = new Notification(this.io, socket)
 
-      this.createUser(socket)
+      this.updateUser(socket)
       this.deleteUser(socket)
 
       this.joinRoom(socket)
       this.createRoom(socket)
       this.leaveRoom(socket)
       this.fetchRooms(socket)
-<<<<<<< HEAD
-      this.playerReady(socket)
-=======
 
-      this.moveLeft(socket)
-      this.moveRight(socket)
-      this.moveDown(socket)
-      this.moveUp(socket)
-      this.startGame(socket)
->>>>>>> e13896a94d7e07b3687cf1185f9b53d06c748c4f
+      // this.playerReady(socket)
     })
   }
 
-  createUser = socket => {
-    socket.on("createUser", username => {
-      this.players[socket.id].addUsername(username)
-      console.log("the current player %s is now named %s", socket.id, username)
-      this.notification.userNotification(
-        "The user has succesfully been created"
-      )
+  updateUser = socket => {
+    socket.on("updateUser", username => {
+      let oldUsername = !this.players[socket.id].username
+      this.players[socket.id].updateUsername(username)
+      if (!oldUsername)
+        this.notification.userNotification("User succesfully created")
+      else this.notification.userNotification("User succesfully renamed")
     })
   }
 
   deleteUser = socket => {
     socket.on("disconnect", () => {
-      console.log("Player %s destroyed", socket.id)
+      this.notification.log(`[${socket.id}] Disconnect: Player destroyed`)
       this._leave(socket.id)
       delete this.players[socket.id]
     })
   }
 
   _join = (player, room) => {
-    room.addPlayer(player)
+    room.game.addPlayer(player)
+    player.updateCurrentRoom(room.hashName)
     this.notification.gameNotification(
       room.hashName,
       `The player ${player.username} has joined the game !`
     )
-    player.joinRoom(room.hashName)
   }
 
   createRoom = socket => {
     socket.on("createRoom", roomName => {
       let currentPlayer = this.players[socket.id]
-      let newRoom = new Room({
-        io: this.io,
-        roomName: roomName
-      })
+      let newRoom = new Room(roomName)
+      this.notification.log("[%s] Room created", newRoom.hashName)
+
       socket.join(newRoom.hashName)
       this._join(currentPlayer, newRoom)
 
@@ -84,7 +75,10 @@ class Manager {
     socket.on("joinRoom", hashName => {
       let currentPlayer = this.players[socket.id]
       if (hashName in this.rooms) {
-        if (this.rooms[hashName].playerCount() == 4) socket.emit("notification")
+        if (this.rooms[hashName].playerCount() >= 4)
+          this.notification.userNotification(
+            "The room you are trying to join is full !"
+          )
         else {
           socket.join(this.rooms[hashName].hashName)
           this._join(currentPlayer, this.rooms[hashName])
@@ -98,12 +92,13 @@ class Manager {
   }
 
   _leave = id => {
-    let hashName = this.players[id].currentRoom
-    if (hashName) {
+    let currentPlayer = this.players[id]
+    if (currentPlayer.currentRoom) {
       let room = this.rooms[hashName]
-      room.deletePlayer(this.players[id])
+      room.game.deletePlayer(id)
+
       if (room.playerCount() > 0) {
-        this.players[id].leaveRoom()
+        currentPlayer.updateCurrentRoom(null)
         this.updateRoom(hashName)
       } else {
         delete this.rooms[hashName]
@@ -122,15 +117,15 @@ class Manager {
     this.io.sockets.emit("updateRoom", this.rooms[hashName]._to_json())
   }
 
-  playerReady = socket => {
-    socket.on("playerReady", hashName => {
-      let player = this.players[socket.id]
-      if (hashName in this.rooms) {
-        player.ready()
-        this.updateRoom(hashName)
-      }
-    })
-  }
+  // playerReady = socket => {
+  //   socket.on("playerReady", hashName => {
+  //     let player = this.players[socket.id]
+  //     if (hashName in this.rooms) {
+  //       player.ready()
+  //       this.updateRoom(hashName)
+  //     }
+  //   })
+  // }
 
   fetchRooms = socket => {
     socket.on("fetchRoomList", () => {

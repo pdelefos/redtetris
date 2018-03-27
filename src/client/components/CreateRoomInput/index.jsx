@@ -8,14 +8,14 @@ const CreateRoomInput = ({ createRoom }) => {
       <input
         className="input--text"
         type="text"
-        ref={input => (roomName = input)}
+        ref={input => (roomNameInput = input)}
         onKeyDown={evt => handleKeyDown(createRoom, evt)}
         tabIndex="0"
       />
       <button
         className="button"
         onClick={() => {
-          createRoom(roomName.value)
+          createRoom(roomNameInput.value)
         }}
       >
         Create a room
