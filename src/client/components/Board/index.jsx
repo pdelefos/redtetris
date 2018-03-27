@@ -1,7 +1,7 @@
 import React from "react"
 import "./style.scss"
 
-const Board = ({ board, actions }) => {
+const Board = ({ board, score, actions }) => {
   return (
     <div>
       <div
@@ -13,6 +13,7 @@ const Board = ({ board, actions }) => {
       >
         {_createGrid(board)}
       </div>
+      <span>Score: {score} </span>
     </div>
   )
 }
