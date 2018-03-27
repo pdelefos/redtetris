@@ -1,6 +1,7 @@
 import Player from "./player"
 import Room from "./room"
 import Notification from "./notification"
+import { constants } from "./const"
 
 class Manager {
   constructor(io) {
@@ -14,7 +15,7 @@ class Manager {
 
   connection = () => {
     this.io.on("connection", socket => {
-      this.players[socket.id] = new Player(socket.id)
+      this.players[socket.id] = new Player(socket)
       this.notification = new Notification(this.io, socket)
 
       this.updateUser(socket)
@@ -35,8 +36,15 @@ class Manager {
       this.players[socket.id].updateUsername(username)
       socket.emit("updateId", socket.id)
       if (!oldUsername)
-        this.notification.userNotification("User succesfully created")
-      else this.notification.userNotification("User succesfully renamed")
+        this.notification.userNotification(
+          socket,
+          "User succesfully created"
+        )
+      else
+        this.notification.userNotification(
+          socket,
+          "User succesfully renamed"
+        )
     })
   }
 
@@ -79,6 +87,7 @@ class Manager {
         let room = this.rooms[hashName]
         if (room.playerCount() >= 4)
           this.notification.userNotification(
+            socket,
             "The room you are trying to join is full !"
           )
         else {
@@ -89,6 +98,7 @@ class Manager {
         }
       } else
         this.notification.userNotification(
+          socket,
           "The room you are trying to join doesnt exist"
         )
     })
@@ -122,14 +132,56 @@ class Manager {
     this.io.sockets.emit("updateRoom", this.rooms[hashName])
   }
 
+  _countdown = (callback, delay, repetitions) => {
+    return new Promise((resolve, reject) => {
+      let count = 1
+      let interval = setInterval(() => {
+        callback(count)
+        if (count++ === repetitions) {
+          clearInterval(interval)
+          resolve()
+        }
+      }, delay)
+    })
+  }
+
+  _checkStatus = room => {
+    let readyCount = Object.values(room.game.players).reduce(
+      (acc, currentVal) => currentVal.ready + acc,
+      0
+    )
+    if (readyCount == Object.keys(room.game.players).length) {
+      room.game.updateStatus("Starting")
+      this.io.to(room.hashName).emit("updateGame", room.game)
+      Object.values(room.game.players).forEach(player => {
+        player.initGame()
+        this._countdown(
+          count => {
+            this.notification.userNotification(
+              player.socket,
+              `Starting in ${constants.COUNTDOWN_REPETITIONS - count}`
+            )
+          },
+          constants.COUNTDOWN_DELAY,
+          constants.COUNTDOWN_REPETITIONS
+        ).then(() => {
+          room.game.updateStatus("In game")
+          this.io.to(room.hashName).emit("updateGame", room.game)
+          this.startGame(player.socket)
+          this.updateRoom(room.hashName)
+        })
+      })
+    } else this.io.to(room.hashName).emit("updateGame", room.game)
+  }
+
   playerStatus = socket => {
     socket.on("playerStatus", () => {
       let player = this.players[socket.id]
       let hashName = player.currentRoom
       if (hashName && hashName in this.rooms) {
+        let room = this.rooms[hashName]
         player.updateStatus()
-        this.updateRoom(hashName)
-        this.io.to(hashName).emit("updateGame", this.rooms[hashName].game)
+        this._checkStatus(room)
       }
     })
   }
@@ -178,17 +230,11 @@ class Manager {
   }
 
   startGame = socket => {
-    socket.on("startGame", () => {
-      this.updateGame(socket)
-    })
-  }
-
-  updateGame = socket => {
     let currentPlayer = this.players[socket.id]
     setInterval(() => {
-      currentPlayer.game.moveDown()
-      socket.emit("updateGame", currentPlayer.game.drawPiece())
-    }, currentPlayer.game.STEP_INTERVAL)
+      if (currentPlayer.board) currentPlayer.board.moveDown()
+      socket.emit("updateBoard", currentPlayer.board.drawPiece())
+    }, constants.STEP_INTERVAL)
   }
 }
 

@@ -5,8 +5,9 @@ import { Switch, Route } from "react-router-dom"
 //components
 import ConnectionView from "../../views/Connection"
 import LobbyView from "../../views/Lobby"
-import RoomView from "../../views/Room"
 import BoardView from "../../views/Board"
+
+import FinalRoomView from "../../containers/RoomWrapper"
 import FinalNotificationList from "../../containers/NotificationList"
 
 const App = () => {
@@ -16,8 +17,7 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={ConnectionView} />
         <Route path="/lobby" component={LobbyView} />
-        <Route path="/board" component={BoardView} />
-        <Route path="/:hashName" component={RoomView} />
+        <Route path="/:hashName" component={FinalRoomView} />
       </Switch>
     </div>
   )

@@ -1,49 +1,35 @@
 import React from "react"
 import "./style.scss"
 
-const Board = ({ game, methods }) => {
-  if (!game) {
-    return (
-      <div>
-        <button
-          onClick={() => {
-            methods.startGame()
-          }}
-          className="button"
-        >
-          GO
-        </button>
+const Board = ({ board, actions }) => {
+  return (
+    <div>
+      <div
+        className="board"
+        onKeyDown={evt => {
+          handleKeyDown(actions, evt)
+        }}
+        tabIndex="0"
+      >
+        {_createGrid(board)}
       </div>
-    )
-  } else {
-    return (
-      <div>
-        <div
-          className="board"
-          onKeyDown={evt => {
-            handleKeyDown(methods, evt)
-          }}
-          tabIndex="0"
-        >
-          {_createGrid(game)}
-        </div>
-      </div>
-    )
-  }
+    </div>
+  )
 }
-const handleKeyDown = (methods, evt) => {
+
+const handleKeyDown = (actions, evt) => {
   switch (evt.key) {
     case "ArrowLeft":
-      methods.moveLeft()
+      actions.moveLeft()
       break
     case "ArrowRight":
-      methods.moveRight()
+      actions.moveRight()
       break
     case "ArrowDown":
-      methods.moveDown()
+      actions.moveDown()
       break
     case "ArrowUp":
-      methods.moveUp()
+      actions.moveUp()
       break
     default:
       break
@@ -51,11 +37,14 @@ const handleKeyDown = (methods, evt) => {
 }
 
 const _createGrid = boardArray => {
-  let lines = []
-  boardArray.forEach((line, index) => {
-    lines.push(_createLine(line, index))
-  })
-  return <div className="grid">{lines}</div>
+  if (boardArray) {
+    let lines = []
+    boardArray.forEach((line, index) => {
+      lines.push(_createLine(line, index))
+    })
+    return <div className="grid">{lines}</div>
+  }
+  return <div>Loading...</div>
 }
 
 const _createLine = (lineArray, lineIndex) => {

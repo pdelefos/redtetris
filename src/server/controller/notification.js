@@ -1,12 +1,11 @@
 class Notification {
-  constructor(io, socket) {
+  constructor(io) {
     this.io = io
-    this.socket = socket
   }
 
-  userNotification = message => {
-    this.socket.emit("notification", message)
-    console.log("[%s] Notification: %s", this.socket.id, message)
+  userNotification = (socket, message) => {
+    socket.emit("notification", message)
+    console.log("[%s] Notification: %s", socket.id, message)
   }
 
   gameNotification = (hashName, message) => {

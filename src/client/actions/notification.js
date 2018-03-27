@@ -19,3 +19,7 @@ export const deleteNotification = id => ({
   type: "DELETE_NOTIFICATION",
   id
 })
+
+export const clearNotification = () => ({
+  type: "CLEAR_NOTIFICATION"
+})

@@ -1,11 +1,14 @@
+import Board from "./board"
+
 class Player {
-  constructor(id) {
-    this.id = id
+  constructor(socket) {
+    this.id = socket.id
+    this.socket = socket
     this.username = null
     this.currentRoom = null
     this.board = null
     this.score = 0
-    this.ready = true
+    this.ready = false
   }
 
   updateUsername = username => {
@@ -16,7 +19,7 @@ class Player {
     this.ready = !this.ready
   }
 
-  startGame = () => {
+  initGame = () => {
     this.board = new Board()
   }
 

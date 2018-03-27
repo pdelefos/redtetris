@@ -6,11 +6,18 @@ import omit from "lodash/omit"
 import Board from "../components/Board"
 
 const mapStateToProps = state => {
-  return {}
+  let currentPlayer = state.game.players[state.user.id]
+  return {
+    board: currentPlayer.board,
+    score: currentPlayer.score
+  }
 }
 
 const mapDispatchToProps = dispatch => {
-  return {}
+  BoardActions.updateBoard(dispatch)
+  return {
+    actions: omit(BoardActions, ["updateBoard"])
+  }
 }
 
 const FinalBoard = connect(mapStateToProps, mapDispatchToProps)(Board)

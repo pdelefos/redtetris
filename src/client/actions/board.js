@@ -1,3 +1,17 @@
+import { socket } from "../socket"
+
+const updatedBoard = (board, id) => ({
+  type: "UPDATE_BOARD",
+  board,
+  id
+})
+
+export const updateBoard = dispatch => {
+  socket.on("updateBoard", board => {
+    dispatch(updatedBoard(board, socket.id))
+  })
+}
+
 export const moveLeft = () => {
   socket.emit("moveLeft")
 }

@@ -1,4 +1,4 @@
-import constants from "./const"
+import { constants } from "./const"
 
 class Board {
   constructor() {
@@ -68,4 +68,4 @@ class Board {
   // }
 }
 
-export default Game
+export default Board

@@ -16,10 +16,13 @@ class Game {
     this.updateStatus()
   }
 
-  updateStatus = () => {
-    let playerCount = Object.keys(this.players).length
-    if (playerCount === 4) this.status = "Full"
-    else this.status = "About to start"
+  updateStatus = (status = null) => {
+    if (status) this.status = status
+    else {
+      let playerCount = Object.keys(this.players).length
+      if (playerCount === 4) this.status = "Full"
+      else this.status = "About to start"
+    }
   }
 
   updateMode = mode => {
