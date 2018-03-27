@@ -16,15 +16,15 @@ class Manager {
     this.io.on("connection", socket => {
       this.players[socket.id] = new Player(socket.id)
       this.notification = new Notification(this.io, socket)
-
+      // USER
       this.createUser(socket)
       this.deleteUser(socket)
-
+      // ROOMS
       this.joinRoom(socket)
       this.createRoom(socket)
       this.leaveRoom(socket)
       this.fetchRooms(socket)
-
+      // GAME
       this.moveLeft(socket)
       this.moveRight(socket)
       this.moveDown(socket)
