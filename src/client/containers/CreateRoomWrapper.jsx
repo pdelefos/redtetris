@@ -1,6 +1,5 @@
 import { connect } from "react-redux"
 import { createRoom } from "../actions/room"
-import { forceJoinRoom } from "../actions/user"
 import { bindActionCreators } from "redux"
 
 import CreateRoomWrapper from "../components/CreateRoomWrapper"
@@ -13,7 +12,6 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  forceJoinRoom(dispatch)
   return {
     createRoom: createRoom
   }

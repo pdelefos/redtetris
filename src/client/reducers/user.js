@@ -4,7 +4,7 @@ let initialState = {
 
 const user = (state = initialState, action) => {
   switch (action.type) {
-    case "CREATE_USER":
+    case "UPDATE_USER":
       return {
         ...state,
         username: action.username

@@ -1,8 +1,9 @@
 class Game {
-  constructor() {
+  constructor(hashName) {
     this.players = {}
     this.status = 0
     this.mode = 0
+    this.hashName = hashName
   }
 
   addPlayer = player => {
@@ -20,4 +21,13 @@ class Game {
   updateMode = mode => {
     this.mode = mode
   }
+
+  toJSON = () => ({
+    status: this.status,
+    mode: this.mode,
+    hashName: this.hashName,
+    players: this.players
+  })
 }
+
+export default Game

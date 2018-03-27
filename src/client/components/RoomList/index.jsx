@@ -4,22 +4,22 @@ import "./style.scss"
 
 let roomName
 
-const RoomList = ({ rooms, username, joinRoom, deleteGame }) => {
-	return (
-		<ul className="roomlist">
-			{Object.keys(rooms).map(key => {
-				let room = rooms[key]
-				return (
-					<RoomItem
-						key={key}
-						{...room}
-						joinRoom={joinRoom}
-						username={username}
-					/>
-				)
-			})}
-		</ul>
-	)
+const RoomList = ({ rooms, username, joinGame }) => {
+  return (
+    <ul className="roomlist">
+      {Object.keys(rooms).map(key => {
+        let room = rooms[key]
+        return (
+          <RoomItem
+            key={key}
+            {...room}
+            joinGame={joinGame}
+            username={username}
+          />
+        )
+      })}
+    </ul>
+  )
 }
 
 export default RoomList

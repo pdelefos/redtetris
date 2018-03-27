@@ -10,11 +10,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  GameActions.updateGame(dispatch)
-  delete GameActions.updateGame
-  return {
-    methods: GameActions
-  }
+  return {}
 }
 
 const FinalBoard = connect(mapStateToProps, mapDispatchToProps)(Board)

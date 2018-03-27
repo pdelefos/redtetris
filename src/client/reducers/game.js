@@ -6,16 +6,10 @@ let initialState = {
 }
 
 const game = (state = initialState, action) => {
-  console.log(action)
+  console.log(state, action)
   switch (action.type) {
-    case "PLAYER_JOIN_ROOM":
-      return { ...state, hashName: action.hashName }
-    case "PLAYER_LEAVE_ROOM":
-      return { ...state, hashName: null }
-    case "GAME_STATUS_UPDATE":
-      return { ...state, status: action.status }
-    case "GAME_TEST":
-      return { ...state }
+    case "UPDATE_GAME":
+      return { ...state, ...action.game }
     default:
       return state
   }

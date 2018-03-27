@@ -1,13 +1,13 @@
 import { socket } from "../socket"
 
-const room = newRoom => ({
+const addedRoom = room => ({
   type: "ADD_ROOM",
-  newRoom
+  room
 })
 
 const updatedRoom = room => ({
   type: "UPDATE_ROOM",
-  newRoom
+  room
 })
 
 const deletedRoom = hashName => ({
@@ -17,14 +17,14 @@ const deletedRoom = hashName => ({
 
 export const addRoom = dispatch => {
   socket.on("addRoom", newRoom => {
-    dispatch(room(newRoom))
+    dispatch(addedRoom(newRoom))
   })
 }
 
 export const createRoomList = dispatch => {
   socket.on("updateRoomList", rooms => {
     rooms.map(newRoom => {
-      dispatch(room(newRoom))
+      dispatch(addedRoom(newRoom))
     })
   })
 }
