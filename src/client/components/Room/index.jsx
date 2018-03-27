@@ -8,7 +8,7 @@ const Button = ({ playerId, id, player, playerStatus }) => {
         {player.ready ? "Ready" : "Not ready"}
       </button>
     )
-  return <div>{player.ready ? "Rready" : "Not ready"}</div>
+  return <div>{player.ready ? "Ready" : "Not ready"}</div>
 }
 
 const Room = ({ game, id, playerStatus }) => {
