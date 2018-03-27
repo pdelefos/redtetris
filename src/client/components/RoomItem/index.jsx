@@ -14,9 +14,7 @@ let RoomItem = ({
   return (
     <div className="room-item">
       <span className="room-item__game-name">{roomName}</span>
-      <span className="room-item__game-status">
-        {status === 0 ? "About to start" : "In Game"}
-      </span>
+      <span className="room-item__game-status">{status}</span>
       <span className="room-item__player-count">{players} / 4</span>
       <span className="room-item__action">
         <Link

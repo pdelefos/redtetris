@@ -25,7 +25,7 @@ class Manager {
       this.leaveRoom(socket)
       this.fetchRooms(socket)
 
-      this.playerReady(socket)
+      this.playerStatus(socket)
     })
   }
 
@@ -33,6 +33,7 @@ class Manager {
     socket.on("updateUser", username => {
       let oldUsername = this.players[socket.id].username
       this.players[socket.id].updateUsername(username)
+      socket.emit("updateId", socket.id)
       if (!oldUsername)
         this.notification.userNotification("User succesfully created")
       else this.notification.userNotification("User succesfully renamed")
@@ -67,7 +68,6 @@ class Manager {
 
       this.rooms[newRoom.hashName] = newRoom
       this.io.sockets.emit("addRoom", newRoom)
-      console.log("HIHIHI", newRoom.game)
       this.io.to(newRoom.hashName).emit("updateGame", newRoom.game)
     })
   }
@@ -104,6 +104,7 @@ class Manager {
       if (room.playerCount() > 0) {
         currentPlayer.updateCurrentRoom(null)
         this.updateRoom(hashName)
+        this.io.to(room.hashName).emit("updateGame", room.game)
       } else {
         delete this.rooms[hashName]
         this.io.sockets.emit("deleteRoom", hashName)
@@ -121,12 +122,14 @@ class Manager {
     this.io.sockets.emit("updateRoom", this.rooms[hashName])
   }
 
-  playerReady = socket => {
-    socket.on("playerReady", hashName => {
+  playerStatus = socket => {
+    socket.on("playerStatus", () => {
       let player = this.players[socket.id]
-      if (hashName in this.rooms) {
-        player.ready()
+      let hashName = player.currentRoom
+      if (hashName && hashName in this.rooms) {
+        player.updateStatus()
         this.updateRoom(hashName)
+        this.io.to(hashName).emit("updateGame", this.rooms[hashName].game)
       }
     })
   }

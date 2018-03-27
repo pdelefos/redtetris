@@ -1,21 +1,25 @@
 class Game {
   constructor(hashName) {
     this.players = {}
-    this.status = 0
-    this.mode = 0
+    this.status = "About to start"
+    this.mode = "Normal"
     this.hashName = hashName
   }
 
   addPlayer = player => {
     this.players[player.id] = player
+    this.updateStatus()
   }
 
   removePlayer = id => {
     delete this.players[id]
+    this.updateStatus()
   }
 
-  updateStatus = status => {
-    this.status = status
+  updateStatus = () => {
+    let playerCount = Object.keys(this.players).length
+    if (playerCount === 4) this.status = "Full"
+    else this.status = "About to start"
   }
 
   updateMode = mode => {

@@ -6,7 +6,6 @@ let initialState = {
 }
 
 const game = (state = initialState, action) => {
-  console.log(state, action)
   switch (action.type) {
     case "UPDATE_GAME":
       return { ...state, ...action.game }

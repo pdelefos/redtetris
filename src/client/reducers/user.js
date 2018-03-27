@@ -1,5 +1,6 @@
 let initialState = {
-  username: null
+  username: null,
+  id: null
 }
 
 const user = (state = initialState, action) => {
@@ -7,7 +8,8 @@ const user = (state = initialState, action) => {
     case "UPDATE_USER":
       return {
         ...state,
-        username: action.username
+        username: action.username,
+        id: action.id
       }
     default:
       return state

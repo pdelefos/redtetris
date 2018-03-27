@@ -1,7 +1,17 @@
 import React from "react"
 import "./style.scss"
 
-const Room = ({ game }) => {
+const Button = ({ playerId, id, player, playerStatus }) => {
+  if (playerId == id)
+    return (
+      <button className="button" onClick={() => playerStatus()}>
+        {!player.ready ? "Not ready" : "Ready"}
+      </button>
+    )
+  return <div>{player.ready ? "Not ready" : "Ready"}</div>
+}
+
+const Room = ({ game, id, playerStatus }) => {
   return (
     <div>
       <ul>
@@ -9,11 +19,18 @@ const Room = ({ game }) => {
           let player = game.players[key]
           return (
             <li key={key}>
-              {player.username}: status: {player.status} score:{" "}
-              {player.score}
-              <button className="button" onClick={() => ready()}>
-                {player.status == 0 ? "ready" : "unready"}
-              </button>
+              {player.username}
+              <Button
+                playerId={key}
+                id={id}
+                player={player}
+                playerStatus={playerStatus}
+              />
+              <br />
+              score: {player.score}
+              <br />
+              <br />
+              <br />
             </li>
           )
         })}

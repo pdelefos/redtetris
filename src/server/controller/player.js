@@ -5,15 +5,15 @@ class Player {
     this.currentRoom = null
     this.board = null
     this.score = 0
-    this.status = 0
+    this.ready = true
   }
 
   updateUsername = username => {
     this.username = username
   }
 
-  updateStatus = status => {
-    this.status = status
+  updateStatus = () => {
+    this.ready = !this.ready
   }
 
   startGame = () => {
@@ -22,7 +22,7 @@ class Player {
 
   joinGame = () => {
     this.score = 0
-    this.status = 0
+    this.ready = false
     this.board = null
   }
 
@@ -32,7 +32,7 @@ class Player {
 
   toJSON = () => ({
     username: this.username,
-    status: this.status,
+    ready: this.ready,
     score: this.score
   })
 }

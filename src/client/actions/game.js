@@ -18,3 +18,7 @@ export const joinGame = hashName => {
 export const startGame = () => {
   socket.emit("startGame")
 }
+
+export const playerStatus = () => {
+  socket.emit("playerStatus")
+}

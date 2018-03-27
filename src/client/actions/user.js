@@ -1,11 +1,12 @@
 import { socket } from "../socket"
 
-const user = username => ({
+const updatedUser = (username, id) => ({
   type: "UPDATE_USER",
-  username
+  username,
+  id
 })
 
 export const updateUser = username => {
   socket.emit("updateUser", username)
-  return user(username)
+  return updatedUser(username, socket.id)
 }
