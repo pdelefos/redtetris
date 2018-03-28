@@ -8,7 +8,7 @@ $cell-size: 30px;
 .grid {
   display: flex;
   flex-direction: column;
-  background-color: #aaa;
+  background-color: #333;
 }
 
 .grid__line {
@@ -19,8 +19,17 @@ $cell-size: 30px;
 .grid__cell {
   width: $cell-size;
   height: $cell-size;
-  border-radius: 2px;
-  margin: 1px;
+  // border-radius: 2px;
+  // margin: 1px;
+}
+
+@mixin set-border($color) {
+  $border-size: 2px;
+  $border-style: solid;
+  border-top: $border-size $border-style lighten($color, 10%);
+  border-left: $border-size $border-style lighten($color, 10%);
+  border-right: $border-size $border-style darken($color, 10%);
+  border-bottom: $border-size $border-style darken($color, 10%);
 }
 
 .piece {
@@ -28,29 +37,43 @@ $cell-size: 30px;
 }
 
 .piece--stick {
-  background-color: lightblue;
+  $color: #3498db;
+  background-color: $color;
+  @include set-border($color);
 }
 
 .piece--square {
-  background-color: lightyellow;
+  $color: #f1c40f;
+  background-color: $color;
+  @include set-border($color);
 }
 
 .piece--pyramid {
-  background-color: mediumpurple;
+  $color: #9b59b6;
+  background-color: $color;
+  @include set-border($color);
 }
 
 .piece--right-snake {
-  background-color: lightgreen;
+  $color: #2ecc71;
+  background-color: $color;
+  @include set-border($color);
 }
 
 .piece--left-snake {
-  background-color: mediumvioletred;
+  $color: #8e44ad;
+  background-color: $color;
+  @include set-border($color);
 }
 
 .piece--gamma {
-  background-color: mediumblue;
+  $color: #2980b9;
+  background-color: $color;
+  @include set-border($color);
 }
 
 .piece--alpha {
-  background-color: lightsalmon;
+  $color: #e74c3c;
+  background-color: $color;
+  @include set-border($color);
 }

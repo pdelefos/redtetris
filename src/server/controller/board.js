@@ -1,10 +1,13 @@
 import { constants } from "./const"
+import Piece from "./piece"
 
 class Board {
   constructor() {
     this.grid = this._iniGrid(constants.BOARD_ROWS, constants.BOARD_COLS)
+    this.canMoveLeft = true
+    this.canMoveRight = true
     this.pos = { x: 0, y: 0 }
-    this.piece = [[0, 0, 0], [0, 1, 0], [1, 1, 1]]
+    this.piece = new Piece()
   }
 
   _iniGrid = (nbLine, nbColumn) => {
@@ -14,28 +17,39 @@ class Board {
   }
 
   moveLeft = (count = 1) => {
-    this.pos.x -= count
+    if (this.canMoveLeft) this.pos.x -= count
+    this._outOfBoard()
+    this._collideWithPiece()
   }
 
   moveRight = (count = 1) => {
-    this.pos.x += count
+    if (this.canMoveRight) this.pos.x += count
+    this._outOfBoard()
+    this._collideWithPiece()
   }
 
   moveDown = (count = 1) => {
     this.pos.y += count
-    // if (this._collide()) {
-    //   this._merge()
-    //   this.pos.y = 0
-    // }
+    if (this._outOfBoard()) {
+      this.pos.y--
+      this.grid = this.drawPiece()
+      this.piece = new Piece()
+      this.pos = { x: 0, y: 0 }
+    }
+    if (this._collideWithPiece()) {
+      this.grid = this.drawPiece()
+      this.piece = new Piece()
+      this.pos = { x: 0, y: 0 }
+    }
   }
 
   moveUp = () => {
-    this.piece = this._rotateMatrix(this.piece)
+    this.piece.rotate()
   }
 
   drawPiece = () => {
     let actualGrid = JSON.parse(JSON.stringify(this.grid))
-    this.piece.forEach((line, y) => {
+    this.piece.getArray().forEach((line, y) => {
       line.forEach((cell, x) => {
         if (cell !== 0) {
           actualGrid[y + this.pos.y][x + this.pos.x] = cell
@@ -46,26 +60,43 @@ class Board {
   }
 
   _outOfBoard = () => {
-    this.piece.forEach((line, y) => {
-      line.forEach((cell, x) => {
+    for (let y = 0; y < this.piece.getArray().length; y++) {
+      for (let x = 0; x < this.piece.getArray()[y].length; x++) {
+        let cell = this.piece.getArray()[y][x]
         if (cell !== 0) {
-          this.grid[y + this.pos.y]
+          let outOfBoardLeft = x + this.pos.x < 0
+          let outOfBoardRight = x + this.pos.x >= constants.BOARD_COLS
+          let outOfRows = y + this.pos.y >= constants.BOARD_ROWS
+          if (outOfBoardLeft) this.pos.x++
+          if (outOfBoardRight) this.pos.x--
+          if (outOfRows) return true
         }
-      })
-    })
+      }
+    }
+    return false
   }
 
-  // _collide = () => {
-  //   this.piece.forEach((line, y) => {
-  //     line.forEach((cell, x) => {
-  //       let outOfBoard =
-  //         y + this.pos.y >= this.BOARD_ROWS || x + this.pos.x >= this.BOARD_COLS
-  //       if (outOfBoard || this.grid[y + this.pos.y][x + this.pos.x] !== 0)
-  //         return true
-  //     })
-  //   })
-  //   return false
-  // }
+  _collideWithPiece = () => {
+    for (let y = 0; y < this.piece.getArray().length; y++) {
+      for (let x = 0; x < this.piece.getArray()[y].length; x++) {
+        let cell = this.piece.getArray()[y][x]
+        if (cell !== 0) {
+          let coord = { x: x + this.pos.x, y: y + this.pos.y }
+          let touchPieceLeft = this.grid[coord.y][coord.x - 1] != 0
+          let touchPieceRight = this.grid[coord.y][coord.x + 1] != 0
+          let touchPieceBottom =
+            coord.y + 1 < constants.BOARD_ROWS &&
+            this.grid[coord.y + 1][coord.x] != 0
+          if (touchPieceLeft) this.canMoveLeft = false
+          else this.canMoveLeft = true
+          if (touchPieceRight) this.canMoveRight = false
+          else this.canMoveRight = true
+          if (touchPieceBottom) return true
+        }
+      }
+    }
+    return false
+  }
 }
 
 export default Board
