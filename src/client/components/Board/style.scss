@@ -1,4 +1,5 @@
-$cell-size: 30px;
+@import "../App/colors";
+$cell-size: 35px;
 
 .board {
   display: flex;
@@ -19,8 +20,6 @@ $cell-size: 30px;
 .grid__cell {
   width: $cell-size;
   height: $cell-size;
-  // border-radius: 2px;
-  // margin: 1px;
 }
 
 @mixin set-border($color) {
@@ -37,43 +36,43 @@ $cell-size: 30px;
 }
 
 .piece--stick {
-  $color: #3498db;
+  $color: $blue-light;
   background-color: $color;
   @include set-border($color);
 }
 
 .piece--square {
-  $color: #f1c40f;
+  $color: $yellow;
   background-color: $color;
   @include set-border($color);
 }
 
 .piece--pyramid {
-  $color: #9b59b6;
+  $color: $magenta;
   background-color: $color;
   @include set-border($color);
 }
 
 .piece--right-snake {
-  $color: #2ecc71;
+  $color: $green;
   background-color: $color;
   @include set-border($color);
 }
 
 .piece--left-snake {
-  $color: #8e44ad;
+  $color: $red;
   background-color: $color;
   @include set-border($color);
 }
 
 .piece--gamma {
-  $color: #2980b9;
+  $color: $blue;
   background-color: $color;
   @include set-border($color);
 }
 
 .piece--alpha {
-  $color: #e74c3c;
+  $color: $orange;
   background-color: $color;
   @include set-border($color);
 }
