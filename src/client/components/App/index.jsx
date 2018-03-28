@@ -5,7 +5,6 @@ import { Switch, Route } from "react-router-dom"
 //components
 import ConnectionView from "../../views/Connection"
 import LobbyView from "../../views/Lobby"
-import BoardView from "../../views/Board"
 
 import FinalRoomView from "../../containers/RoomWrapper"
 import FinalNotificationList from "../../containers/NotificationList"
