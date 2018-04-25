@@ -1,23 +1,17 @@
 import { constants } from "./const"
 
 class Piece {
-  constructor() {
-    this.pieces = [
-      constants.STICK,
-      constants.SQUARE,
-      constants.PYRAMID,
-      constants.RIGHT_SNAKE,
-      constants.LEFT_SNAKE,
-      constants.GAMMA,
-      constants.ALPHA
-    ]
-    this.currentPiece = this.pieces[
-      this._getRandomArbitrary(0, this.pieces.length)
-    ]
+  constructor(shape) {
+    this.currentPiece = shape
+    this.pos = { x: 0, y: 0 }
   }
 
   getArray() {
     return this.currentPiece
+  }
+
+  resetPos() {
+    this.pos = { x: 0, y: 0 }
   }
 
   rotate() {
@@ -27,10 +21,6 @@ class Piece {
       result.push(row)
     }
     this.currentPiece = result
-  }
-
-  _getRandomArbitrary(min, max) {
-    return Math.floor(Math.random() * (max - min) + min)
   }
 }
 
