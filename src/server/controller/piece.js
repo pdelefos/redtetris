@@ -1,36 +1,33 @@
 import { constants } from "./const"
 
 class Piece {
-  constructor() {
-    this.pieces = [
-      constants.STICK,
-      constants.SQUARE,
-      constants.PYRAMID,
-      constants.RIGHT_SNAKE,
-      constants.LEFT_SNAKE,
-      constants.GAMMA,
-      constants.ALPHA
-    ]
-    this.currentPiece = this.pieces[
-      this._getRandomArbitrary(0, this.pieces.length)
-    ]
+  constructor(pieceName) {
+    this.piece = constants[pieceName]
   }
 
-  getArray() {
-    return this.currentPiece
+  getArray = () => {
+    return this.piece
   }
 
-  rotate() {
+  rotate = piecePosition => {
     let result = []
-    for (let i = 0; i < this.currentPiece[0].length; i++) {
-      let row = this.currentPiece.map(e => e[i]).reverse()
+    for (let i = 0; i < this.piece[0].length; i++) {
+      let row = this.piece.map(e => e[i]).reverse()
       result.push(row)
     }
-    this.currentPiece = result
+    if (this._pieceOutOfBoard(piecePosition)) return false
+    this.piece = result
   }
 
-  _getRandomArbitrary(min, max) {
-    return Math.floor(Math.random() * (max - min) + min)
+  _pieceOutOfBoard = piecePosition => {
+    for (let y = 0; y < this.piece.length; y++) {
+      for (let x = 0; x < this.piece[y].length; x++) {
+        let outOfBoardRight = x + piecePosition.x >= constants.BOARD_COLS
+        let outOfBoardLeft = x + piecePosition.x < 0
+        if (outOfBoardLeft || outOfBoardRight) return true
+      }
+    }
+    return false
   }
 }
 

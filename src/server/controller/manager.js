@@ -41,15 +41,9 @@ class Manager {
       this.players[socket.id].updateUsername(username)
       socket.emit("updateId", socket.id)
       if (!oldUsername)
-        this.notification.userNotification(
-          socket,
-          "User succesfully created"
-        )
+        this.notification.userNotification(socket, "User succesfully created")
       else
-        this.notification.userNotification(
-          socket,
-          "User succesfully renamed"
-        )
+        this.notification.userNotification(socket, "User succesfully renamed")
     })
   }
 
@@ -193,10 +187,7 @@ class Manager {
 
   fetchRooms = socket => {
     socket.on("fetchRoomList", () => {
-      socket.emit(
-        "updateRoomList",
-        Object.values(this.rooms).map(game => game)
-      )
+      socket.emit("updateRoomList", Object.values(this.rooms).map(game => game))
     })
   }
 
@@ -221,7 +212,7 @@ class Manager {
   moveDown = socket => {
     socket.on("moveDown", () => {
       let currentPlayer = this.players[socket.id]
-      currentPlayer.board.moveDown()
+      currentPlayer.board.drop()
       socket.emit("updateBoard", currentPlayer.board.drawPiece())
     })
   }
@@ -237,7 +228,7 @@ class Manager {
   startGame = socket => {
     let currentPlayer = this.players[socket.id]
     setInterval(() => {
-      if (currentPlayer.board) currentPlayer.board.moveDown()
+      if (currentPlayer.board) currentPlayer.board.drop()
       socket.emit("updateBoard", currentPlayer.board.drawPiece())
     }, constants.STEP_INTERVAL)
   }
