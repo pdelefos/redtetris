@@ -182,7 +182,7 @@ class Board {
   }
 
   moveUp = () => {
-    this.currentPiece.rotate(this.pos)
+    this.currentPiece.rotate(this.pos, this.grid)
   }
 
   drawPiece = () => {
