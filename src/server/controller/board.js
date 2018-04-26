@@ -9,6 +9,7 @@ class Board {
     this.canMoveLeft = true
     this.canMoveRight = true
     this.pos = { x: 0, y: 0 }
+    this.block = false
     this.pieces = []
     this.currentPiece = null
     this.nextPiece = null
@@ -80,12 +81,12 @@ class Board {
   }
 
   pushDown = () => {
-    while (
-      this._handleCollisions() &&
-      this._handlePieceMovement() &&
-      this._handleLineCompletion()
-    )
+    this.block = true
+    while (this._handleCollisions() && this._handleLineCompletion()) {
       this.pos.y += 1
+      this.drawPiece()
+    }
+    this.block = false
   }
 
   _dropAndDrawPiece = () => {
@@ -153,6 +154,7 @@ class Board {
         this.lineCount++
       }
     })
+    return true
   }
 
   _eraseLine = lineIndex => {
@@ -185,10 +187,12 @@ class Board {
   }
 
   drop = (count = 1) => {
-    this.pos.y += count
-    this._handleCollisions()
-    this._handlePieceMovement()
-    this._handleLineCompletion()
+    if (this.block == false) {
+      this.pos.y += count
+      this._handleCollisions()
+      this._handlePieceMovement()
+      this._handleLineCompletion()
+    }
   }
 
   moveUp = () => {
@@ -208,8 +212,6 @@ class Board {
         }
       })
     })
-    console.log(actualGrid)
-    console.log()
     return actualGrid
   }
 }
