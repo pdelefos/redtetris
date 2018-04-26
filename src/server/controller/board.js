@@ -5,6 +5,7 @@ class Board {
   constructor() {
     this.grid = this._iniGrid(constants.BOARD_ROWS, constants.BOARD_COLS)
     this.lineCount = 0
+    this.lineCompletedInARow = 0
     this.endOfGame = false
     this.canMoveLeft = true
     this.canMoveRight = true
@@ -13,6 +14,7 @@ class Board {
     this.pieces = []
     this.currentPiece = null
     this.nextPiece = null
+
     this._getNextPiece()
     this._setDefaultPosition()
   }
@@ -73,15 +75,6 @@ class Board {
       }
     }
     return true
-  }
-
-  pushDown = () => {
-    this.block = true
-    while (this._handleCollisions() && this._handleLineCompletion()) {
-      this.pos.y += 1
-      this.drawPiece()
-    }
-    this.block = false
   }
 
   _dropAndDrawPiece = () => {
@@ -147,9 +140,9 @@ class Board {
       if (this._lineIsFull(line)) {
         this._eraseLine(index)
         this.lineCount++
+        this.lineCompletedInARow++
       }
     })
-    return true
   }
 
   _eraseLine = lineIndex => {
@@ -187,11 +180,33 @@ class Board {
       this._handleCollisions()
       this._handlePieceMovement()
       this._handleLineCompletion()
+      return {
+        nbLineCompleted: this.lineCompletedInARow,
+        handleReturn: false
+      }
     }
   }
 
   moveUp = () => {
     this.currentPiece.rotate(this.pos, this.grid)
+  }
+
+  pushDown = () => {
+    this.block = true
+    while (this._handleCollisions() && this._handleLineCompletion()) {
+      this.pos.y += 1
+      this.drawPiece()
+    }
+    this.block = false
+  }
+
+  insertIndesctructibleLine = nbLines => {
+    for (let i = 0; i < nbLines; i++) {
+      this.grid.splice(0, 1)
+      this.grid.push(
+        Array(constants.BOARD_COLS).fill(constants.INDESTRUCTIBLE_LINE_VALUE)
+      )
+    }
   }
 
   drawPiece = () => {

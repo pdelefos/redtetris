@@ -237,7 +237,20 @@ class Manager {
   startGame = socket => {
     let currentPlayer = this.players[socket.id]
     setInterval(() => {
-      if (currentPlayer.board) currentPlayer.board.drop()
+      if (currentPlayer.board) {
+        currentPlayer.board.lineCompletedInARow = 0
+        let res = currentPlayer.board.drop()
+        console.log("nb line completed", res.nbLineCompleted)
+        if (res.nbLineCompleted > 1) {
+          let players = this.rooms[currentPlayer.currentRoom].game.players
+          delete players[socket.id]
+          for (let player in players) {
+            if (object.hasOwnProperty(player)) {
+              player.board.insertIndesctructibleLine(res.nbLineCompleted)
+            }
+          }
+        }
+      }
       socket.emit("updateBoard", currentPlayer.board.drawPiece())
     }, constants.STEP_INTERVAL)
   }

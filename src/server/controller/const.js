@@ -4,6 +4,7 @@ export const constants = {
   STEP_INTERVAL: 1000,
   COUNTDOWN_DELAY: 1000,
   COUNTDOWN_REPETITIONS: 5,
+  INDESTRUCTIBLE_LINE_VALUE: 8,
   STICK: [[0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0]],
   SQUARE: [[2, 2], [2, 2]],
   PYRAMID: [[0, 3, 0], [3, 3, 3], [0, 0, 0]],
