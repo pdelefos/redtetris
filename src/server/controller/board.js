@@ -61,21 +61,31 @@ class Board {
 
           let outOfBoardBottom = coord.y >= constants.BOARD_ROWS
           let touchPieceBottom =
-            coord.y + 1 < constants.BOARD_ROWS &&
-            this.grid[coord.y + 1][coord.x] != 0
+            coord.y < constants.BOARD_ROWS && this.grid[coord.y][coord.x] != 0
 
           if (touchPieceBottom) {
+            this.pos.y--
             this._dropAndDrawPiece()
-            return
+            return false
           }
           if (outOfBoardBottom) {
             this.pos.y--
             this._dropAndDrawPiece()
-            return
+            return false
           }
         }
       }
     }
+    return true
+  }
+
+  pushDown = () => {
+    while (
+      this._handleCollisions() &&
+      this._handlePieceMovement() &&
+      this._handleLineCompletion()
+    )
+      this.pos.y += 1
   }
 
   _dropAndDrawPiece = () => {
@@ -163,15 +173,15 @@ class Board {
   // public methods
 
   moveLeft = (count = 1) => {
-    if (this.canMoveLeft) this.pos.x -= count
     this._handleCollisions()
     this._handlePieceMovement()
+    if (this.canMoveLeft) this.pos.x -= count
   }
 
   moveRight = (count = 1) => {
-    if (this.canMoveRight) this.pos.x += count
     this._handleCollisions()
     this._handlePieceMovement()
+    if (this.canMoveRight) this.pos.x += count
   }
 
   drop = (count = 1) => {
@@ -189,11 +199,17 @@ class Board {
     let actualGrid = JSON.parse(JSON.stringify(this.grid))
     this.currentPiece.getArray().forEach((line, y) => {
       line.forEach((cell, x) => {
-        if (cell !== 0) {
+        if (
+          cell !== 0 &&
+          y + this.pos.y < constants.BOARD_ROWS &&
+          x + this.pos.x < constants.BOARD_COLS
+        ) {
           actualGrid[y + this.pos.y][x + this.pos.x] = cell
         }
       })
     })
+    console.log(actualGrid)
+    console.log()
     return actualGrid
   }
 }
