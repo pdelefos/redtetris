@@ -63,12 +63,7 @@ class Board {
           let touchPieceBottom =
             coord.y < constants.BOARD_ROWS && this.grid[coord.y][coord.x] != 0
 
-          if (touchPieceBottom) {
-            this.pos.y--
-            this._dropAndDrawPiece()
-            return false
-          }
-          if (outOfBoardBottom) {
+          if (outOfBoardBottom || touchPieceBottom) {
             this.pos.y--
             this._dropAndDrawPiece()
             return false
@@ -208,8 +203,6 @@ class Board {
         }
       })
     })
-    console.log(actualGrid)
-    console.log()
     return actualGrid
   }
 }
