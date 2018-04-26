@@ -29,7 +29,8 @@ class Piece {
       for (let x = 0; x < this._tmpPiece[y].length; x++) {
         let outOfBoardRight = x + piecePosition.x >= constants.BOARD_COLS
         let outOfBoardLeft = x + piecePosition.x < 0
-        if (outOfBoardLeft || outOfBoardRight) return true
+        let outOfBoardBottom = y + piecePosition.y > constants.BOARD_ROWS
+        if (outOfBoardLeft || outOfBoardRight || outOfBoardBottom) return true
       }
     }
     return false

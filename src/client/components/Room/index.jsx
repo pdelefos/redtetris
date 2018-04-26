@@ -5,7 +5,7 @@ const Button = ({ playerId, id, player, playerStatus }) => {
   if (playerId == id)
     return (
       <button className="button" onClick={() => playerStatus()}>
-        {player.ready ? "Ready" : "Not ready"}
+        {!player.ready ? "Ready" : "Not ready"}
       </button>
     )
   return <div>{player.ready ? "Ready" : "Not ready"}</div>

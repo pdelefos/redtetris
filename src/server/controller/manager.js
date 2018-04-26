@@ -32,6 +32,7 @@ class Manager {
       this.moveLeft(socket)
       this.moveRight(socket)
       this.moveUp(socket)
+      this.pushDown(socket)
     })
   }
 
@@ -221,6 +222,14 @@ class Manager {
     socket.on("moveUp", () => {
       let currentPlayer = this.players[socket.id]
       currentPlayer.board.moveUp()
+      socket.emit("updateBoard", currentPlayer.board.drawPiece())
+    })
+  }
+
+  pushDown = socket => {
+    socket.on("pushDown", () => {
+      let currentPlayer = this.players[socket.id]
+      currentPlayer.board.pushDown()
       socket.emit("updateBoard", currentPlayer.board.drawPiece())
     })
   }

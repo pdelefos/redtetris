@@ -19,8 +19,7 @@ const Board = ({ board, score, actions }) => {
 }
 
 const handleKeyDown = (actions, evt) => {
-  console.log("evt", evt.key)
-  console.log(actions)
+  console.log(actions, evt.key)
   switch (evt.key) {
     case "ArrowLeft":
       actions.moveLeft()
@@ -33,6 +32,9 @@ const handleKeyDown = (actions, evt) => {
       break
     case "ArrowUp":
       actions.moveUp()
+      break
+    case " ":
+      actions.pushDown()
       break
     default:
       break
