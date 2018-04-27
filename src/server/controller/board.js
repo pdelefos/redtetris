@@ -5,7 +5,6 @@ class Board {
   constructor() {
     this.grid = this._iniGrid(constants.BOARD_ROWS, constants.BOARD_COLS)
     this.lineCount = 0
-    this.lineCompletedInARow = 0
     this.endOfGame = false
     this.canMoveLeft = true
     this.canMoveRight = true
@@ -136,13 +135,15 @@ class Board {
   _getValueBetween = (min, max) => Math.floor(Math.random() * (max - min) + min)
 
   _handleLineCompletion = () => {
+    let lineCompletedInARow = 0
     this.grid.forEach((line, index) => {
       if (this._lineIsFull(line)) {
         this._eraseLine(index)
         this.lineCount++
-        this.lineCompletedInARow++
+        lineCompletedInARow++
       }
     })
+    return lineCompletedInARow
   }
 
   _eraseLine = lineIndex => {
@@ -151,7 +152,8 @@ class Board {
   }
 
   _lineIsFull = line => {
-    for (let i = 0; i < line.length; i++) if (line[i] == 0) return false
+    for (let i = 0; i < line.length; i++)
+      if (line[i] == 0 || line[i] == 8) return false
     return true
   }
 
@@ -179,9 +181,8 @@ class Board {
       this.pos.y += count
       this._handleCollisions()
       this._handlePieceMovement()
-      this._handleLineCompletion()
       return {
-        nbLineCompleted: this.lineCompletedInARow,
+        nbLineCompleted: this._handleLineCompletion(),
         handleReturn: false
       }
     }
@@ -207,6 +208,7 @@ class Board {
         Array(constants.BOARD_COLS).fill(constants.INDESTRUCTIBLE_LINE_VALUE)
       )
     }
+    this.drawPiece()
   }
 
   drawPiece = () => {

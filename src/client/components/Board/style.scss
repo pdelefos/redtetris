@@ -77,3 +77,9 @@ $cell-size: 30px;
   background-color: $color;
   @include set-border($color);
 }
+
+.piece--indestructible {
+  $color: #424242;
+  background-color: $color;
+  @include set-border($color);
+}

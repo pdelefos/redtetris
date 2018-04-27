@@ -75,7 +75,8 @@ const _cellClassColor = cellValue => {
     "piece--right-snake",
     "piece--left-snake",
     "piece--gamma",
-    "piece--alpha"
+    "piece--alpha",
+    "piece--indestructible"
   ]
   return "grid__cell " + pieceClasses[cellValue]
 }

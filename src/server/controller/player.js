@@ -9,6 +9,7 @@ class Player {
     this.board = null
     this.score = 0
     this.ready = false
+    this.completeLineStreak = 0
   }
 
   updateUsername = username => {
