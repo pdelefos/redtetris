@@ -80,8 +80,10 @@ class Board {
     this.grid = this.drawPiece()
     this._getNextPiece()
     this._setDefaultPosition()
-    if (this._collide())
+    if (this._collide()) {
       this.grid = this._iniGrid(constants.BOARD_ROWS, constants.BOARD_COLS)
+      exit()
+    }
   }
 
   _collide = () => {
@@ -153,7 +155,8 @@ class Board {
 
   _lineIsFull = line => {
     for (let i = 0; i < line.length; i++)
-      if (line[i] == 0 || line[i] == 8) return false
+      if (line[i] == 0 || line[i] == constants.INDESTRUCTIBLE_LINE_VALUE)
+        return false
     return true
   }
 
@@ -194,10 +197,12 @@ class Board {
 
   pushDown = () => {
     this.block = true
-    while (this._handleCollisions() && this._handleLineCompletion()) {
+    while (this._handleCollisions()) {
       this.pos.y += 1
       this.drawPiece()
     }
+    this._handleLineCompletion()
+    this.drawPiece()
     this.block = false
   }
 
@@ -218,7 +223,9 @@ class Board {
         if (
           cell !== 0 &&
           y + this.pos.y < constants.BOARD_ROWS &&
-          x + this.pos.x < constants.BOARD_COLS
+          x + this.pos.x < constants.BOARD_COLS &&
+          y + this.pos.y >= 0 &&
+          x + this.pos.x >= 0
         ) {
           actualGrid[y + this.pos.y][x + this.pos.x] = cell
         }

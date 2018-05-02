@@ -2,6 +2,8 @@ import Player from "./player"
 import Room from "./room"
 import Notification from "./notification"
 import { constants } from "./const"
+import omit from "lodash/omit"
+import cloneDeep from "lodash/cloneDeep"
 
 class Manager {
   constructor(io) {
@@ -213,7 +215,10 @@ class Manager {
   moveDown = socket => {
     socket.on("moveDown", () => {
       let currentPlayer = this.players[socket.id]
-      currentPlayer.board.drop()
+      if (currentPlayer.board) {
+        let res = currentPlayer.board.drop()
+        this._triggerMalus(socket.id, res.nbLineCompleted)
+      }
       socket.emit("updateBoard", currentPlayer.board.drawPiece())
     })
   }
@@ -230,6 +235,9 @@ class Manager {
     socket.on("pushDown", () => {
       let currentPlayer = this.players[socket.id]
       currentPlayer.board.pushDown()
+      // if (currentPlayer.board) {
+      //   this._triggerMalus(socket.id, res.nbLineCompleted)
+      // }
       socket.emit("updateBoard", currentPlayer.board.drawPiece())
     })
   }
@@ -239,22 +247,24 @@ class Manager {
     setInterval(() => {
       if (currentPlayer.board) {
         let res = currentPlayer.board.drop()
-        console.log(res.nbLineCompleted)
-        if (res.nbLineCompleted > 1) {
-          let players = this.rooms[currentPlayer.currentRoom].game.players
-          delete players[socket.id]
-          for (let player in players) {
-            if (players.hasOwnProperty(player)) {
-              console.log("dfsdfs", players[player])
-              players[player].board.insertIndesctructibleLine(
-                res.nbLineCompleted - 1
-              )
-            }
-          }
-        }
+        this._triggerMalus(socket.id, res.nbLineCompleted)
       }
       socket.emit("updateBoard", currentPlayer.board.drawPiece())
     }, constants.STEP_INTERVAL)
+  }
+
+  _triggerMalus = (id, nbLineCompleted) => {
+    let currentPlayer = this.players[id]
+    if (nbLineCompleted > 1) {
+      let players = cloneDeep(
+        omit(this.rooms[currentPlayer.currentRoom].game.players, id)
+      )
+      for (let player in players) {
+        if (players.hasOwnProperty(player)) {
+          players[player].board.insertIndesctructibleLine(nbLineCompleted - 1)
+        }
+      }
+    }
   }
 }
 
