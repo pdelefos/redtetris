@@ -232,9 +232,6 @@ class Manager {
     socket.on("pushDown", () => {
       let currentPlayer = this.players[socket.id]
       this.handleActions(socket.id, currentPlayer.board.pushDown)
-      // if (currentPlayer.board) {
-      //   this._triggerMalus(socket.id, res.nbLineCompleted)
-      // }
       socket.emit("updateBoard", currentPlayer.board.drawPiece())
     })
   }

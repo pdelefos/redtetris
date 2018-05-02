@@ -173,10 +173,10 @@ class Board {
       this.pos.y += 1
       this.drawPiece()
     }
-    this._handleLineCompletion()
     this.drawPiece()
     this.block = false
     return {
+      nbLineCompleted: this._handleLineCompletion(),
       handleReturn: true
     }
   }
