@@ -4,6 +4,7 @@ class Piece {
   constructor(pieceName) {
     this.piece = constants[pieceName]
     this._tmpPiece = []
+    this.used = 0
   }
 
   getArray = () => {

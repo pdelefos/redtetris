@@ -199,7 +199,7 @@ class Manager {
   moveLeft = socket => {
     socket.on("moveLeft", () => {
       let currentPlayer = this.players[socket.id]
-      currentPlayer.board.moveLeft()
+      this.handleActions(socket.id, currentPlayer.board.moveLeft)
       socket.emit("updateBoard", currentPlayer.board.drawPiece())
     })
   }
@@ -207,7 +207,7 @@ class Manager {
   moveRight = socket => {
     socket.on("moveRight", () => {
       let currentPlayer = this.players[socket.id]
-      currentPlayer.board.moveRight()
+      this.handleActions(socket.id, currentPlayer.board.moveRight)
       socket.emit("updateBoard", currentPlayer.board.drawPiece())
     })
   }
@@ -215,10 +215,7 @@ class Manager {
   moveDown = socket => {
     socket.on("moveDown", () => {
       let currentPlayer = this.players[socket.id]
-      if (currentPlayer.board) {
-        let res = currentPlayer.board.drop()
-        this._triggerMalus(socket.id, res.nbLineCompleted)
-      }
+      this.handleActions(socket.id, currentPlayer.board.drop)
       socket.emit("updateBoard", currentPlayer.board.drawPiece())
     })
   }
@@ -234,7 +231,7 @@ class Manager {
   pushDown = socket => {
     socket.on("pushDown", () => {
       let currentPlayer = this.players[socket.id]
-      currentPlayer.board.pushDown()
+      this.handleActions(socket.id, currentPlayer.board.pushDown)
       // if (currentPlayer.board) {
       //   this._triggerMalus(socket.id, res.nbLineCompleted)
       // }
@@ -242,13 +239,31 @@ class Manager {
     })
   }
 
+  handleActions = (id, action) => {
+    let currentPlayer = this.players[id]
+    let game = this.rooms[currentPlayer.currentRoom].game
+    if (currentPlayer.board) {
+      let res = action()
+      if (res.handleReturn) {
+        currentPlayer.board.currentPiece = currentPlayer.board.nextPiece
+        currentPlayer.board._setDefaultPosition()
+        if (currentPlayer.board._collide())
+          currentPlayer.board.grid = currentPlayer.board._iniGrid()
+        currentPlayer.board.nextPiece = game.getNextPiece(id)
+      }
+      this._triggerMalus(id, res.nbLineCompleted)
+    }
+  }
+
   startGame = socket => {
     let currentPlayer = this.players[socket.id]
+    let game = this.rooms[currentPlayer.currentRoom].game
+    game.generatePiecesArray()
+    currentPlayer.board.currentPiece = game.getNextPiece(socket.id)
+    currentPlayer.board._setDefaultPosition()
+    currentPlayer.board.nextPiece = game.getNextPiece(socket.id)
     setInterval(() => {
-      if (currentPlayer.board) {
-        let res = currentPlayer.board.drop()
-        this._triggerMalus(socket.id, res.nbLineCompleted)
-      }
+      this.handleActions(socket.id, currentPlayer.board.drop)
       socket.emit("updateBoard", currentPlayer.board.drawPiece())
     }, constants.STEP_INTERVAL)
   }

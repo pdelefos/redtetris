@@ -1,5 +1,4 @@
 import { constants } from "./const"
-import Piece from "./piece"
 
 class Board {
   constructor() {
@@ -10,48 +9,18 @@ class Board {
     this.canMoveRight = true
     this.pos = { x: 0, y: 0 }
     this.block = false
-    this.pieces = []
     this.currentPiece = null
     this.nextPiece = null
-
-    this._getNextPiece()
-    this._setDefaultPosition()
   }
 
   // private methods
-  _iniGrid = (nbLine, nbColumn) => {
+  _iniGrid = (
+    nbLine = constants.BOARD_ROWS,
+    nbColumn = constants.BOARD_COLS
+  ) => {
     return Array(nbLine)
       .fill(0)
       .map(x => Array(nbColumn).fill(0))
-  }
-
-  _getNextPiece = () => {
-    if (this.pieces.length == 0) this._generatePiecesArray()
-    if (!this.nextPiece) this.nextPiece = this._getRandomPiece()
-    this.currentPiece = this.nextPiece
-    this.nextPiece = this._getRandomPiece()
-  }
-
-  _generatePiecesArray = () => {
-    let piecesName = [
-      "STICK",
-      "SQUARE",
-      "PYRAMID",
-      "RIGHT_SNAKE",
-      "LEFT_SNAKE",
-      "GAMMA",
-      "ALPHA"
-    ]
-    piecesName.map(pieceName => {
-      for (let i = 0; i < 4; i++) this.pieces.push(new Piece(pieceName))
-    })
-  }
-
-  _getRandomPiece = () => {
-    return this.pieces.splice(
-      this._getValueBetween(0, this.pieces.length),
-      1
-    )[0]
   }
 
   _handleCollisions = () => {
@@ -67,24 +36,23 @@ class Board {
 
           if (outOfBoardBottom || touchPieceBottom) {
             this.pos.y--
-            this._dropAndDrawPiece()
-            return false
+            this.grid = this.drawPiece()
+            return true
           }
         }
       }
     }
-    return true
+    return false
   }
 
-  _dropAndDrawPiece = () => {
-    this.grid = this.drawPiece()
-    this._getNextPiece()
-    this._setDefaultPosition()
-    if (this._collide()) {
-      this.grid = this._iniGrid(constants.BOARD_ROWS, constants.BOARD_COLS)
-      exit()
-    }
-  }
+  // _dropAndDrawPiece = () => {
+  //   this.grid = this.drawPiece()
+  //   ask new piece
+  //   this._setDefaultPosition()
+  //   if (this._collide()) {
+  //     this.grid = this._iniGrid(constants.BOARD_ROWS, constants.BOARD_COLS)
+  //   }
+  // }
 
   _collide = () => {
     for (let y = 0; y < this.currentPiece.getArray().length; y++) {
@@ -134,8 +102,6 @@ class Board {
     return true
   }
 
-  _getValueBetween = (min, max) => Math.floor(Math.random() * (max - min) + min)
-
   _handleLineCompletion = () => {
     let lineCompletedInARow = 0
     this.grid.forEach((line, index) => {
@@ -168,25 +134,31 @@ class Board {
   // public methods
 
   moveLeft = (count = 1) => {
-    this._handleCollisions()
+    let queryNewPiece = this._handleCollisions()
     this._handlePieceMovement()
     if (this.canMoveLeft) this.pos.x -= count
+    return {
+      handleReturn: queryNewPiece
+    }
   }
 
   moveRight = (count = 1) => {
-    this._handleCollisions()
+    let queryNewPiece = this._handleCollisions()
     this._handlePieceMovement()
     if (this.canMoveRight) this.pos.x += count
+    return {
+      handleReturn: queryNewPiece
+    }
   }
 
   drop = (count = 1) => {
     if (this.block == false) {
       this.pos.y += count
-      this._handleCollisions()
+      let queryNewPiece = this._handleCollisions()
       this._handlePieceMovement()
       return {
         nbLineCompleted: this._handleLineCompletion(),
-        handleReturn: false
+        handleReturn: queryNewPiece
       }
     }
   }
@@ -197,13 +169,16 @@ class Board {
 
   pushDown = () => {
     this.block = true
-    while (this._handleCollisions()) {
+    while (!this._handleCollisions()) {
       this.pos.y += 1
       this.drawPiece()
     }
     this._handleLineCompletion()
     this.drawPiece()
     this.block = false
+    return {
+      handleReturn: true
+    }
   }
 
   insertIndesctructibleLine = nbLines => {

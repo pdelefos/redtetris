@@ -10,6 +10,7 @@ class Player {
     this.score = 0
     this.ready = false
     this.completeLineStreak = 0
+    this.idx = 0
   }
 
   updateUsername = username => {
