@@ -1,0 +1,32 @@
+@import "../App/colors";
+
+.player-item {
+  padding: 10px 15px;
+  background-color: $grey;
+  color: white;
+  margin: 10px;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  border-radius: 4px;
+  font-weight: 100;
+  .room-item__game-name {
+    width: 50%;
+  }
+  .room-item__game-status {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+  }
+  .room-item__player-count {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+  }
+  .room-item__action {
+    width: 15%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}

@@ -1,39 +1,21 @@
 import React from "react"
 import "./style.scss"
 
-const Button = ({ playerId, id, player, playerStatus }) => {
-  if (playerId == id)
-    return (
-      <button className="button" onClick={() => playerStatus()}>
-        {!player.ready ? "Ready" : "Not ready"}
-      </button>
-    )
-  return <div>{player.ready ? "Ready" : "Not ready"}</div>
-}
+import PlayerList from "../PlayerList"
+import Panel from "../Panel"
 
-const Room = ({ game, id, playerStatus }) => {
+const Room = ({ game, id, playerStatus, rooms }) => {
   return (
-    <ul>
-      {Object.keys(game.players).map(key => {
-        let player = game.players[key]
-        return (
-          <li key={key}>
-            {player.username}
-            <Button
-              playerId={key}
-              id={id}
-              player={player}
-              playerStatus={playerStatus}
-            />
-            <br />
-            score: {player.score}
-            <br />
-            <br />
-            <br />
-          </li>
-        )
-      })}
-    </ul>
+    <div className="room-view">
+      <Panel title={rooms[game.hashName].roomName}>coucou</Panel>
+      <Panel title="Players">
+        <PlayerList
+          players={game.players}
+          id={id}
+          playerStatus={playerStatus}
+        />
+      </Panel>
+    </div>
   )
 }
 

@@ -6,6 +6,7 @@ import Room from "../components/Room"
 
 const mapStateToProps = state => {
   return {
+    rooms: state.rooms,
     game: state.game,
     id: state.user.id
   }
