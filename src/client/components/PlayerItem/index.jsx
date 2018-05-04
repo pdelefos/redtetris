@@ -1,8 +1,8 @@
 import React from "react"
 import "./style.scss"
 
-const Button = ({ playerId, id, player, playerStatus }) => {
-  if (playerId == id)
+const Button = ({ playerId, currentPlayerId, player, playerStatus }) => {
+  if (playerId == currentPlayerId)
     return (
       <button className="button" onClick={() => playerStatus()}>
         {!player.ready ? "Ready" : "Not ready"}
@@ -11,15 +11,15 @@ const Button = ({ playerId, id, player, playerStatus }) => {
   return <div>{player.ready ? "Ready" : "Not ready"}</div>
 }
 
-let PlayerItem = ({ player, id, playerStatus }) => {
+let PlayerItem = ({ player, currentPlayerId, playerStatus, playerId }) => {
   return (
     <div className="player-item">
       <span className="player-item__username">{player.username}</span>
       <span className="player-item__score">score: {player.score}</span>
       <span className="player-item__button">
         <Button
-          playerId={id}
-          id={id}
+          playerId={playerId}
+          currentPlayerId={currentPlayerId}
           player={player}
           playerStatus={playerStatus}
         />

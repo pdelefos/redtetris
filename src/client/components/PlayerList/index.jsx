@@ -3,16 +3,17 @@ import "./style.scss"
 
 import PlayerItem from "../PlayerItem"
 
-let PlayerList = ({ players, playerStatus, id }) => {
+let PlayerList = ({ players, playerStatus, currentPlayerId }) => {
   return (
     <ul className="player-list">
-      {Object.keys(players).map(key => {
-        let player = players[key]
+      {Object.keys(players).map(playerId => {
+        let player = players[playerId]
         return (
           <PlayerItem
-            key={key}
+            key={playerId}
+            playerId={playerId}
             player={player}
-            id={id}
+            currentPlayerId={currentPlayerId}
             playerStatus={playerStatus}
           />
         )

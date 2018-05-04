@@ -4,13 +4,13 @@ import "./style.scss"
 import PlayerList from "../PlayerList"
 import Panel from "../Panel"
 
-const Room = ({ game, id, playerStatus, rooms }) => {
+const Room = ({ game, currentPlayerId, playerStatus, rooms }) => {
   return (
     <div className="room-view font--normal">
       <Panel title={roomPlayersTitle(game.players)}>
         <PlayerList
           players={game.players}
-          id={id}
+          currentPlayerId={currentPlayerId}
           playerStatus={playerStatus}
         />
       </Panel>
