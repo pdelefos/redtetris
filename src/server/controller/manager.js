@@ -232,7 +232,7 @@ class Manager {
   moveUp = socket => {
     socket.on("moveUp", () => {
       let currentPlayer = this.players[socket.id]
-      currentPlayer.board.moveUp()
+      this.handleActions(socket, currentPlayer.board.moveUp)
       socket.emit("updateBoard", {
         board: currentPlayer.board.drawPiece(),
         id: socket.id
