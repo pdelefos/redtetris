@@ -1,3 +1,5 @@
+@import "../../Components/App/colors";
+
 .connection-view {
   display: flex;
 
@@ -13,12 +15,18 @@
   }
 }
 
+.logo--red {
+  color: $red;
+}
+
 .logo {
   font-size: 180px;
   font-weight: bold;
   font-style: italic;
-  background: url("../assets/images/marble-texture.jpg");
-  background-size: cover;
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
+  //   background: url("../assets/images/marble-texture.jpg");
+  //   background-color: lightseagreen;
+  //   background-size: cover;
+  //   -webkit-text-fill-color: transparent;
+  //   -webkit-background-clip: text;
+  color: white;
 }

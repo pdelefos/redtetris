@@ -4,27 +4,24 @@
   padding: 10px 15px;
   background-color: $grey;
   color: white;
-  margin: 10px;
+  margin-bottom: 10px;
   display: flex;
   box-sizing: border-box;
   align-items: center;
   border-radius: 4px;
   font-weight: 100;
-  .room-item__game-name {
-    width: 50%;
+  .player-item__username {
+    width: 20%;
+    display: flex;
+    justify-content: flex-start;
   }
-  .room-item__game-status {
+  .player-item__score {
     width: 20%;
     display: flex;
     justify-content: center;
   }
-  .room-item__player-count {
-    width: 15%;
-    display: flex;
-    justify-content: center;
-  }
-  .room-item__action {
-    width: 15%;
+  .player-item__button {
+    width: 60%;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;

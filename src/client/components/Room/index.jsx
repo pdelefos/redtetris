@@ -6,9 +6,8 @@ import Panel from "../Panel"
 
 const Room = ({ game, id, playerStatus, rooms }) => {
   return (
-    <div className="room-view">
-      <Panel title={rooms[game.hashName].roomName}>coucou</Panel>
-      <Panel title="Players">
+    <div className="room-view font--normal">
+      <Panel title={roomPlayersTitle(game.players)}>
         <PlayerList
           players={game.players}
           id={id}
@@ -17,6 +16,12 @@ const Room = ({ game, id, playerStatus, rooms }) => {
       </Panel>
     </div>
   )
+}
+
+const roomPlayersTitle = players => {
+  let nbPlayers = Object.keys(players).length
+  let maxPlayers = 4
+  return `Player ${nbPlayers}/${maxPlayers}`
 }
 
 export default Room

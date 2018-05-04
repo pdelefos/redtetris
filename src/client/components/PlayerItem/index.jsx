@@ -14,18 +14,16 @@ const Button = ({ playerId, id, player, playerStatus }) => {
 let PlayerItem = ({ player, id, playerStatus }) => {
   return (
     <div className="player-item">
-      {player.username}
-      <Button
-        playerId={id}
-        id={id}
-        player={player}
-        playerStatus={playerStatus}
-      />
-      <br />
-      score: {player.score}
-      <br />
-      <br />
-      <br />
+      <span className="player-item__username">{player.username}</span>
+      <span className="player-item__score">score: {player.score}</span>
+      <span className="player-item__button">
+        <Button
+          playerId={id}
+          id={id}
+          player={player}
+          playerStatus={playerStatus}
+        />
+      </span>
     </div>
   )
 }
