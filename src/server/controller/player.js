@@ -9,7 +9,6 @@ class Player {
     this.board = null
     this.score = 0
     this.ready = false
-    this.completeLineStreak = 0
     this.idx = 0
   }
 
@@ -38,7 +37,8 @@ class Player {
   toJSON = () => ({
     username: this.username,
     ready: this.ready,
-    score: this.score
+    score: this.score,
+    board: []
   })
 }
 

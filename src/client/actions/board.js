@@ -7,8 +7,8 @@ const updatedBoard = (board, id) => ({
 })
 
 export const updateBoard = dispatch => {
-  socket.on("updateBoard", board => {
-    dispatch(updatedBoard(board, socket.id))
+  socket.on("updateBoard", data => {
+    dispatch(updatedBoard(data.board, data.id))
   })
 }
 

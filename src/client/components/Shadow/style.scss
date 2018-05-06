@@ -1,0 +1,12 @@
+$cell-size: 10px;
+
+.shadow-grid {
+  .grid__cell {
+    width: $cell-size;
+    height: $cell-size;
+  }
+}
+
+.shadow-grid .board {
+  margin-bottom: 7px;
+}

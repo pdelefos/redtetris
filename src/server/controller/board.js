@@ -31,10 +31,10 @@ class Board {
           let coord = { x: x + this.pos.x, y: y + this.pos.y }
 
           let outOfBoardBottom = coord.y >= constants.BOARD_ROWS
-          let touchPieceBottom =
+          let touchPiece =
             coord.y < constants.BOARD_ROWS && this.grid[coord.y][coord.x] != 0
 
-          if (outOfBoardBottom || touchPieceBottom) {
+          if (outOfBoardBottom || touchPiece) {
             this.pos.y--
             this.grid = this.drawPiece()
             return true
@@ -44,15 +44,6 @@ class Board {
     }
     return false
   }
-
-  // _dropAndDrawPiece = () => {
-  //   this.grid = this.drawPiece()
-  //   ask new piece
-  //   this._setDefaultPosition()
-  //   if (this._collide()) {
-  //     this.grid = this._iniGrid(constants.BOARD_ROWS, constants.BOARD_COLS)
-  //   }
-  // }
 
   _collide = () => {
     for (let y = 0; y < this.currentPiece.getArray().length; y++) {
@@ -165,6 +156,9 @@ class Board {
 
   moveUp = () => {
     this.currentPiece.rotate(this.pos, this.grid)
+    return {
+      handleReturn: false
+    }
   }
 
   pushDown = () => {
