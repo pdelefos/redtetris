@@ -2,6 +2,7 @@ import React from "react"
 
 import FinalBoard from "../../containers/Board"
 import FinalRoom from "../../containers/Room"
+import FinalHeader from "../../containers/Header"
 
 const RoomView = ({ gameStatus, clearNotification }) => {
   if (gameStatus === "In game") {
@@ -14,6 +15,7 @@ const RoomView = ({ gameStatus, clearNotification }) => {
   } else
     return (
       <div>
+        <FinalHeader />
         <FinalRoom />
       </div>
     )

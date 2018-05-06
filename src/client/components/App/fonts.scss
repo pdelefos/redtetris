@@ -12,14 +12,17 @@ a {
   color: white;
 }
 
+$font--small: 14px;
 .font--small {
-  font-size: 14px;
+  font-size: $font--small;
 }
 
+$font--normal: 18px;
 .font--normal {
-  font-size: 18px;
+  font-size: $font--normal;
 }
 
+$font--big: 24px;
 .font--big {
-  font-size: 24px;
+  font-size: $font--big;
 }

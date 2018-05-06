@@ -1,24 +1,4 @@
-@import "../../Components/App/colors";
-
-.connection-view {
-  display: flex;
-
-  .bloc {
-    width: 50%;
-    height: 100vh;
-  }
-
-  .bloc--vh-align {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-.logo--red {
-  color: $red;
-  overflow: hidden;
-}
+@import "../App/colors";
 
 .logo {
   font-size: 180px;
@@ -30,4 +10,16 @@
   //   -webkit-text-fill-color: transparent;
   //   -webkit-background-clip: text;
   color: $grey-light;
+
+  .logo--red {
+    color: $red;
+    overflow: hidden;
+  }
+}
+
+.logo--small {
+  font-size: 30px;
+  .logo--red {
+    margin-right: 10px;
+  }
 }

@@ -5,9 +5,10 @@ import PlayerList from "../PlayerList"
 import Panel from "../Panel"
 
 const Room = ({ game, currentPlayerId, playerStatus, rooms }) => {
+  console.log(rooms)
   return (
     <div className="room-view font--normal">
-      <Panel title={roomPlayersTitle(game.players)}>
+      <Panel title="Players" subtitle={roomPlayersTitle(game.players)}>
         <PlayerList
           players={game.players}
           currentPlayerId={currentPlayerId}
@@ -21,7 +22,7 @@ const Room = ({ game, currentPlayerId, playerStatus, rooms }) => {
 const roomPlayersTitle = players => {
   let nbPlayers = Object.keys(players).length
   let maxPlayers = 4
-  return `Player ${nbPlayers}/${maxPlayers}`
+  return `${nbPlayers}/${maxPlayers}`
 }
 
 export default Room

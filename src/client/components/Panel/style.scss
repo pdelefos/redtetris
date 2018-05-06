@@ -1,10 +1,22 @@
+@import "../App/colors";
+
 .panel {
-  .panel__title {
-    font-weight: 300;
+  .panel-head {
+    display: flex;
+    .panel__title {
+      font-weight: 300;
+      width: 70%;
+    }
+    .panel__subtitle {
+      font-weight: lighter;
+      width: 30%;
+      display: flex;
+      align-items: flex-end;
+      flex-direction: row-reverse;
+    }
   }
   .panel__content {
-    // background-image: url("../assets/images/marble-texture.jpg");
-    background-color: lightseagreen;
+    background-color: $grey-dark;
     background-size: cover;
     border-radius: 4px;
     padding: 16px;
