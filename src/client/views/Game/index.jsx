@@ -3,11 +3,12 @@ import "./style.scss"
 
 import FinalBoard from "../../containers/Board"
 import FinalShadow from "../../containers/Shadow"
+import Hud from "../../components/Hud"
 
 const Game = () => {
   return (
     <div className="game-view">
-      <div className="hud" />
+      <Hud />
       <FinalBoard />
       <FinalShadow />
     </div>

@@ -44,9 +44,15 @@ class Manager {
       this.players[socket.id].updateUsername(username)
       socket.emit("updateId", socket.id)
       if (!oldUsername)
-        this.notification.userNotification(socket, "User succesfully created")
+        this.notification.userNotification(
+          socket,
+          "User succesfully created"
+        )
       else
-        this.notification.userNotification(socket, "User succesfully renamed")
+        this.notification.userNotification(
+          socket,
+          "User succesfully renamed"
+        )
     })
   }
 
@@ -111,12 +117,13 @@ class Manager {
     let hashName = currentPlayer.currentRoom
     if (hashName) {
       let room = this.rooms[hashName]
+      if (room.game.status === "In game") clearInterval(this.refreshId)
       room.game.removePlayer(id)
 
       if (room.playerCount() > 0) {
         currentPlayer.updateCurrentRoom(null)
         this.updateRoom(hashName)
-        this.io.to(room.hashName).emit("updateGame", room.game)
+        this.io.to(room.hashName).emit("deletePlayer", id)
       } else {
         delete this.rooms[hashName]
         this.io.sockets.emit("deleteRoom", hashName)
@@ -190,7 +197,10 @@ class Manager {
 
   fetchRooms = socket => {
     socket.on("fetchRoomList", () => {
-      socket.emit("updateRoomList", Object.values(this.rooms).map(game => game))
+      socket.emit(
+        "updateRoomList",
+        Object.values(this.rooms).map(game => game)
+      )
     })
   }
 
@@ -253,6 +263,9 @@ class Manager {
 
   handleActions = (socket, action) => {
     let currentPlayer = this.players[socket.id]
+    if (!currentPlayer) {
+      return
+    }
     let game = this.rooms[currentPlayer.currentRoom].game
     if (currentPlayer.board) {
       let res = action()
@@ -274,7 +287,7 @@ class Manager {
     currentPlayer.board.currentPiece = game.getNextPiece(socket.id)
     currentPlayer.board._setDefaultPosition()
     currentPlayer.board.nextPiece = game.getNextPiece(socket.id)
-    setInterval(() => {
+    this.refreshId = setInterval(() => {
       this.handleActions(socket, currentPlayer.board.drop)
       this.io.to(game.hashName).emit("updateBoard", {
         board: currentPlayer.board.drawPiece(),
@@ -291,7 +304,9 @@ class Manager {
       )
       for (let player in players) {
         if (players.hasOwnProperty(player)) {
-          players[player].board.insertIndesctructibleLine(nbLineCompleted - 1)
+          players[player].board.insertIndesctructibleLine(
+            nbLineCompleted - 1
+          )
         }
       }
     }

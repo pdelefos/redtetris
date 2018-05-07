@@ -32,7 +32,8 @@ class Board {
 
           let outOfBoardBottom = coord.y >= constants.BOARD_ROWS
           let touchPiece =
-            coord.y < constants.BOARD_ROWS && this.grid[coord.y][coord.x] != 0
+            coord.y < constants.BOARD_ROWS &&
+            this.grid[coord.y][coord.x] != 0
 
           if (outOfBoardBottom || touchPiece) {
             this.pos.y--
@@ -179,7 +180,9 @@ class Board {
     for (let i = 0; i < nbLines; i++) {
       this.grid.splice(0, 1)
       this.grid.push(
-        Array(constants.BOARD_COLS).fill(constants.INDESTRUCTIBLE_LINE_VALUE)
+        Array(constants.BOARD_COLS).fill(
+          constants.INDESTRUCTIBLE_LINE_VALUE
+        )
       )
     }
     this.drawPiece()

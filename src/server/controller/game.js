@@ -23,7 +23,7 @@ class Game {
 
   updateStatus = (status = null) => {
     if (status) this.status = status
-    else {
+    else if (this.status !== "In game" && this.status !== "Starting") {
       let playerCount = Object.keys(this.players).length
       if (playerCount === 4) this.status = "Full"
       else this.status = "About to start"
@@ -60,7 +60,8 @@ class Game {
     this.pieces.push.apply(this.pieces, shuffle(newPieces))
   }
 
-  _getValueBetween = (min, max) => Math.floor(Math.random() * (max - min) + min)
+  _getValueBetween = (min, max) =>
+    Math.floor(Math.random() * (max - min) + min)
 
   getNextPiece = playerId => {
     let idx = this.players[playerId].idx
@@ -68,7 +69,8 @@ class Game {
     let nextPiece = this.pieces[idx]
     nextPiece.used++
     this.players[playerId].idx++
-    if (nextPiece.used == Object.keys(this.players).length) this.pieces[idx] = 0
+    if (nextPiece.used == Object.keys(this.players).length)
+      this.pieces[idx] = 0
     return nextPiece
   }
 }

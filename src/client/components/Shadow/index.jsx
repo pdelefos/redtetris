@@ -10,7 +10,9 @@ const Shadow = ({ boards }) => {
         return (
           <div className="board-wrapper">
             <div className="board-name">{boards[id].username}</div>
-            <div className="board">{_createGrid(boards[id].board)}</div>
+            <div className="board" key={id}>
+              {_createGrid(boards[id].board)}
+            </div>
           </div>
         )
       })}
