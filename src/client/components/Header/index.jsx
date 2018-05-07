@@ -13,7 +13,7 @@ let Header = ({ username, roomName }) => {
         {roomName && roomName.toUpperCase()}
       </span>
       <span className="header__right">
-        Hello {!username ? "Anonymous" : username}
+        {!username ? "Anonymous" : username}
       </span>
     </div>
   )

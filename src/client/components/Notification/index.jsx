@@ -12,7 +12,7 @@ const Notification = ({ message, id, status, deleteNotification }) => {
         <img
           className="button--close"
           src={closeCircle}
-          alt=""
+          alt="close"
           onClick={() => deleteNotification(id)}
         />
       </span>
