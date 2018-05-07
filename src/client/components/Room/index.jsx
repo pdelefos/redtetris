@@ -5,7 +5,6 @@ import PlayerList from "../PlayerList"
 import Panel from "../Panel"
 
 const Room = ({ game, currentPlayerId, playerStatus, rooms }) => {
-  console.log(rooms)
   return (
     <div className="room-view font--normal">
       <Panel title="Players" subtitle={roomPlayersTitle(game.players)}>

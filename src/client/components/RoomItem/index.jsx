@@ -11,20 +11,24 @@ let RoomItem = ({
   status,
   joinGame
 }) => {
+  let button =
+    status === "In game" ? (
+      <div className="button fake_button">Join</div>
+    ) : (
+      <Link
+        className="button"
+        to={`/${hashName}[${username}]`}
+        onClick={() => joinGame(hashName)}
+      >
+        Join
+      </Link>
+    )
   return (
     <div className="room-item">
       <span className="room-item__game-name">{roomName}</span>
       <span className="room-item__game-status">{status}</span>
       <span className="room-item__player-count">{players} / 4</span>
-      <span className="room-item__action">
-        <Link
-          className="button"
-          to={`/${hashName}[${username}]`}
-          onClick={() => joinGame(hashName)}
-        >
-          Join
-        </Link>
-      </span>
+      <span className="room-item__action">{button}</span>
     </div>
   )
 }

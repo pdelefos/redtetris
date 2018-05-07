@@ -1,3 +1,5 @@
+import omit from "lodash/omit"
+
 let initialState = {
   status: false,
   hashName: null,
@@ -30,6 +32,11 @@ const game = (state = initialState, action) => {
             score: action.score
           }
         }
+      }
+    case "DELETE_PLAYER":
+      return {
+        ...state,
+        players: omit(state.players, [action.id])
       }
     default:
       return state
