@@ -1,9 +1,15 @@
 @import "../App/colors";
 $cell-size: 30px;
 
+.board-container {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+}
+
 .board {
   display: inline-block;
-  border: 10px solid $red;
+  border: 10px solid $grey-dark;
   border-radius: 4px;
   margin: 0 auto;
   justify-content: center;
