@@ -22,14 +22,16 @@ const game = (state = initialState, action) => {
           }
         }
       }
-    case "UPDATE_SCORE":
+    case "UPDATE_GAME_INFO":
       return {
         ...state,
         players: {
           ...state.players,
           [action.id]: {
             ...state.players[action.id],
-            score: action.score
+						lineCompleted: action.lineCompleted,
+						nextPiece: action.nextPiece,
+						score: action.score
           }
         }
       }
@@ -37,7 +39,7 @@ const game = (state = initialState, action) => {
       return {
         ...state,
         players: omit(state.players, [action.id])
-      }
+			}
     default:
       return state
   }

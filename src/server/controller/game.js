@@ -71,7 +71,7 @@ class Game {
     this.players[playerId].idx++
     if (nextPiece.used == Object.keys(this.players).length)
       this.pieces[idx] = 0
-    return nextPiece
+    return new Piece(nextPiece.pieceName)
   }
 }
 

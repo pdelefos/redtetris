@@ -7,9 +7,11 @@ class Player {
     this.username = null
     this.currentRoom = null
     this.board = null
-    this.score = 0
     this.ready = false
     this.idx = 0
+		this.nextPiece = null
+		this.score = 0
+		this.lineCompleted = 0
   }
 
   updateUsername = username => {
@@ -36,8 +38,10 @@ class Player {
 
   toJSON = () => ({
     username: this.username,
-    ready: this.ready,
-    score: this.score,
+		ready: this.ready,
+		nextPiece: this.nextPiece,
+		score: this.score,
+		lineCompleted: this.lineCompleted,
     board: []
   })
 }

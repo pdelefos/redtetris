@@ -2,6 +2,7 @@ import { constants } from "./const"
 
 class Piece {
   constructor(pieceName) {
+		this.pieceName = pieceName
     this.piece = constants[pieceName]
     this._tmpPiece = []
     this.used = 0

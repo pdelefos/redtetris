@@ -263,9 +263,7 @@ class Manager {
 
   handleActions = (socket, action) => {
     let currentPlayer = this.players[socket.id]
-    if (!currentPlayer) {
-      return
-    }
+    if (!currentPlayer) return
     let game = this.rooms[currentPlayer.currentRoom].game
     if (currentPlayer.board) {
       let res = action()
@@ -276,7 +274,8 @@ class Manager {
           currentPlayer.board.grid = currentPlayer.board._iniGrid()
         currentPlayer.board.nextPiece = game.getNextPiece(socket.id)
       }
-      this._triggerMalus(socket.id, res.nbLineCompleted)
+			this._triggerMalus(socket.id, res.nbLineCompleted)
+			// this._updateGameInfo(socket, game, currentPlayer)
     }
   }
 
@@ -294,7 +293,17 @@ class Manager {
         id: socket.id
       })
     }, constants.STEP_INTERVAL)
-  }
+	}
+	
+	_updateGameInfo = (socket, game, currentPlayer) => {
+		console.log('next piece here !!!', currentPlayer.id)
+		socket.emit("updateGameInfo", {
+			id: currentPlayer.id,
+			nextPiece: currentPlayer.board.nextPiece.getArray(),
+			score: 0,
+			lineCompleted: currentPlayer.board.lineCount
+		})
+	}
 
   _triggerMalus = (id, nbLineCompleted) => {
     let currentPlayer = this.players[id]
