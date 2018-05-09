@@ -12,6 +12,7 @@ const Room = ({ game, currentPlayerId, playerStatus, rooms }) => {
           players={game.players}
           currentPlayerId={currentPlayerId}
           playerStatus={playerStatus}
+          gameStatus={game.status}
         />
       </Panel>
     </div>

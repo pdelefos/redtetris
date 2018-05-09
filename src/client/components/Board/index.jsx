@@ -14,6 +14,7 @@ const Board = ({ board, score, actions }) => {
   return (
     <div className="board-container">
       <div
+        ref={div => div && div.focus()}
         className="board"
         onKeyDown={evt => {
           handleKeyDown(actions, evt)

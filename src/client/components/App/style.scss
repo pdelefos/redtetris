@@ -40,6 +40,12 @@ a.button,
   }
 }
 
+.button--disabled,
+.button--disabled:hover {
+  transform: none;
+  background: grey;
+}
+
 // INPUT
 .input-label {
   font-weight: 400;

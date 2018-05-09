@@ -35,8 +35,9 @@ const Connection = ({ history, updateUser, notif }) => {
 
 const handleKeyDown = (updateUserCallback, evt) => {
   if (evt.key === "Enter") {
-    updateUserCallback(usernameInput.value)
-    return <Redirect to={`/lobby`} />
+    console.log("Enter")
+    // updateUserCallback(usernameInput.value)
+    // return <Redirect to={`/lobby`} />
   }
 }
 

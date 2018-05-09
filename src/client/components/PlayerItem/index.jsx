@@ -1,13 +1,22 @@
 import React from "react"
 import "./style.scss"
 
-const Button = ({ playerId, currentPlayerId, player, playerStatus }) => {
-  if (playerId == currentPlayerId)
+const Button = ({
+  playerId,
+  currentPlayerId,
+  player,
+  playerStatus,
+  gameStatus
+}) => {
+  if (playerId == currentPlayerId) {
+    if (gameStatus == "Starting")
+      return <button className="button button--disabled">Ready</button>
     return (
       <button className="button" onClick={() => playerStatus()}>
         {!player.ready ? "Ready" : "Not ready"}
       </button>
     )
+  }
   return (
     <div className="player-item__not-ready">
       {player.ready ? "Ready" : "Not ready"}
@@ -15,7 +24,13 @@ const Button = ({ playerId, currentPlayerId, player, playerStatus }) => {
   )
 }
 
-let PlayerItem = ({ player, currentPlayerId, playerStatus, playerId }) => {
+let PlayerItem = ({
+  player,
+  currentPlayerId,
+  playerStatus,
+  playerId,
+  gameStatus
+}) => {
   let isCurrentPlayer = playerId === currentPlayerId
   let selectedClass = isCurrentPlayer ? "player-item--current" : ""
   return (
@@ -28,6 +43,7 @@ let PlayerItem = ({ player, currentPlayerId, playerStatus, playerId }) => {
           currentPlayerId={currentPlayerId}
           player={player}
           playerStatus={playerStatus}
+          gameStatus={gameStatus}
         />
       </span>
     </div>

@@ -13,7 +13,7 @@ let RoomItem = ({
 }) => {
   let button =
     status === "In game" ? (
-      <div className="button fake_button">Join</div>
+      <div className="button button--disabled">Join</div>
     ) : (
       <Link
         className="button"
