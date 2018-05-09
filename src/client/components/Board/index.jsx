@@ -14,7 +14,6 @@ const Board = ({ board, score, actions }) => {
       >
         {_createGrid(board)}
       </div>
-      {/* <span>Score: {score} </span> */}
     </div>
   )
 }
