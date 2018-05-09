@@ -200,74 +200,128 @@ class Manager {
   moveLeft = socket => {
     socket.on("moveLeft", () => {
       let currentPlayer = this.players[socket.id]
-      this.handleActions(socket, currentPlayer.board.moveLeft)
-      socket.emit("updateBoard", {
-        board: currentPlayer.board.drawPiece(),
-        id: socket.id
-      })
+      if (!currentPlayer.lock && !currentPlayer.done) {
+        currentPlayer.lock = !currentPlayer.lock
+        if (
+          !this.handleActions(
+            socket,
+            currentPlayer,
+            currentPlayer.board.moveLeft
+          )
+        )
+          return
+        socket.emit("updateBoard", {
+          board: currentPlayer.board.drawPiece(),
+          id: socket.id
+        })
+        currentPlayer.lock = !currentPlayer.lock
+      }
     })
   }
 
   moveRight = socket => {
     socket.on("moveRight", () => {
       let currentPlayer = this.players[socket.id]
-      this.handleActions(socket, currentPlayer.board.moveRight)
-      socket.emit("updateBoard", {
-        board: currentPlayer.board.drawPiece(),
-        id: socket.id
-      })
+      if (!currentPlayer.lock && !currentPlayer.done) {
+        currentPlayer.lock = !currentPlayer.lock
+        if (
+          !this.handleActions(
+            socket,
+            currentPlayer,
+            currentPlayer.board.moveRight
+          )
+        )
+          return
+        socket.emit("updateBoard", {
+          board: currentPlayer.board.drawPiece(),
+          id: socket.id
+        })
+        currentPlayer.lock = !currentPlayer.lock
+      }
     })
   }
 
   moveDown = socket => {
     socket.on("moveDown", () => {
       let currentPlayer = this.players[socket.id]
-      this.handleActions(socket, currentPlayer.board.drop)
-      socket.emit("updateBoard", {
-        board: currentPlayer.board.drawPiece(),
-        id: socket.id
-      })
+      if (!currentPlayer.lock && !currentPlayer.done) {
+        currentPlayer.lock = !currentPlayer.lock
+        if (
+          !this.handleActions(socket, currentPlayer, currentPlayer.board.drop)
+        )
+          return
+        socket.emit("updateBoard", {
+          board: currentPlayer.board.drawPiece(),
+          id: socket.id
+        })
+        currentPlayer.lock = !currentPlayer.lock
+      }
     })
   }
 
   moveUp = socket => {
     socket.on("moveUp", () => {
       let currentPlayer = this.players[socket.id]
-      this.handleActions(socket, currentPlayer.board.moveUp)
-      socket.emit("updateBoard", {
-        board: currentPlayer.board.drawPiece(),
-        id: socket.id
-      })
+      if (!currentPlayer.lock && !currentPlayer.done) {
+        currentPlayer.lock = !currentPlayer.lock
+        if (
+          !this.handleActions(socket, currentPlayer, currentPlayer.board.moveUp)
+        )
+          return
+        socket.emit("updateBoard", {
+          board: currentPlayer.board.drawPiece(),
+          id: socket.id
+        })
+        currentPlayer.lock = !currentPlayer.lock
+      }
     })
   }
 
   pushDown = socket => {
     socket.on("pushDown", () => {
       let currentPlayer = this.players[socket.id]
-      this.handleActions(socket, currentPlayer.board.pushDown)
-      socket.emit("updateBoard", {
-        board: currentPlayer.board.drawPiece(),
-        id: socket.id
-      })
+      if (!currentPlayer.lock && !currentPlayer.done) {
+        currentPlayer.lock = !currentPlayer.lock
+        if (
+          !this.handleActions(
+            socket,
+            currentPlayer,
+            currentPlayer.board.pushDown
+          )
+        )
+          return
+        socket.emit("updateBoard", {
+          board: currentPlayer.board.drawPiece(),
+          id: socket.id
+        })
+        currentPlayer.lock = !currentPlayer.lock
+      }
     })
   }
 
-  handleActions = (socket, action) => {
-    let currentPlayer = this.players[socket.id]
-    if (!currentPlayer) return
+  handleActions = (socket, currentPlayer, action) => {
     let game = this.rooms[currentPlayer.currentRoom].game
     if (currentPlayer.board) {
       let res = action()
       if (res.handleReturn) {
         currentPlayer.board.currentPiece = currentPlayer.board.nextPiece
         currentPlayer.board._setDefaultPosition()
-        if (currentPlayer.board._collide())
-          currentPlayer.board.grid = currentPlayer.board._iniGrid()
+        if (currentPlayer.board._collide()) {
+          clearInterval(this.refreshId)
+          game.done++
+          currentPlayer.done = true
+          if (game.done == Object.keys(game.players).length) {
+            game.reset()
+            this.io.to(currentPlayer.currentRoom).emit("updateGame", game)
+          }
+          return false
+        }
         currentPlayer.board.nextPiece = game.getNextPiece(socket.id)
       }
       this._triggerMalus(socket.id, res.nbLineCompleted)
       this._updateGameInfo(socket, currentPlayer)
     }
+    return true
   }
 
   startGame = socket => {
@@ -278,11 +332,18 @@ class Manager {
     currentPlayer.board._setDefaultPosition()
     currentPlayer.board.nextPiece = game.getNextPiece(socket.id)
     this.refreshId = setInterval(() => {
-      this.handleActions(socket, currentPlayer.board.drop)
-      this.io.to(game.hashName).emit("updateBoard", {
-        board: currentPlayer.board.drawPiece(),
-        id: socket.id
-      })
+      if (!currentPlayer.lock && !currentPlayer.done) {
+        currentPlayer.lock = !currentPlayer.lock
+        if (
+          !this.handleActions(socket, currentPlayer, currentPlayer.board.drop)
+        )
+          return
+        this.io.to(game.hashName).emit("updateBoard", {
+          board: currentPlayer.board.drawPiece(),
+          id: socket.id
+        })
+        currentPlayer.lock = !currentPlayer.lock
+      }
     }, constants.STEP_INTERVAL)
   }
 

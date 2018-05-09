@@ -7,7 +7,7 @@ const Shadow = ({ boards }) => {
     <div className="shadow-grid">
       {Object.keys(boards).map(id => {
         return (
-          <div className="board-wrapper">
+          <div className="board-wrapper" key={id}>
             <div className="board-name">{boards[id].username}</div>
             <div className="board" key={id}>
               {_createGrid(boards[id].board)}

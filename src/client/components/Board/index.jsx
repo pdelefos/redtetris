@@ -2,6 +2,14 @@ import React from "react"
 import "./style.scss"
 import { _createGrid } from "../../utils"
 
+let cdActions = {
+  canmoveUp: true,
+  canmoveLeft: true,
+  canmoveRight: true,
+  canmoveDown: true,
+  canpushDown: true
+}
+
 const Board = ({ board, score, actions }) => {
   return (
     <div className="board-container">
@@ -18,22 +26,33 @@ const Board = ({ board, score, actions }) => {
   )
 }
 
+const checkCooldown = action => {
+  let cdAction = cdActions["can" + action.name]
+  if (cdAction) {
+    action()
+    cdAction = !cdAction
+    setTimeout(() => {
+      cdAction = !cdAction
+    }, 300)
+  }
+}
+
 const handleKeyDown = (actions, evt) => {
   switch (evt.key) {
     case "ArrowLeft":
-      actions.moveLeft()
+      checkCooldown(actions.moveLeft)
       break
     case "ArrowRight":
-      actions.moveRight()
+      checkCooldown(actions.moveRight)
       break
     case "ArrowDown":
-      actions.moveDown()
+      checkCooldown(actions.moveDown)
       break
     case "ArrowUp":
-      actions.moveUp()
+      checkCooldown(actions.moveUp)
       break
     case " ":
-      actions.pushDown()
+      checkCooldown(actions.pushDown)
       break
     default:
       break

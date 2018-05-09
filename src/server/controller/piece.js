@@ -2,7 +2,7 @@ import { constants } from "./const"
 
 class Piece {
   constructor(pieceName) {
-		this.pieceName = pieceName
+    this.pieceName = pieceName
     this.piece = constants[pieceName]
     this._tmpPiece = []
     this.used = 0
@@ -32,8 +32,7 @@ class Piece {
         let outOfBoardRight = x + piecePosition.x >= constants.BOARD_COLS
         let outOfBoardLeft = x + piecePosition.x < 0
         let outOfBoardBottom = y + piecePosition.y > constants.BOARD_ROWS
-        if (outOfBoardLeft || outOfBoardRight || outOfBoardBottom)
-          return true
+        if (outOfBoardLeft || outOfBoardRight || outOfBoardBottom) return true
       }
     }
     return false

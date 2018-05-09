@@ -8,10 +8,23 @@ class Player {
     this.currentRoom = null
     this.board = null
     this.ready = false
+    this.currentPiece = null
+    this.nextPiece = null
     this.idx = 0
-		this.nextPiece = null
-		this.score = 0
-		this.lineCompleted = 0
+    this.score = 0
+    this.lineCompleted = 0
+    this.done = false
+    this.lock = false
+  }
+
+  reset = () => {
+    this.board = null
+    this.lock = false
+    this.ready = false
+    this.currentPiece = null
+    this.nextPiece = null
+    this.idx = 0
+    this.done = false
   }
 
   updateUsername = username => {
@@ -38,10 +51,10 @@ class Player {
 
   toJSON = () => ({
     username: this.username,
-		ready: this.ready,
-		nextPiece: this.nextPiece,
-		score: this.score,
-		lineCompleted: this.lineCompleted,
+    ready: this.ready,
+    nextPiece: this.nextPiece,
+    score: this.score,
+    lineCompleted: this.lineCompleted,
     board: []
   })
 }
