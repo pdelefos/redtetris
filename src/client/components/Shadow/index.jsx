@@ -3,7 +3,6 @@ import "./style.scss"
 import { _createGrid } from "../../utils"
 
 const Shadow = ({ boards }) => {
-  console.log("boards inside shadow", boards)
   return (
     <div className="shadow-grid">
       {Object.keys(boards).map(id => {

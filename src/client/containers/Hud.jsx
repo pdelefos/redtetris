@@ -5,11 +5,13 @@ import Hud from "../components/Hud"
 
 const mapStateToProps = state => {
   return {
+    game: state.game,
+    currentPlayerId: state.user.id
   }
 }
 
 const mapDispatchToProps = dispatch => {
-    updateGameInfo(dispatch)
+  updateGameInfo(dispatch)
   return {}
 }
 

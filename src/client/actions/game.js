@@ -10,9 +10,10 @@ const deletedPlayer = id => ({
   id
 })
 
-const updatedGameInfo = gameInfo => ({
-	type: "UPDATE_GAME_INFO",
-	gameInfo
+const updatedGameInfo = (userId, gameInfo) => ({
+  type: "UPDATE_GAME_INFO",
+  id: userId,
+  gameInfo
 })
 
 export const updateGame = dispatch => {
@@ -40,7 +41,7 @@ export const deletePlayer = dispatch => {
 }
 
 export const updateGameInfo = dispatch => {
-	socket.on("updateGameInfo", gameInfo => {
-		dispatch(updatedGameInfo(gameInfo))
-	})
+  socket.on("updateGameInfo", gameInfo => {
+    dispatch(updatedGameInfo(gameInfo.id, gameInfo))
+  })
 }

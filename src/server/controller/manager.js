@@ -44,15 +44,9 @@ class Manager {
       this.players[socket.id].updateUsername(username)
       socket.emit("updateId", socket.id)
       if (!oldUsername)
-        this.notification.userNotification(
-          socket,
-          "User succesfully created"
-        )
+        this.notification.userNotification(socket, "User succesfully created")
       else
-        this.notification.userNotification(
-          socket,
-          "User succesfully renamed"
-        )
+        this.notification.userNotification(socket, "User succesfully renamed")
     })
   }
 
@@ -197,10 +191,7 @@ class Manager {
 
   fetchRooms = socket => {
     socket.on("fetchRoomList", () => {
-      socket.emit(
-        "updateRoomList",
-        Object.values(this.rooms).map(game => game)
-      )
+      socket.emit("updateRoomList", Object.values(this.rooms).map(game => game))
     })
   }
 
@@ -274,8 +265,8 @@ class Manager {
           currentPlayer.board.grid = currentPlayer.board._iniGrid()
         currentPlayer.board.nextPiece = game.getNextPiece(socket.id)
       }
-			this._triggerMalus(socket.id, res.nbLineCompleted)
-			// this._updateGameInfo(socket, game, currentPlayer)
+      this._triggerMalus(socket.id, res.nbLineCompleted)
+      this._updateGameInfo(socket, currentPlayer)
     }
   }
 
@@ -293,17 +284,17 @@ class Manager {
         id: socket.id
       })
     }, constants.STEP_INTERVAL)
-	}
-	
-	_updateGameInfo = (socket, game, currentPlayer) => {
-		console.log('next piece here !!!', currentPlayer.id)
-		socket.emit("updateGameInfo", {
-			id: currentPlayer.id,
-			nextPiece: currentPlayer.board.nextPiece.getArray(),
-			score: 0,
-			lineCompleted: currentPlayer.board.lineCount
-		})
-	}
+  }
+
+  _updateGameInfo = (socket, currentPlayer) => {
+    console.log("current player id", currentPlayer.id)
+    socket.emit("updateGameInfo", {
+      id: currentPlayer.id,
+      nextPiece: currentPlayer.board.nextPiece.getArray(),
+      score: 0,
+      lineCompleted: currentPlayer.board.lineCount
+    })
+  }
 
   _triggerMalus = (id, nbLineCompleted) => {
     let currentPlayer = this.players[id]
@@ -313,9 +304,7 @@ class Manager {
       )
       for (let player in players) {
         if (players.hasOwnProperty(player)) {
-          players[player].board.insertIndesctructibleLine(
-            nbLineCompleted - 1
-          )
+          players[player].board.insertIndesctructibleLine(nbLineCompleted - 1)
         }
       }
     }

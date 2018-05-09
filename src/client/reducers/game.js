@@ -29,9 +29,9 @@ const game = (state = initialState, action) => {
           ...state.players,
           [action.id]: {
             ...state.players[action.id],
-						lineCompleted: action.lineCompleted,
-						nextPiece: action.nextPiece,
-						score: action.score
+            lineCompleted: action.gameInfo.lineCompleted,
+            nextPiece: action.gameInfo.nextPiece,
+            score: action.gameInfo.score
           }
         }
       }
@@ -39,7 +39,7 @@ const game = (state = initialState, action) => {
       return {
         ...state,
         players: omit(state.players, [action.id])
-			}
+      }
     default:
       return state
   }
