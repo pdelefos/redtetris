@@ -9,6 +9,7 @@ class Game {
     this.mode = "Normal"
     this.hashName = hashName
     this.pieces = []
+    this.done = 0
   }
 
   addPlayer = player => {
@@ -19,6 +20,15 @@ class Game {
   removePlayer = id => {
     delete this.players[id]
     this.updateStatus()
+  }
+
+  reset = () => {
+    this.status = "About to start"
+    this.done = 0
+    this.pieces = []
+    Object.keys(this.players).map(playerId => {
+      this.players[playerId].reset()
+    })
   }
 
   updateStatus = (status = null) => {
@@ -60,8 +70,7 @@ class Game {
     this.pieces.push.apply(this.pieces, shuffle(newPieces))
   }
 
-  _getValueBetween = (min, max) =>
-    Math.floor(Math.random() * (max - min) + min)
+  _getValueBetween = (min, max) => Math.floor(Math.random() * (max - min) + min)
 
   getNextPiece = playerId => {
     let idx = this.players[playerId].idx
@@ -69,9 +78,8 @@ class Game {
     let nextPiece = this.pieces[idx]
     nextPiece.used++
     this.players[playerId].idx++
-    if (nextPiece.used == Object.keys(this.players).length)
-      this.pieces[idx] = 0
-    return nextPiece
+    if (nextPiece.used == Object.keys(this.players).length) this.pieces[idx] = 0
+    return new Piece(nextPiece.pieceName)
   }
 }
 

@@ -5,8 +5,6 @@ class Board {
     this.grid = this._iniGrid(constants.BOARD_ROWS, constants.BOARD_COLS)
     this.lineCount = 0
     this.endOfGame = false
-    this.canMoveLeft = true
-    this.canMoveRight = true
     this.pos = { x: 0, y: 0 }
     this.block = false
     this.currentPiece = null
@@ -32,8 +30,7 @@ class Board {
 
           let outOfBoardBottom = coord.y >= constants.BOARD_ROWS
           let touchPiece =
-            coord.y < constants.BOARD_ROWS &&
-            this.grid[coord.y][coord.x] != 0
+            coord.y < constants.BOARD_ROWS && this.grid[coord.y][coord.x] != 0
 
           if (outOfBoardBottom || touchPiece) {
             this.pos.y--
@@ -80,18 +77,12 @@ class Board {
           let touchPieceLeft = this.grid[coord.y][coord.x - 1] != 0
           let touchPieceRight = this.grid[coord.y][coord.x + 1] != 0
 
-          if (outOfBoardLeft || touchPieceLeft) {
-            this.canMoveLeft = false
-            return false
-          } else this.canMoveLeft = true
-          if (outOfBoardRight || touchPieceRight) {
-            this.canMoveRight = false
-            return false
-          } else this.canMoveRight = true
+          if (outOfBoardLeft || touchPieceLeft) return 1
+          if (outOfBoardRight || touchPieceRight) return 2
         }
       }
     }
-    return true
+    return 0
   }
 
   _handleLineCompletion = () => {
@@ -127,8 +118,7 @@ class Board {
 
   moveLeft = (count = 1) => {
     let queryNewPiece = this._handleCollisions()
-    this._handlePieceMovement()
-    if (this.canMoveLeft) this.pos.x -= count
+    if (this._handlePieceMovement() != 1) this.pos.x -= count
     return {
       handleReturn: queryNewPiece
     }
@@ -136,8 +126,7 @@ class Board {
 
   moveRight = (count = 1) => {
     let queryNewPiece = this._handleCollisions()
-    this._handlePieceMovement()
-    if (this.canMoveRight) this.pos.x += count
+    if (this._handlePieceMovement() != 2) this.pos.x += count
     return {
       handleReturn: queryNewPiece
     }
@@ -180,9 +169,7 @@ class Board {
     for (let i = 0; i < nbLines; i++) {
       this.grid.splice(0, 1)
       this.grid.push(
-        Array(constants.BOARD_COLS).fill(
-          constants.INDESTRUCTIBLE_LINE_VALUE
-        )
+        Array(constants.BOARD_COLS).fill(constants.INDESTRUCTIBLE_LINE_VALUE)
       )
     }
     this.drawPiece()

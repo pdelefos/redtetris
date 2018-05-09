@@ -9,7 +9,21 @@ class Player {
     this.board = null
     this.score = 0
     this.ready = false
+    this.currentPiece = null
+    this.nextPiece = null
     this.idx = 0
+    this.done = false
+    this.lock = false
+  }
+
+  reset = () => {
+    this.board = null
+    this.lock = false
+    this.ready = false
+    this.currentPiece = null
+    this.nextPiece = null
+    this.idx = 0
+    this.done = false
   }
 
   updateUsername = username => {

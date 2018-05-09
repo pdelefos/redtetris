@@ -1,7 +1,6 @@
 import React from "react"
 
 const _createGrid = boardArray => {
-  console.log("board array create grid", boardArray)
   if (boardArray) {
     let lines = []
     boardArray.forEach((line, index) => {
