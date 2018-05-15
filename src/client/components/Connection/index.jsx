@@ -19,15 +19,16 @@ const Connection = ({ history, updateUser, notif, username }) => {
         <input
           className="input--text"
           type="text"
+          onKeyDown={evt => handleKeyDown(updateUser, evt)}
+          tabIndex="0"
           ref={input => {
             usernameInput = input
           }}
-          onKeyDown={evt => handleKeyDown(updateUser, evt)}
-          tabIndex="0"
         />
         <button
           className="button"
           onClick={() => {
+            console.log(usernameInput.value)
             if (usernameInput.value.length < 4) return
             else updateUser(usernameInput.value)
           }}
@@ -41,6 +42,7 @@ const Connection = ({ history, updateUser, notif, username }) => {
 
 const handleKeyDown = (updateUserCallback, evt) => {
   if (evt.key === "Enter") {
+    if (usernameInput.value.length < 4) return
     updateUserCallback(usernameInput.value)
   }
 }
