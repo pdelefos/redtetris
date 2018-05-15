@@ -144,7 +144,6 @@ class Board {
     if (this.block == false) {
       this.pos.y += count
       let queryNewPiece = this._handleCollisions()
-      // this._handlePieceMovement()
       return {
         nbLineCompleted: this._handleLineCompletion(),
         handleReturn: queryNewPiece
