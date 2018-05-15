@@ -9,6 +9,7 @@ class Board {
     this.block = false
     this.currentPiece = null
     this.nextPiece = null
+    this.score = 0
   }
 
   // private methods
@@ -65,24 +66,32 @@ class Board {
     }
   }
 
-  _handlePieceMovement = () => {
+  _handlePieceMovement = collisionsTests => {
     for (let y = 0; y < this.currentPiece.getArray().length; y++) {
       for (let x = 0; x < this.currentPiece.getArray()[y].length; x++) {
         let cell = this.currentPiece.getArray()[y][x]
         if (cell !== 0) {
           let coord = { x: x + this.pos.x, y: y + this.pos.y }
-          let outOfBoardLeft = coord.x < 0
-          let outOfBoardRight = coord.x >= constants.BOARD_COLS
-
-          let touchPieceLeft = this.grid[coord.y][coord.x - 1] != 0
-          let touchPieceRight = this.grid[coord.y][coord.x + 1] != 0
-
-          if (outOfBoardLeft || touchPieceLeft) return 1
-          if (outOfBoardRight || touchPieceRight) return 2
+          let ret = collisionsTests(coord)
+          if (ret) return ret
         }
       }
     }
-    return 0
+    return false
+  }
+
+  _leftCollisions = coord => {
+    let outOfBoardLeft = coord.x < 0
+    let touchPieceLeft = this.grid[coord.y][coord.x - 1] != 0
+    if (outOfBoardLeft || touchPieceLeft) return true
+    return false
+  }
+
+  _rightCollisions = coord => {
+    let outOfBoardRight = coord.x >= constants.BOARD_COLS
+    let touchPieceRight = this.grid[coord.y][coord.x + 1] != 0
+    if (outOfBoardRight || touchPieceRight) return true
+    return false
   }
 
   _handleLineCompletion = () => {
@@ -94,7 +103,27 @@ class Board {
         lineCompletedInARow++
       }
     })
+    if (lineCompletedInARow > 0) this._updateScore(lineCompletedInARow)
     return lineCompletedInARow
+  }
+
+  _updateScore = nbLines => {
+    switch (nbLines) {
+      case 1:
+        this.score += 40
+        break
+      case 2:
+        this.score += 100
+        break
+      case 3:
+        this.score += 300
+        break
+      case 4:
+        this.score += 1200
+        break
+      default:
+        break
+    }
   }
 
   _eraseLine = lineIndex => {
@@ -118,7 +147,7 @@ class Board {
 
   moveLeft = (count = 1) => {
     let queryNewPiece = this._handleCollisions()
-    if (this._handlePieceMovement() != 1) this.pos.x -= count
+    if (!this._handlePieceMovement(this._leftCollisions)) this.pos.x -= count
     return {
       handleReturn: queryNewPiece
     }
@@ -126,7 +155,7 @@ class Board {
 
   moveRight = (count = 1) => {
     let queryNewPiece = this._handleCollisions()
-    if (this._handlePieceMovement() != 2) this.pos.x += count
+    if (!this._handlePieceMovement(this._rightCollisions)) this.pos.x += count
     return {
       handleReturn: queryNewPiece
     }
@@ -136,7 +165,6 @@ class Board {
     if (this.block == false) {
       this.pos.y += count
       let queryNewPiece = this._handleCollisions()
-      this._handlePieceMovement()
       return {
         nbLineCompleted: this._handleLineCompletion(),
         handleReturn: queryNewPiece

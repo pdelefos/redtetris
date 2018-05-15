@@ -313,6 +313,9 @@ class Manager {
           game.done++
           currentPlayer.done = true
           if (game.done == Object.keys(game.players).length) {
+            game.players[currentPlayer.id].updateTotalScore(
+              currentPlayer.board.score
+            )
             game.reset()
             this.io.to(currentPlayer.currentRoom).emit("updateGame", game)
           }
@@ -350,11 +353,10 @@ class Manager {
   }
 
   _updateGameInfo = (socket, currentPlayer) => {
-    console.log("current player id", currentPlayer.id)
     socket.emit("updateGameInfo", {
       id: currentPlayer.id,
       nextPiece: currentPlayer.board.nextPiece.getArray(),
-      score: 0,
+      score: currentPlayer.board.score,
       lineCompleted: currentPlayer.board.lineCount
     })
   }

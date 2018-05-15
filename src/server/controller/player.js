@@ -11,7 +11,8 @@ class Player {
     this.currentPiece = null
     this.nextPiece = null
     this.idx = 0
-    this.score = 0
+    this.totalScore = 0
+    this.currentScore = 0
     this.lineCompleted = 0
     this.done = false
     this.lock = false
@@ -29,6 +30,10 @@ class Player {
 
   updateUsername = username => {
     this.username = username
+  }
+
+  updateTotalScore = score => {
+    this.totalScore += score
   }
 
   updateStatus = () => {
@@ -53,7 +58,8 @@ class Player {
     username: this.username,
     ready: this.ready,
     nextPiece: this.nextPiece,
-    score: this.score,
+    totalScore: this.totalScore,
+    currentScore: this.currentScore,
     lineCompleted: this.lineCompleted,
     board: []
   })

@@ -36,7 +36,7 @@ let PlayerItem = ({
   return (
     <div className={"player-item " + selectedClass}>
       <span className="player-item__username">{player.username}</span>
-      <span className="player-item__score">{player.score} pts</span>
+      <span className="player-item__score">{player.totalScore} pts</span>
       <span className="player-item__button">
         <Button
           playerId={playerId}

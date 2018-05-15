@@ -6,7 +6,7 @@ import { _createGrid } from "../../utils"
 const Hud = ({ game, currentPlayerId }) => {
   let currentPlayerInfo = game.players[currentPlayerId]
   let nextPiece = currentPlayerInfo.nextPiece
-  let score = currentPlayerInfo.score
+  let score = currentPlayerInfo.currentScore
   let lineCompleted = currentPlayerInfo.lineCompleted
   return (
     <div className="hud-wrapper">
