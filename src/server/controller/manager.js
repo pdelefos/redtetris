@@ -117,7 +117,8 @@ class Manager {
     let hashName = currentPlayer.currentRoom
     if (hashName) {
       let room = this.rooms[hashName]
-      if (room.game.status === "In game") clearInterval(this.refreshId)
+      if (room.game.status === "In game")
+        clearInterval(currentPlayer.refreshId)
       room.game.removePlayer(socket.id)
 
       if (room.playerCount() > 0) {
@@ -128,12 +129,16 @@ class Manager {
         delete this.rooms[hashName]
         this.io.sockets.emit("deleteRoom", hashName)
       }
+      socket.leave(room.hashName)
     }
   }
 
   leaveRoom = socket => {
     socket.on("leaveRoom", () => {
+      let currentPlayer = this.players[socket.id]
       this._leave(socket)
+      currentPlayer.ready = false
+      currentPlayer.totalScore = 0
       socket.emit("deleteGame")
     })
   }
@@ -325,7 +330,7 @@ class Manager {
         currentPlayer.board.currentPiece = currentPlayer.board.nextPiece
         currentPlayer.board._setDefaultPosition()
         if (currentPlayer.board._collide()) {
-          clearInterval(this.refreshId)
+          clearInterval(currentPlayer.refreshId)
           game.done++
           currentPlayer.done = true
           if (game.done == Object.keys(game.players).length) {
@@ -334,7 +339,12 @@ class Manager {
             )
             game.reset()
             this.io.to(currentPlayer.currentRoom).emit("updateGame", game)
-          }
+          } else
+            this.io.to(game.hashName).emit("updateBoard", {
+              board: currentPlayer.board.grid,
+              done: currentPlayer.done,
+              id: socket.id
+            })
           return false
         }
         currentPlayer.board.nextPiece = game.getNextPiece(socket.id)
@@ -352,7 +362,7 @@ class Manager {
     currentPlayer.board.currentPiece = game.getNextPiece(socket.id)
     currentPlayer.board._setDefaultPosition()
     currentPlayer.board.nextPiece = game.getNextPiece(socket.id)
-    this.refreshId = setInterval(() => {
+    currentPlayer.refreshId = setInterval(() => {
       if (!currentPlayer.lock && !currentPlayer.done) {
         currentPlayer.lock = !currentPlayer.lock
         if (
@@ -365,6 +375,7 @@ class Manager {
           return
         this.io.to(game.hashName).emit("updateBoard", {
           board: currentPlayer.board.drawPiece(),
+          done: currentPlayer.done,
           id: socket.id
         })
         currentPlayer.lock = !currentPlayer.lock

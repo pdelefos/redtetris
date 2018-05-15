@@ -16,6 +16,7 @@ class Player {
     this.lineCompleted = 0
     this.done = false
     this.lock = false
+    this.refreshId = null
   }
 
   reset = () => {
@@ -26,6 +27,7 @@ class Player {
     this.nextPiece = null
     this.idx = 0
     this.done = false
+    this.refreshId = null
   }
 
   updateUsername = username => {
@@ -61,7 +63,8 @@ class Player {
     totalScore: this.totalScore,
     currentScore: this.currentScore,
     lineCompleted: this.lineCompleted,
-    board: []
+    board: [],
+    done: this.done
   })
 }
 
