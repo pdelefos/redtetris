@@ -5,7 +5,13 @@ import "./style.scss"
 import { Redirect } from "react-router"
 
 let usernameInput = null
-const Connection = ({ history, updateUser, notif }) => {
+const Connection = ({ history, updateUser, notif, username }) => {
+  if (username)
+    return (
+      <div>
+        <Redirect to={`/lobby`} />
+      </div>
+    )
   return (
     <div>
       <h2 className="input-label font--normal">Choose your player name</h2>
@@ -19,15 +25,15 @@ const Connection = ({ history, updateUser, notif }) => {
           onKeyDown={evt => handleKeyDown(updateUser, evt)}
           tabIndex="0"
         />
-        <Link
+        <button
           className="button"
-          to="/lobby"
           onClick={() => {
-            updateUser(usernameInput.value)
+            if (usernameInput.value.length < 4) return
+            else updateUser(usernameInput.value)
           }}
         >
           Start
-        </Link>
+        </button>
       </div>
     </div>
   )
@@ -35,9 +41,7 @@ const Connection = ({ history, updateUser, notif }) => {
 
 const handleKeyDown = (updateUserCallback, evt) => {
   if (evt.key === "Enter") {
-    console.log("Enter")
-    // updateUserCallback(usernameInput.value)
-    // return <Redirect to={`/lobby`} />
+    updateUserCallback(usernameInput.value)
   }
 }
 

@@ -5,7 +5,9 @@ import { bindActionCreators } from "redux"
 import Connection from "../components/Connection"
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    username: state.user.username
+  }
 }
 
 const mapDispatchToProps = dispatch => {
@@ -14,8 +16,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const FinalConnection = connect(mapStateToProps, mapDispatchToProps)(
-  Connection
-)
+const FinalConnection = connect(mapStateToProps, mapDispatchToProps)(Connection)
 
 export default FinalConnection
