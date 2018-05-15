@@ -14,7 +14,9 @@ const Hud = ({ game, currentPlayerId }) => {
         <div className="hud__item">
           <h3 className="hud__title">next piece</h3>
           <div className="hud__value">
-            <div className="piece-visualizer">{_createGrid(nextPiece)}</div>
+            <div className="piece-visualizer">
+              {_createGrid(nextPiece, false)}
+            </div>
           </div>
         </div>
         <div className="hud__item">

@@ -21,7 +21,7 @@ const Board = ({ board, score, actions }) => {
         }}
         tabIndex="0"
       >
-        {_createGrid(board)}
+        {_createGrid(board, false)}
       </div>
     </div>
   )

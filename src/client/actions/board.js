@@ -1,14 +1,15 @@
 import { socket } from "../socket"
 
-const updatedBoard = (board, id) => ({
+const updatedBoard = (board, id, done) => ({
   type: "UPDATE_BOARD",
   board,
-  id
+  id,
+  done
 })
 
 export const updateBoard = dispatch => {
   socket.on("updateBoard", data => {
-    dispatch(updatedBoard(data.board, data.id))
+    dispatch(updatedBoard(data.board, data.id, data.done))
   })
 }
 

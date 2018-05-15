@@ -18,7 +18,8 @@ const game = (state = initialState, action) => {
           ...state.players,
           [action.id]: {
             ...state.players[action.id],
-            board: action.board
+            board: action.board,
+            done: action.done
           }
         }
       }
