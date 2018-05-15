@@ -31,7 +31,7 @@ const game = (state = initialState, action) => {
             ...state.players[action.id],
             lineCompleted: action.gameInfo.lineCompleted,
             nextPiece: action.gameInfo.nextPiece,
-            score: action.gameInfo.score
+            currentScore: action.gameInfo.score
           }
         }
       }

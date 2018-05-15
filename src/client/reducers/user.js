@@ -1,6 +1,6 @@
 let initialState = {
   username: null,
-	id: null
+  id: null
 }
 
 const user = (state = initialState, action) => {
@@ -10,7 +10,7 @@ const user = (state = initialState, action) => {
         ...state,
         username: action.username,
         id: action.id
-			}
+      }
     default:
       return state
   }

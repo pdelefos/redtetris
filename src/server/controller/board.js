@@ -9,6 +9,7 @@ class Board {
     this.block = false
     this.currentPiece = null
     this.nextPiece = null
+    this.score = 0
   }
 
   // private methods
@@ -102,7 +103,27 @@ class Board {
         lineCompletedInARow++
       }
     })
+    if (lineCompletedInARow > 0) this._updateScore(lineCompletedInARow)
     return lineCompletedInARow
+  }
+
+  _updateScore = nbLines => {
+    switch (nbLines) {
+      case 1:
+        this.score += 40
+        break
+      case 2:
+        this.score += 100
+        break
+      case 3:
+        this.score += 300
+        break
+      case 4:
+        this.score += 1200
+        break
+      default:
+        break
+    }
   }
 
   _eraseLine = lineIndex => {
