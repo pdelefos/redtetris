@@ -5,7 +5,14 @@ import "./style.scss"
 import { Redirect } from "react-router"
 
 let usernameInput = null
-const Connection = ({ history, updateUser, notif, username }) => {
+const Connection = ({
+  history,
+  updateUser,
+  notif,
+  username,
+  error,
+  addError
+}) => {
   if (username)
     return (
       <div>
@@ -15,6 +22,7 @@ const Connection = ({ history, updateUser, notif, username }) => {
   return (
     <div>
       <h2 className="input-label font--normal">Choose your player name</h2>
+      {error && <div style={{ backgroundColor: "red" }}>CC </div>}
       <div className="input-btn-grp">
         <input
           className="input--text"
@@ -28,8 +36,7 @@ const Connection = ({ history, updateUser, notif, username }) => {
         <button
           className="button"
           onClick={() => {
-            console.log(usernameInput.value)
-            if (usernameInput.value.length < 4) return
+            if (verifyUsername(usernameInput.value)) addError()
             else updateUser(usernameInput.value)
           }}
         >
@@ -40,10 +47,14 @@ const Connection = ({ history, updateUser, notif, username }) => {
   )
 }
 
+const verifyUsername = username => {
+  return usernameInput.value.length == 0 || usernameInput.value.length > 20
+}
+
 const handleKeyDown = (updateUserCallback, evt) => {
   if (evt.key === "Enter") {
-    if (usernameInput.value.length < 4) return
-    updateUserCallback(usernameInput.value)
+    if (verifyUsername(usernameInput.value)) addError()
+    else updateUserCallback(usernameInput.value)
   }
 }
 

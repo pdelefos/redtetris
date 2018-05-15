@@ -7,7 +7,9 @@ import RoomView from "../views/Room"
 
 const mapStateToProps = state => {
   return {
-    gameStatus: state.game.status
+    gameStatus: state.game.status,
+    username: state.user.username,
+    currentGame: state.game.hashName
   }
 }
 
@@ -17,8 +19,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-const FinalRoomView = connect(mapStateToProps, mapDispatchToProps)(
-  RoomView
-)
+const FinalRoomView = connect(mapStateToProps, mapDispatchToProps)(RoomView)
 
 export default FinalRoomView

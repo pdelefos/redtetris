@@ -45,3 +45,15 @@ export const updateGameInfo = dispatch => {
     dispatch(updatedGameInfo(gameInfo.id, gameInfo))
   })
 }
+
+export const leaveGame = () => {
+  socket.emit("leaveRoom")
+}
+
+export const deleteGame = dispatch => {
+  socket.on("deleteGame", () => {
+    dispatch({
+      type: "DELETE_GAME"
+    })
+  })
+}

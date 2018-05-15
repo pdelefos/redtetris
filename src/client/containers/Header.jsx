@@ -4,10 +4,10 @@ import Header from "../components/Header"
 
 const mapStateToProps = state => {
   return {
-    username: state.user.username,
-    roomName: state.game.hashName
-      ? state.rooms[state.game.hashName].roomName
-      : null
+    username: state.user.username
+    // roomName: state.game.hashName
+    //   ? state.rooms[state.game.hashName].roomName
+    //   : null
   }
 }
 

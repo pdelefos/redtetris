@@ -4,9 +4,15 @@ import "./style.scss"
 import PlayerList from "../PlayerList"
 import Panel from "../Panel"
 
-const Room = ({ game, currentPlayerId, playerStatus, rooms }) => {
+const Room = ({ game, currentPlayerId, playerStatus, rooms, leaveGame }) => {
   return (
     <div className="room-view font--normal">
+      <button
+        style={{ height: "30px", width: "30px" }}
+        onClick={() => {
+          leaveGame()
+        }}
+      />
       <Panel title="Players" subtitle={roomPlayersTitle(game.players)}>
         <PlayerList
           players={game.players}

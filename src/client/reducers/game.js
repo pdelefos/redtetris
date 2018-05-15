@@ -40,6 +40,8 @@ const game = (state = initialState, action) => {
         ...state,
         players: omit(state.players, [action.id])
       }
+    case "DELETE_GAME":
+      return initialState
     default:
       return state
   }

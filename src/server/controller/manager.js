@@ -53,7 +53,7 @@ class Manager {
   deleteUser = socket => {
     socket.on("disconnect", () => {
       this.notification.log(`[${socket.id}] Disconnect: Player destroyed`)
-      this._leave(socket.id)
+      this._leave(socket)
       delete this.players[socket.id]
     })
   }
@@ -106,28 +106,30 @@ class Manager {
     })
   }
 
-  _leave = id => {
-    let currentPlayer = this.players[id]
+  _leave = socket => {
+    let currentPlayer = this.players[socket.id]
     let hashName = currentPlayer.currentRoom
     if (hashName) {
       let room = this.rooms[hashName]
       if (room.game.status === "In game") clearInterval(this.refreshId)
-      room.game.removePlayer(id)
+      room.game.removePlayer(socket.id)
 
       if (room.playerCount() > 0) {
         currentPlayer.updateCurrentRoom(null)
         this.updateRoom(hashName)
-        this.io.to(room.hashName).emit("deletePlayer", id)
+        this.io.to(room.hashName).emit("deletePlayer", socket.id)
       } else {
         delete this.rooms[hashName]
         this.io.sockets.emit("deleteRoom", hashName)
       }
+      socket.leave(room.hashName)
     }
   }
 
   leaveRoom = socket => {
     socket.on("leaveRoom", () => {
-      this._leave(socket.id)
+      this._leave(socket)
+      socket.emit("deleteGame")
     })
   }
 

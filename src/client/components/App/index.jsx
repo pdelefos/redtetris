@@ -4,8 +4,8 @@ import "./style.scss"
 import { Switch, Route } from "react-router-dom"
 //components
 import ConnectionView from "../../views/Connection"
-import LobbyView from "../../views/Lobby"
 
+import FinalLobbyView from "../../containers/LobbyWrapper"
 import FinalRoomView from "../../containers/RoomWrapper"
 import FinalNotificationList from "../../containers/NotificationList"
 
@@ -15,7 +15,7 @@ const App = () => {
       <FinalNotificationList />
       <Switch>
         <Route exact path="/" component={ConnectionView} />
-        <Route path="/lobby" component={LobbyView} />
+        <Route path="/lobby" component={FinalLobbyView} />
         <Route path="/:hashName" component={FinalRoomView} />
       </Switch>
     </div>
