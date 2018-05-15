@@ -1,6 +1,11 @@
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
-import { playerStatus, leaveGame, deleteGame } from "../actions/game"
+import {
+  playerStatus,
+  leaveGame,
+  deleteGame,
+  deletePlayer
+} from "../actions/game"
 
 import Room from "../components/Room"
 
@@ -14,6 +19,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   deleteGame(dispatch)
+  deletePlayer(dispatch)
   return {
     playerStatus: playerStatus,
     leaveGame: leaveGame

@@ -27,7 +27,7 @@ const Connection = ({
         <input
           className="input--text"
           type="text"
-          onKeyDown={evt => handleKeyDown(updateUser, evt)}
+          onKeyDown={evt => handleKeyDown(updateUser, addError, evt)}
           tabIndex="0"
           ref={input => {
             usernameInput = input
@@ -51,7 +51,7 @@ const verifyUsername = username => {
   return usernameInput.value.length == 0 || usernameInput.value.length > 20
 }
 
-const handleKeyDown = (updateUserCallback, evt) => {
+const handleKeyDown = (updateUserCallback, addError, evt) => {
   if (evt.key === "Enter") {
     if (verifyUsername(usernameInput.value)) addError()
     else updateUserCallback(usernameInput.value)
