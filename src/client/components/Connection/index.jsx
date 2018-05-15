@@ -22,7 +22,11 @@ const Connection = ({
   return (
     <div>
       <h2 className="input-label font--normal">Choose your player name</h2>
-      {error && <div style={{ backgroundColor: "red" }}>CC </div>}
+      {error && (
+        <div className="input-error">
+          Username must be between 1 and 20 characters
+        </div>
+      )}
       <div className="input-btn-grp">
         <input
           className="input--text"
@@ -47,9 +51,8 @@ const Connection = ({
   )
 }
 
-const verifyUsername = username => {
-  return usernameInput.value.length == 0 || usernameInput.value.length > 20
-}
+const verifyUsername = username =>
+  usernameInput.value.length == 0 || usernameInput.value.length > 20
 
 const handleKeyDown = (updateUserCallback, evt) => {
   if (evt.key === "Enter") {

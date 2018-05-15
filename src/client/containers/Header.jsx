@@ -3,11 +3,13 @@ import { bindActionCreators } from "redux"
 import Header from "../components/Header"
 
 const mapStateToProps = state => {
+  let roomNameValue =
+    state.game.hashName && state.rooms[state.game.hashName]
+      ? state.rooms[state.game.hashName].roomName
+      : null
   return {
-    username: state.user.username
-    // roomName: state.game.hashName
-    //   ? state.rooms[state.game.hashName].roomName
-    //   : null
+    username: state.user.username,
+    roomName: roomNameValue
   }
 }
 

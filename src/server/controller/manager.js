@@ -111,18 +111,20 @@ class Manager {
     let hashName = currentPlayer.currentRoom
     if (hashName) {
       let room = this.rooms[hashName]
-      if (room.game.status === "In game") clearInterval(this.refreshId)
-      room.game.removePlayer(socket.id)
+      if (room) {
+        if (room.game.status === "In game") clearInterval(this.refreshId)
+        room.game.removePlayer(socket.id)
 
-      if (room.playerCount() > 0) {
-        currentPlayer.updateCurrentRoom(null)
-        this.updateRoom(hashName)
-        this.io.to(room.hashName).emit("deletePlayer", socket.id)
-      } else {
-        delete this.rooms[hashName]
-        this.io.sockets.emit("deleteRoom", hashName)
+        if (room.playerCount() > 0) {
+          currentPlayer.updateCurrentRoom(null)
+          this.updateRoom(hashName)
+          this.io.to(room.hashName).emit("deletePlayer", socket.id)
+        } else {
+          delete this.rooms[hashName]
+          this.io.sockets.emit("deleteRoom", hashName)
+        }
+        socket.leave(room.hashName)
       }
-      socket.leave(room.hashName)
     }
   }
 
