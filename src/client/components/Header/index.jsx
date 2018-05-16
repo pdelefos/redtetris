@@ -14,7 +14,7 @@ let Header = ({ username, roomName }) => {
         {roomName && roomName.toUpperCase()}
       </span>
       <span className="header__right">
-        <img src={UserIcon} alt="user icon" className="icon" />
+        <img src={UserIcon} alt="user icon" className="icon--margin-right" />
         {!username ? "Anonymous" : username}
       </span>
     </div>

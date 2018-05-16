@@ -26,6 +26,21 @@
     display: flex;
     justify-content: center;
   }
+  .score {
+    display: flex;
+    .icon {
+      width: 25px;
+    }
+    .score__icon {
+      margin-right: 10px;
+    }
+    .score__icon,
+    .score__value {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
   .player-item__button {
     width: 20%;
     display: flex;
