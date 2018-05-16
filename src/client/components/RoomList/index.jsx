@@ -3,6 +3,7 @@ import "./style.scss"
 
 import RoomItem from "../RoomItem"
 import Panel from "../Panel"
+import ArrowIcon from "../../assets/images/arrow-right-circle.svg"
 
 let roomName
 
@@ -12,7 +13,7 @@ const RoomList = ({ rooms, username, joinGame }) => {
   let roomPanelTitle = "Join room"
   if (roomsExists) {
     return (
-      <Panel title={roomPanelTitle} subtitle={roomPlural(nbRooms)}>
+      <Panel icon={ArrowIcon} title={roomPanelTitle} subtitle={roomPlural(nbRooms)}>
         <ul className="roomlist">
           {Object.keys(rooms).map(key => {
             let room = rooms[key]
@@ -30,7 +31,7 @@ const RoomList = ({ rooms, username, joinGame }) => {
     )
   } else {
     return (
-      <Panel title={roomPanelTitle}>
+      <Panel icon={ArrowIcon} title={roomPanelTitle}>
         <ul className="roomlist roomlist--no-room">NO ROOM FOUND</ul>
       </Panel>
     )
