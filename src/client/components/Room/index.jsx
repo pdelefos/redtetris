@@ -4,17 +4,11 @@ import "./style.scss"
 import PlayerList from "../PlayerList"
 import Panel from "../Panel"
 
-const Room = ({
-  game,
-  currentPlayerId,
-  playerStatus,
-  rooms,
-  leaveGame
-}) => {
+const Room = ({ game, currentPlayerId, playerStatus, rooms, leaveGame }) => {
   return (
     <div className="room-view font--normal">
       <button
-        style={{ height: "30px", width: "30px" }}
+        className="button button--grey"
         onClick={() => {
           if (game.status != "Starting") leaveGame()
         }}

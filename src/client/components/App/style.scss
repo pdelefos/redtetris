@@ -31,13 +31,14 @@ a.button,
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   // STATE STYLE
   &:hover {
     transform: scale(1.1);
   }
-  &:active {
-    background-color: green;
-  }
+}
+.button.button--grey {
+  background: $grey-dark;
 }
 
 .button--disabled,
