@@ -52,6 +52,7 @@ a.button,
 .button--disabled:hover {
   transform: none;
   background: grey;
+  cursor: default;  
 }
 
 .icon {
