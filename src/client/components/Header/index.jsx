@@ -11,7 +11,12 @@ let Header = ({ username, roomName }) => {
         <Logo />
       </span>
       <span className="header__middle">
-        {roomName && roomName.toUpperCase()}
+        <div className="room-name">
+          <span className="room-name__title">ROOM NAME</span>
+          <span className="room-name__value">
+            {roomName && roomName.toUpperCase()}
+          </span>
+        </div>
       </span>
       <span className="header__right">
         <img src={UserIcon} alt="user icon" className="icon--margin-right" />

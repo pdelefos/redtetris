@@ -29,6 +29,18 @@
   }
 }
 
+.room-name {
+  display: flex;
+  flex-direction: column;
+  .room-name__title {
+    font-size: $font--small;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: $grey-light;
+    text-align: center;
+  }
+}
+
 .icon--margin-right {
   margin-right: 10px;
 }
