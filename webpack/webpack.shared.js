@@ -1,6 +1,7 @@
 var process = require("process")
 var path = require("path")
 var HtmlWebpackPlugin = require("html-webpack-plugin")
+var FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 module.exports = {
   entry: ["react-hot-loader/patch", "./src/client/entry.js"],
@@ -57,6 +58,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: "./src/client/index.html"
-    })
+    }),
+    new FaviconsWebpackPlugin('./src/client/favicon.png')
   ]
 }
