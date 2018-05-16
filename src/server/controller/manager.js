@@ -331,6 +331,7 @@ class Manager {
             )
             clearInterval(game.players[lastPlayerId].refreshId)
             game.reset()
+            this.updateRoom(game.hashName)
             this.io.to(currentPlayer.currentRoom).emit("updateGame", game)
           } else
             this.io.to(game.hashName).emit("updateBoard", {

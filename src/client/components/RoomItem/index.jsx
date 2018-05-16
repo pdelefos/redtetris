@@ -11,10 +11,13 @@ let RoomItem = ({
   status,
   joinGame
 }) => {
-  let button =
-    status === ("In game" || "Starting") ? (
-      <div className="button button--disabled">Join</div>
-    ) : (
+  console.log("status", status)
+  console.log("status", status == "Starting")
+  let button
+  if (status == "Starting" || status == "In game")
+    button = <div className="button button--disabled">Join</div>
+  else
+    button = (
       <Link
         className="button"
         to={`/${hashName}[${username}]`}
@@ -23,6 +26,7 @@ let RoomItem = ({
         Join
       </Link>
     )
+  console.log(button)
   return (
     <div className="room-item">
       <span className="room-item__game-name">{roomName}</span>

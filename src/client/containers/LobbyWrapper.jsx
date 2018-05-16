@@ -5,8 +5,7 @@ import Lobby from "../views/Lobby"
 
 const mapStateToProps = state => {
   return {
-    username: state.user.username,
-    currentGame: state.game.hashName
+    username: state.user.username
   }
 }
 
