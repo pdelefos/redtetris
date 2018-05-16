@@ -1,10 +1,10 @@
 import React from "react"
 import "./style.scss"
 
-import closeCircle from "../../assets/images/x-circle.svg"
+import closeCircle from "../../assets/images/x.svg"
 
 const Notification = ({ message, id, status, deleteNotification }) => {
-  waitThenClose(deleteNotification, id, 2000)
+  waitThenClose(deleteNotification, id, 1000)
   return (
     <li className="notification">
       <span className="notification__content"> {message} </span>
