@@ -9,7 +9,8 @@ const mapStateToProps = state => {
   let currentPlayer = state.game.players[state.user.id]
   return {
     board: currentPlayer.board,
-    score: currentPlayer.score
+    score: currentPlayer.score,
+    done: currentPlayer.done
   }
 }
 

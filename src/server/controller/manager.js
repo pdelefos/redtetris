@@ -112,7 +112,8 @@ class Manager {
     if (hashName) {
       let room = this.rooms[hashName]
       if (room) {
-        if (room.game.status === "In game") clearInterval(this.refreshId)
+        if (room.game.status === "In game")
+          clearInterval(currentPlayer.refreshId)
         room.game.removePlayer(socket.id)
 
         if (room.playerCount() > 0) {
@@ -162,6 +163,7 @@ class Manager {
     )
     if (readyCount == Object.keys(room.game.players).length) {
       room.game.updateStatus("Starting")
+      this.updateRoom(room.hashName)
       this.io.to(room.hashName).emit("updateGame", room.game)
       Object.values(room.game.players).forEach(player => {
         player.initGame()
@@ -317,10 +319,17 @@ class Manager {
           clearInterval(currentPlayer.refreshId)
           game.done++
           currentPlayer.done = true
-          if (game.done == Object.keys(game.players).length) {
+          if (game.done == Object.keys(game.players).length - 1) {
             game.players[currentPlayer.id].updateTotalScore(
               currentPlayer.board.score
             )
+            let lastPlayerId = Object.keys(game.players).filter(
+              playerId => !game.players[playerId].done
+            )
+            game.players[lastPlayerId].updateTotalScore(
+              game.players[lastPlayerId].board.score
+            )
+            clearInterval(game.players[lastPlayerId].refreshId)
             game.reset()
             this.io.to(currentPlayer.currentRoom).emit("updateGame", game)
           } else

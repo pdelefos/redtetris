@@ -12,7 +12,7 @@ let RoomItem = ({
   joinGame
 }) => {
   let button =
-    status === "In game" ? (
+    status === ("In game" || "Starting") ? (
       <div className="button button--disabled">Join</div>
     ) : (
       <Link

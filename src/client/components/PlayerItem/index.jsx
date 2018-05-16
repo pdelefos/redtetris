@@ -1,6 +1,8 @@
 import React from "react"
 import "./style.scss"
 
+import ScoreIcon from "../../assets/images/power-level.svg"
+
 const Button = ({
   playerId,
   currentPlayerId,
@@ -36,7 +38,10 @@ let PlayerItem = ({
   return (
     <div className={"player-item " + selectedClass}>
       <span className="player-item__username">{player.username}</span>
-      <span className="player-item__score">{player.totalScore} pts</span>
+      <span className="player-item__score">
+        <img src={ScoreIcon} alt="score icon" className="icon" />
+        {player.totalScore} pts
+      </span>
       <span className="player-item__button">
         <Button
           playerId={playerId}

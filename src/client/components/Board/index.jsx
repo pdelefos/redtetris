@@ -10,7 +10,7 @@ let cdActions = {
   canpushDown: true
 }
 
-const Board = ({ board, score, actions }) => {
+const Board = ({ board, score, actions, done }) => {
   return (
     <div className="board-container">
       <div
@@ -21,7 +21,7 @@ const Board = ({ board, score, actions }) => {
         }}
         tabIndex="0"
       >
-        {_createGrid(board, false)}
+        {_createGrid(board, done)}
       </div>
     </div>
   )
