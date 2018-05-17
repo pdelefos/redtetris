@@ -7,14 +7,21 @@ import path from "path"
 import Manager from "./controller/manager"
 import router from "./router"
 
-const config = yaml.load(path.join(__dirname, "config.yml"))
-const port = process.env.PORT || config.server.port
+// const config = yaml.load(path.join(__dirname, "config.yml"))
+const port = 8081
+const env = process.env.NODE_ENV
 
 const initApp = () => {
   const app = express()
   app.use(express.static(path.join(__dirname, "config.yml")))
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(bodyParser.json({ type: "*/*" }))
+  if (env === "production") {
+    app.use(express.static(path.join(__dirname, "..", "..", "build")))
+    app.get("*", (req, res) =>
+      res.sendFile(path.join(__dirname, "..", "..", "build/index.html"))
+    )
+  }
   router(app)
   return http.createServer(app)
 }

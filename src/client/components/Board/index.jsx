@@ -13,28 +13,30 @@ let cdActions = {
 const Board = ({ board, score, actions, done }) => {
   return (
     <div className="board-container">
-      <div
-        ref={div => div && div.focus()}
-        className="board"
-        onKeyDown={evt => {
-          handleKeyDown(actions, evt)
-        }}
-        tabIndex="0"
-      >
-        {_createGrid(board, done)}
-      </div>
+      {board && (
+        <div
+          ref={div => div && div.focus()}
+          className="board"
+          onKeyDown={evt => {
+            handleKeyDown(actions, evt)
+          }}
+          tabIndex="0"
+        >
+          {_createGrid(board, done)}
+        </div>
+      )}
     </div>
   )
 }
 
 const checkCooldown = action => {
-  let cdAction = cdActions["can" + action.name]
-  if (cdAction) {
+  if (cdActions["can" + action.name]) {
+    console.log("ca marche pas")
     action()
-    cdAction = !cdAction
+    cdActions["can" + action.name] = !cdActions["can" + action.name]
     setTimeout(() => {
-      cdAction = !cdAction
-    }, 500)
+      cdActions["can" + action.name] = !cdActions["can" + action.name]
+    }, 20)
   }
 }
 
