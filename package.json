@@ -21,6 +21,8 @@
     "srv-dev": "nodemon --exec npm run babel-node -- src/server/server.js",
     "srv-prod":
       "export NODE_ENV=production && nodemon --exec npm run babel-node -- src/server/server.js",
+    "srv-prod-public":
+      "yarn srv-prod --host 0.0.0.0 --public 0.0.0.0:8080 --disable-host-check --port 8081",
     "test": "mocha --compilers js:@babel/register ./test/**/*.js",
     "coverage": "cross-env NODE_ENV=test nyc --include src -a -r html mocha"
   },
