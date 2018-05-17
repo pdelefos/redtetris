@@ -5,24 +5,20 @@
   "author": "pdelefos-dylandjian-corentinprune",
   "license": "MIT",
   "mocha": {
-    "require": [
-      "@babel/register"
-    ]
+    "require": ["@babel/register"]
   },
   "nyc": {
-    "require": [
-      "@babel/register"
-    ],
-    "extension": [
-      ".jsx"
-    ],
+    "require": ["@babel/register"],
+    "extension": [".jsx"],
     "sourceMap": false,
     "instrument": false
   },
   "scripts": {
     "clear": "rm -rf ./build",
-    "client-dev": "webpack-dev-server --inline --config webpack/webpack.config.development.js",
-    "client-dev-public": "yarn client-dev --host 0.0.0.0 --public 0.0.0.0:8080 --disable-host-check --port 8080",
+    "client-dev":
+      "webpack-dev-server --inline --config webpack/webpack.config.development.js",
+    "client-dev-public":
+      "yarn client-dev --host 0.0.0.0 --public 0.0.0.0:8080 --disable-host-check --port 8080",
     "client-prod": "webpack --config webpack/webpack.config.production.js",
     "babel-node": "babel-node --presets=@babel/preset-env",
     "srv-dev": "nodemon --exec npm run babel-node -- src/server/server.js",
