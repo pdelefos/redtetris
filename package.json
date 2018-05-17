@@ -20,7 +20,7 @@
     "babel-node": "babel-node --presets=@babel/preset-env",
     "srv-dev": "nodemon --exec npm run babel-node -- src/server/server.js",
     "srv-prod":
-      "cross-env NODE_ENV=production && nodemon --exec npm run babel-node -- src/server/server.js",
+      "export NODE_ENV=production && nodemon --exec npm run babel-node -- src/server/server.js",
     "test": "mocha --compilers js:@babel/register ./test/**/*.js",
     "coverage": "cross-env NODE_ENV=test nyc --include src -a -r html mocha"
   },
