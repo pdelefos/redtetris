@@ -319,14 +319,18 @@ class Manager {
           clearInterval(currentPlayer.refreshId)
           game.done++
           currentPlayer.done = true
-          if ((game.done == Object.keys(game.players).length - 1) || (game.done == 1 && Object.keys(game.players).length == 1)) {
+          if (
+            game.done == Object.keys(game.players).length - 1 ||
+            (game.done == 1 && Object.keys(game.players).length == 1)
+          ) {
             game.players[currentPlayer.id].updateTotalScore(
               currentPlayer.board.score
             )
-            let lastPlayerId = Object.keys(game.players).filter(
-              playerId => !game.players[playerId].done
-            )
-            if (!lastPlayerId) {
+            if (game.done == Object.keys(game.players).length - 1) {
+              let lastPlayerId = Object.keys(game.players).filter(
+                playerId => !game.players[playerId].done
+              )
+
               game.players[lastPlayerId].updateTotalScore(
                 game.players[lastPlayerId].board.score
               )
