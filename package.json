@@ -4,9 +4,6 @@
   "description": "4 players online Tetris",
   "author": "pdelefos-dylandjian-corentinprune",
   "license": "MIT",
-  "mocha": {
-    "require": ["@babel/register"]
-  },
   "nyc": {
     "require": ["@babel/register"],
     "extension": [".jsx"],
@@ -22,8 +19,10 @@
     "client-prod": "webpack --config webpack/webpack.config.production.js",
     "babel-node": "babel-node --presets=@babel/preset-env",
     "srv-dev": "nodemon --exec npm run babel-node -- src/server/server.js",
-    "test": "mocha",
-    "coverage": "cross-env NODE_ENV=test nyc --include src --all -r text mocha"
+    "srv-prod":
+      "cross-env NODE_ENV=production && nodemon --exec npm run babel-node -- src/server/server.js",
+    "test": "mocha --compilers js:@babel/register ./test/**/*.js",
+    "coverage": "cross-env NODE_ENV=test nyc --include src -a -r html mocha"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -31,8 +30,9 @@
     "cross-env": "^5.1.3",
     "express": "^4.16.2",
     "favicons-webpack-plugin": "^0.0.9",
+    "global": "^4.3.2",
     "lodash": "^4.17.5",
-    "mocha": "^5.0.3",
+    "mocha": "^5.1.1",
     "node-sass": "^4.7.2",
     "node-yaml-config": "^0.0.4",
     "nyc": "^11.4.1",
