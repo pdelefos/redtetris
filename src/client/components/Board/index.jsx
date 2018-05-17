@@ -34,7 +34,7 @@ const checkCooldown = action => {
     cdAction = !cdAction
     setTimeout(() => {
       cdAction = !cdAction
-    }, 300)
+    }, 500)
   }
 }
 

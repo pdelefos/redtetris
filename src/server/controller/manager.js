@@ -176,12 +176,14 @@ class Manager {
           },
           constants.COUNTDOWN_DELAY,
           constants.COUNTDOWN_REPETITIONS
-        ).then(() => {
-          room.game.updateStatus("In game")
-          this.io.to(room.hashName).emit("updateGame", room.game)
-          this.startGame(player.socket)
-          this.updateRoom(room.hashName)
-        })
+        )
+          .then(() => {
+            room.game.updateStatus("In game")
+            this.io.to(room.hashName).emit("updateGame", room.game)
+            this.startGame(player.socket)
+            this.updateRoom(room.hashName)
+          })
+          .catch(err => err)
       })
     } else this.io.to(room.hashName).emit("updateGame", room.game)
   }
@@ -212,6 +214,7 @@ class Manager {
       if (!currentPlayer.lock && !currentPlayer.done) {
         currentPlayer.lock = !currentPlayer.lock
         if (
+          !currentPlayer.board ||
           !this.handleActions(
             socket,
             currentPlayer,
@@ -234,6 +237,7 @@ class Manager {
       if (!currentPlayer.lock && !currentPlayer.done) {
         currentPlayer.lock = !currentPlayer.lock
         if (
+          !currentPlayer.board ||
           !this.handleActions(
             socket,
             currentPlayer,
@@ -256,6 +260,7 @@ class Manager {
       if (!currentPlayer.lock && !currentPlayer.done) {
         currentPlayer.lock = !currentPlayer.lock
         if (
+          !currentPlayer.board ||
           !this.handleActions(socket, currentPlayer, currentPlayer.board.drop)
         )
           return
@@ -274,6 +279,7 @@ class Manager {
       if (!currentPlayer.lock && !currentPlayer.done) {
         currentPlayer.lock = !currentPlayer.lock
         if (
+          !currentPlayer.board ||
           !this.handleActions(socket, currentPlayer, currentPlayer.board.moveUp)
         )
           return
@@ -292,6 +298,7 @@ class Manager {
       if (!currentPlayer.lock && !currentPlayer.done) {
         currentPlayer.lock = !currentPlayer.lock
         if (
+          !currentPlayer.board ||
           !this.handleActions(
             socket,
             currentPlayer,
@@ -366,6 +373,7 @@ class Manager {
       if (!currentPlayer.lock && !currentPlayer.done) {
         currentPlayer.lock = !currentPlayer.lock
         if (
+          !currentPlayer.board ||
           !this.handleActions(socket, currentPlayer, currentPlayer.board.drop)
         )
           return
