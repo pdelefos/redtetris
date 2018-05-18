@@ -19,7 +19,7 @@ const RoomView = ({ gameStatus, username, currentGame, clearNotification }) => {
       </div>
     )
   if (gameStatus === "In game") {
-    clearNotification()
+    // clearNotification()
     return (
       <div>
         <FinalHeader />
