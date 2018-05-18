@@ -17,12 +17,14 @@ class Player {
     this.done = false
     this.lock = false
     this.refreshId = null
+    this.winner = false
   }
 
   reset = () => {
     this.board = null
     this.lock = false
     this.ready = false
+    this.winner = false
     this.currentPiece = null
     this.nextPiece = null
     this.idx = 0
@@ -63,6 +65,7 @@ class Player {
     totalScore: this.totalScore,
     currentScore: this.currentScore,
     lineCompleted: this.lineCompleted,
+    winner: this.winner,
     board: [],
     done: this.done
   })

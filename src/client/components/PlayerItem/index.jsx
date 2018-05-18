@@ -2,6 +2,7 @@ import React from "react"
 import "./style.scss"
 
 import ScoreIcon from "../../assets/images/award.svg"
+import StarIcon from "../../assets/images/star.svg"
 
 const Button = ({
   playerId,
@@ -37,7 +38,16 @@ let PlayerItem = ({
   let selectedClass = isCurrentPlayer ? "player-item--current" : ""
   return (
     <div className={"player-item " + selectedClass}>
-      <span className="player-item__username">{player.username}</span>
+      <span className="player-item__username">
+        {player.username}
+        {player.winner && (
+          <div className="star">
+            <span className="star__icon">
+              <img src={StarIcon} alt="star icon" className="icon" />
+            </span>
+          </div>
+        )}
+      </span>
       <span className="player-item__score">
         <div className="score">
           <span className="score__icon">

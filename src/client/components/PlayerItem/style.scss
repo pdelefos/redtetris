@@ -29,13 +29,29 @@
   .score {
     display: flex;
     .icon {
-      width: 25px;
+      width: 28px;
     }
     .score__icon {
       margin-right: 10px;
     }
     .score__icon,
     .score__value {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .star {
+    display: flex;
+    .icon {
+      width: 21px;
+    }
+    .star__icon {
+      margin-right: 10px;
+      margin-top: 5px;
+    }
+    .star__icon,
+    .star__value {
       display: flex;
       justify-content: center;
       align-items: center;
