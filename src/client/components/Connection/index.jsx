@@ -40,8 +40,11 @@ const Connection = ({
         <button
           className="button"
           onClick={() => {
-            if (verifyUsername(usernameInput.value)) addError()
-            else updateUser(usernameInput.value)
+            if (verifyUsername(usernameInput.value)) addError(true)
+            else {
+              updateUser(usernameInput.value)
+              addError(false)
+            }
           }}
         >
           Start
@@ -51,13 +54,19 @@ const Connection = ({
   )
 }
 
-const verifyUsername = username =>
-  usernameInput.value.length == 0 || usernameInput.value.length > 20
+const verifyUsername = username => {
+  let reg = new RegExp("^([a-zA-Z0-9]{1,20})$")
+  if (reg.test(usernameInput.value)) return false
+  return true
+}
 
 const handleKeyDown = (updateUserCallback, addError, evt) => {
   if (evt.key === "Enter") {
-    if (verifyUsername(usernameInput.value)) addError()
-    else updateUserCallback(usernameInput.value)
+    if (verifyUsername(usernameInput.value)) addError(true)
+    else {
+      updateUserCallback(usernameInput.value)
+      addError(false)
+    }
   }
 }
 

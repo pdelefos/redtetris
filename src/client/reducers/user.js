@@ -15,7 +15,7 @@ const user = (state = initialState, action) => {
     case "ADD_ERROR":
       return {
         ...state,
-        error: true
+        error: action.error
       }
     default:
       return state

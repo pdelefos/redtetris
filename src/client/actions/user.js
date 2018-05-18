@@ -13,6 +13,7 @@ export const updateUser = username => {
 
 export const addError = error => {
   return {
-    type: "ADD_ERROR"
+    type: "ADD_ERROR",
+    error
   }
 }

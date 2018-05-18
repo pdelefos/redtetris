@@ -135,6 +135,7 @@ class Manager {
       this._leave(socket)
       currentPlayer.ready = false
       currentPlayer.totalScore = 0
+      currentPlayer.winner = false
       socket.emit("deleteGame")
     })
   }
@@ -212,6 +213,7 @@ class Manager {
       if (!currentPlayer.lock && !currentPlayer.done) {
         currentPlayer.lock = !currentPlayer.lock
         if (
+          !currentPlayer.board ||
           !this.handleActions(
             socket,
             currentPlayer,
@@ -234,6 +236,7 @@ class Manager {
       if (!currentPlayer.lock && !currentPlayer.done) {
         currentPlayer.lock = !currentPlayer.lock
         if (
+          !currentPlayer.board ||
           !this.handleActions(
             socket,
             currentPlayer,
@@ -256,6 +259,7 @@ class Manager {
       if (!currentPlayer.lock && !currentPlayer.done) {
         currentPlayer.lock = !currentPlayer.lock
         if (
+          !currentPlayer.board ||
           !this.handleActions(socket, currentPlayer, currentPlayer.board.drop)
         )
           return
@@ -274,6 +278,7 @@ class Manager {
       if (!currentPlayer.lock && !currentPlayer.done) {
         currentPlayer.lock = !currentPlayer.lock
         if (
+          !currentPlayer.board ||
           !this.handleActions(socket, currentPlayer, currentPlayer.board.moveUp)
         )
           return
@@ -292,6 +297,7 @@ class Manager {
       if (!currentPlayer.lock && !currentPlayer.done) {
         currentPlayer.lock = !currentPlayer.lock
         if (
+          !currentPlayer.board ||
           !this.handleActions(
             socket,
             currentPlayer,
@@ -319,27 +325,28 @@ class Manager {
           clearInterval(currentPlayer.refreshId)
           game.done++
           currentPlayer.done = true
-          if (game.done == Object.keys(game.players).length - 1) {
+          if (
+            game.done == Object.keys(game.players).length - 1 ||
+            (game.done == 1 && Object.keys(game.players).length == 1)
+          ) {
             game.players[currentPlayer.id].updateTotalScore(
               currentPlayer.board.score
             )
-            let lastPlayerId = Object.keys(game.players).filter(
-              playerId => !game.players[playerId].done
-            )
-            game.players[lastPlayerId].updateTotalScore(
-              game.players[lastPlayerId].board.score
-            )
-            clearInterval(game.players[lastPlayerId].refreshId)
+            if (game.done == Object.keys(game.players).length - 1) {
+              let lastPlayerId = Object.keys(game.players).filter(
+                playerId => !game.players[playerId].done
+              )
+
+              game.players[lastPlayerId].updateTotalScore(
+                game.players[lastPlayerId].board.score
+              )
+              game.players[lastPlayerId].winner = true
+              clearInterval(game.players[lastPlayerId].refreshId)
+            }
             game.reset()
-            game.players[lastPlayerId].winner = true
             this.updateRoom(game.hashName)
             this.io.to(currentPlayer.currentRoom).emit("updateGame", game)
-          } else
-            this.io.to(game.hashName).emit("updateBoard", {
-              board: currentPlayer.board.grid,
-              done: currentPlayer.done,
-              id: socket.id
-            })
+          }
           return false
         }
         currentPlayer.board.nextPiece = game.getNextPiece(socket.id)
@@ -361,6 +368,7 @@ class Manager {
       if (!currentPlayer.lock && !currentPlayer.done) {
         currentPlayer.lock = !currentPlayer.lock
         if (
+          !currentPlayer.board ||
           !this.handleActions(socket, currentPlayer, currentPlayer.board.drop)
         )
           return
