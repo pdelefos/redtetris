@@ -337,16 +337,24 @@ class Manager {
                 playerId => !game.players[playerId].done
               )
 
-              game.players[lastPlayerId].updateTotalScore(
-                game.players[lastPlayerId].board.score
-              )
-              game.players[lastPlayerId].winner = true
-              clearInterval(game.players[lastPlayerId].refreshId)
+              if (lastPlayerId && game.players[lastPlayerId]) {
+                game.players[lastPlayerId].updateTotalScore(
+                  game.players[lastPlayerId].board.score
+                )
+                game.players[lastPlayerId].winner = true
+                clearInterval(game.players[lastPlayerId].refreshId)
+              }
             }
             game.reset()
-            this.updateRoom(game.hashName)
             this.io.to(currentPlayer.currentRoom).emit("updateGame", game)
+            this.updateRoom(game.hashName)
           }
+	  else
+            this.io.to(game.hashName).emit("updateBoard", {
+            board: currentPlayer.board.grid,
+            done: currentPlayer.done,
+            id: socket.id
+          })
           return false
         }
         currentPlayer.board.nextPiece = game.getNextPiece(socket.id)

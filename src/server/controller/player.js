@@ -24,7 +24,6 @@ class Player {
     this.board = null
     this.lock = false
     this.ready = false
-    this.winner = false
     this.currentPiece = null
     this.nextPiece = null
     this.idx = 0
