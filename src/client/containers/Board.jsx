@@ -1,9 +1,9 @@
-import { connect } from "react-redux"
-import * as BoardActions from "../actions/board"
-import { bindActionCreators } from "redux"
-import omit from "lodash/omit"
+import { connect } from 'react-redux'
+import * as BoardActions from '../actions/board'
+import { bindActionCreators } from 'redux'
+import omit from 'lodash/omit'
 
-import Board from "../components/Board"
+import Board from '../components/Board'
 
 const mapStateToProps = state => {
   let currentPlayer = state.game.players[state.user.id]
@@ -17,7 +17,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   BoardActions.updateBoard(dispatch)
   return {
-    actions: omit(BoardActions, ["updateBoard"])
+    actions: omit(BoardActions, ['updateBoard'])
   }
 }
 

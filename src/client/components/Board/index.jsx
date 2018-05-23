@@ -1,6 +1,6 @@
-import React from "react"
-import "./style.scss"
-import { _createGrid } from "../../utils"
+import React from 'react'
+import './style.scss'
+import { _createGrid } from '../../utils'
 
 let cdActions = {
   canmoveUp: true,
@@ -12,49 +12,47 @@ let cdActions = {
 
 const Board = ({ board, score, actions, done }) => {
   return (
-    <div className="board-container">
-      {board && (
+    <div className='board-container'>
+      {board &&
         <div
           ref={div => div && div.focus()}
-          className="board"
+          className='board'
           onKeyDown={evt => {
             handleKeyDown(actions, evt)
           }}
-          tabIndex="0"
+          tabIndex='0'
         >
           {_createGrid(board, done)}
-        </div>
-      )}
+        </div>}
     </div>
   )
 }
 
 const checkCooldown = action => {
-  if (cdActions["can" + action.name]) {
-    console.log("ca marche pas")
+  if (cdActions['can' + action.name]) {
     action()
-    cdActions["can" + action.name] = !cdActions["can" + action.name]
+    cdActions['can' + action.name] = !cdActions['can' + action.name]
     setTimeout(() => {
-      cdActions["can" + action.name] = !cdActions["can" + action.name]
+      cdActions['can' + action.name] = !cdActions['can' + action.name]
     }, 20)
   }
 }
 
 const handleKeyDown = (actions, evt) => {
   switch (evt.key) {
-    case "ArrowLeft":
+    case 'ArrowLeft':
       checkCooldown(actions.moveLeft)
       break
-    case "ArrowRight":
+    case 'ArrowRight':
       checkCooldown(actions.moveRight)
       break
-    case "ArrowDown":
+    case 'ArrowDown':
       checkCooldown(actions.moveDown)
       break
-    case "ArrowUp":
+    case 'ArrowUp':
       checkCooldown(actions.moveUp)
       break
-    case " ":
+    case ' ':
       checkCooldown(actions.pushDown)
       break
     default:
