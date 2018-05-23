@@ -6,37 +6,32 @@
   "license": "MIT",
   "scripts": {
     "clear": "rm -rf ./build",
-    "client-dev": "webpack-dev-server --inline --config webpack/webpack.config.development.js",
-    "client-dev-public": "yarn client-dev --host 0.0.0.0 --public 0.0.0.0:8080 --disable-host-check --port 8080",
+    "client-dev":
+      "webpack-dev-server --inline --config webpack/webpack.config.development.js",
+    "client-dev-public":
+      "yarn client-dev --host 0.0.0.0 --public 0.0.0.0:8080 --disable-host-check --port 8080",
     "client-prod": "webpack --config webpack/webpack.config.production.js",
-    "srv-dev": "nodemon --exec npm run babel-node -- src/server/server.js",
-    "srv-prod": "export NODE_ENV=production && nodemon --exec npm run babel-node -- src/server/server.js",
-    "srv-prod-public": "yarn srv-prod --host 0.0.0.0 --public 0.0.0.0:8080 --disable-host-check --port 8081",
+    "srv-dev": "nodemon --exec npm run babel-node -- src/server/main.js",
+    "srv-prod":
+      "export NODE_ENV=production && nodemon --exec npm run babel-node -- src/server/main.js",
+    "srv-prod-public":
+      "yarn srv-prod --host 0.0.0.0 --public 0.0.0.0:8080 --disable-host-check --port 8081",
     "babel-node": "babel-node --presets=@babel/preset-env",
-    "test": "mocha --require @babel/register --require jsdom-global/register --require ignore-styles --exit ./test/**/**/*.js",
-    "coverage": "cross-env NODE_ENV=test nyc -all report --babel-cache --include 'src' --reporter=text yarn test",
-    "coverage-html": "cross-env NODE_ENV=test nyc -all --clean --babel-cache --include 'src' --reporter=html report yarn test"
+    "test":
+      "mocha --require @babel/register --require jsdom-global/register --require ignore-styles --exit --recursive ./test",
+    "coverage": "cross-env NODE_ENV=test nyc --reporter=text yarn test",
+    "coverage-html":
+      "cross-env NODE_ENV=test nyc --reporter=html report yarn test"
   },
   "nyc": {
     "watermarks": {
-      "lines": [
-        70,
-        70
-      ],
-      "functions": [
-        70,
-        70
-      ],
-      "branches": [
-        50,
-        50
-      ],
-      "statements": [
-        70,
-        70
-      ]
+      "lines": [70, 70],
+      "functions": [70, 70],
+      "branches": [50, 50],
+      "statements": [70, 70]
     },
-    "include": "src"
+    "include": "src",
+    "all": true
   },
   "dependencies": {
     "body-parser": "^1.18.2",

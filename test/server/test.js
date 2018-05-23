@@ -1,9 +1,13 @@
 import chai from "chai"
-
-chai.should()
+import { initServer } from "../../src/server/server"
 
 describe("Fake server test", function() {
-  it("Main page status", function(done) {
+  it("Should instantiate the server", function(done) {
+    // initServer()
+    done()
+  })
+
+  it("Should respond", function(done) {
     done()
   })
 })

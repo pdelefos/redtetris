@@ -43,5 +43,3 @@ export const initServer = () => {
     console.log("Server is running on localhost:" + port)
   })
 }
-
-initServer()
