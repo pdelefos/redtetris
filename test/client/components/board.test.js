@@ -11,12 +11,12 @@ import thunk from 'redux-thunk'
 import omit from 'lodash/omit'
 import rewire from 'rewire'
 
+chai.use(chaiRedux)
+Enzyme.configure({ adapter: new Adapter() })
+
 import Board from '../../../src/client/components/Board'
 import * as BoardActions from '../../../src/client/actions/board'
 import reducers from '../../../src/client/reducers'
-
-chai.use(chaiRedux)
-Enzyme.configure({ adapter: new Adapter() })
 
 const board = rewire('../../../src/client/components/Board/index.jsx')
 const checkCooldown = board.__get__('checkCooldown')

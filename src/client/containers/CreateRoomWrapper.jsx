@@ -1,9 +1,9 @@
-import { connect } from "react-redux"
-import { createRoom } from "../actions/room"
-import { bindActionCreators } from "redux"
-import { addError } from "../actions/user"
+import { connect } from 'react-redux'
+import { createRoom } from '../actions/room'
+import { bindActionCreators } from 'redux'
+import { addError } from '../actions/user'
 
-import CreateRoomWrapper from "../components/CreateRoomWrapper"
+import CreateRoomWrapper from '../components/CreateRoomWrapper'
 
 const mapStateToProps = state => {
   return {
