@@ -1,10 +1,11 @@
 import React from 'react'
 import chai, { expect } from 'chai'
 import chaiRedux from 'chai-redux'
-import Enzyme, { shallow } from 'enzyme'
+import Enzyme, { shallow, mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
+import { Provider } from 'react-redux'
 import rewire from 'rewire'
 import { createMockStore } from 'redux-test-utils'
 import shallowWithStore from './shallowWithStore'
@@ -16,7 +17,11 @@ import Board from '../../../src/client/containers/Board'
 import reducers from '../../../src/client/reducers'
 import { updateUser } from '../../../src/client/actions/user'
 import { createRoom, addRoom } from '../../../src/client/actions/room'
-import { updateGame, startGame } from '../../../src/client/actions/game'
+import {
+  updateGame,
+  startGame,
+  playerStatus
+} from '../../../src/client/actions/game'
 import { log } from 'util'
 
 describe('Container / <Board />', () => {
@@ -30,6 +35,13 @@ describe('Container / <Board />', () => {
     updateGame(store.dispatch)
     startGame(store.dispatch)
     createRoom('coucou')
-    const wrapper = shallowWithStore(<Board />, store)
+
+    playerStatus()
+    // console.log('==>', store)
+    // const wrapper = mount(
+    //   <Provider store={store}>
+    //     <Board />
+    //   </Provider>
+    // )
   })
 })

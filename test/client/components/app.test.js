@@ -11,7 +11,7 @@ import FinalNotificationList
 import Panel from '../../../src/client/components/Panel'
 import { Switch, Route } from 'react-router-dom'
 
-describe('<App />', () => {
+describe('COMPONENT / <App />', () => {
   it('should contain <FinalNotificationList />', () => {
     const wrapper = shallow(<App />)
     expect(wrapper.find(FinalNotificationList).exists()).to.equal(true)

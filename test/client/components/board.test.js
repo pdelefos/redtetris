@@ -30,7 +30,7 @@ let cdActions = {
   canpushDown: true
 }
 
-describe('<Board />', () => {
+describe('COMPONENT / <Board />', () => {
   it('should contain a 4 lines, 4 columns grid ', () => {
     const wrapper = shallow(<Board board={boardSample} />)
     expect(wrapper.find('.grid').exists()).to.equal(true)
