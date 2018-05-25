@@ -18,6 +18,13 @@ describe('COMPONENT / <Notification />', () => {
     const wrapper = shallow(<Notification />)
     expect(wrapper.exists()).to.be.true
   })
+  it('should render', () => {
+    const wrapper = shallow(<Notification deleteNotification={() => {}} />)
+    wrapper
+      .find('.notification__button-container')
+      .find('.button--close')
+      .simulate('click')
+  })
   it('should delete notification after choosen time', () => {
     waitThenClose(id => {}, 12, 1000)
   })

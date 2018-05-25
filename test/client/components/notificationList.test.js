@@ -15,12 +15,12 @@ import reducers from '../../../src/client/reducers'
 chai.use(chaiRedux)
 Enzyme.configure({ adapter: new Adapter() })
 
-describe('COMPONENT / <Hud />', () => {
+describe('COMPONENT / <NotificationList />', () => {
   it('should render', () => {
     const state = {
       notifications: [
         {
-          id: 1,
+          id: 0,
           message: 'hey',
           state: 0
         },
@@ -30,7 +30,7 @@ describe('COMPONENT / <Hud />', () => {
           state: 0
         },
         {
-          id: 1,
+          id: 3,
           message: 'hi',
           state: 1
         }

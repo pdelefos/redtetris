@@ -24,7 +24,7 @@ describe('COMPONENT / <Hud />', () => {
       game: {
         players: {
           12: {
-            nextPiece: [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
+            nextPiece: [[0, 1, 0], [1, 1, 1], [0, 0, 0]],
             currentScore: 400,
             lineCompleted: 3
           }

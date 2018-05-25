@@ -16,7 +16,7 @@ Enzyme.configure({ adapter: new Adapter() })
 import FinalBoard from '../../../src/client/containers/Board'
 import reducers from '../../../src/client/reducers'
 
-describe('Container / <Board />', () => {
+describe('CONTAINER / <Board />', () => {
   const state = {
     user: {
       id: 12
