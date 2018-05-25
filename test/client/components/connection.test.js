@@ -1,5 +1,4 @@
 import React from 'react'
-
 import chai from 'chai'
 import { expect } from 'chai'
 import chaiRedux from 'chai-redux'
@@ -12,6 +11,7 @@ import omit from 'lodash/omit'
 import rewire from 'rewire'
 import { Provider } from 'react-redux'
 import { Redirect } from 'react-router'
+import sinon from 'sinon'
 
 chai.use(chaiRedux)
 Enzyme.configure({ adapter: new Adapter() })
@@ -100,22 +100,21 @@ describe('COMPONENT / <Connection />', () => {
       .find('.button')
       .simulate('click')
   })
-  // it('should trigger Enter on input', () => {
-  //   const store = chai.createReduxStore({
-  //     reducer: reducers,
-  //     middlewares: [thunk, logger]
-  //   })
-  //   const wrapper = mount(
-  //     <Provider store={store}>
-  //       <FinalConnection />
-  //     </Provider>
-  //   )
-  //   wrapper
-  //     .find('.connection-input')
-  //     .find('.input-btn-grp')
-  //     .find('.input--text')
-  //     .simulate('KeyDown', { key: 'Enter' })
-  // })
+  it('should trigger Enter on input', () => {
+    const store = chai.createReduxStore({
+      reducer: reducers,
+      middlewares: [thunk, logger]
+    })
+    const wrapper = mount(
+      <Provider store={store}>
+        <FinalConnection />
+      </Provider>
+    )
+    const input = wrapper
+      .find('.connection-input')
+      .find('.input-btn-grp')
+      .find('.input--text')
+  })
   it('should display error', () => {
     const store = chai.createReduxStore({
       reducer: reducers,

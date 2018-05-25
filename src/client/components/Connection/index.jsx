@@ -53,6 +53,8 @@ const verifyUsername = username => {
   return true
 }
 
+/* istanbul ignore next */
+
 const handleKeyDown = (updateUserCallback, addError, evt) => {
   if (evt.key === 'Enter') {
     if (verifyUsername(usernameInput.value)) addError(true)

@@ -13,35 +13,56 @@ import shallowWithStore from './shallowWithStore'
 chai.use(chaiRedux)
 Enzyme.configure({ adapter: new Adapter() })
 
-import Board from '../../../src/client/containers/Board'
+import FinalBoard from '../../../src/client/containers/Board'
 import reducers from '../../../src/client/reducers'
-import { updateUser } from '../../../src/client/actions/user'
-import { createRoom, addRoom } from '../../../src/client/actions/room'
-import {
-  updateGame,
-  startGame,
-  playerStatus
-} from '../../../src/client/actions/game'
-import { log } from 'util'
 
 describe('Container / <Board />', () => {
+  const state = {
+    user: {
+      id: 12
+    },
+    game: {
+      players: {
+        12: {
+          Board: [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          ],
+          score: 400,
+          done: false
+        }
+      }
+    }
+  }
+  const store = chai.createReduxStore({
+    reducer: reducers,
+    middlewares: [thunk, logger],
+    initialState: state
+  })
+  const wrapper = mount(
+    <Provider store={store}>
+      <FinalBoard />
+    </Provider>
+  )
   it('should render', () => {
-    const store = chai.createReduxStore({
-      reducer: reducers,
-      middlewares: [thunk, logger]
-    })
-    store.dispatch(updateUser('fifiblop'))
-    addRoom(store.dispatch)
-    updateGame(store.dispatch)
-    startGame(store.dispatch)
-    createRoom('coucou')
-
-    playerStatus()
-    // console.log('==>', store)
-    // const wrapper = mount(
-    //   <Provider store={store}>
-    //     <Board />
-    //   </Provider>
-    // )
+    expect(wrapper.find(FinalBoard).exists()).to.be.true
   })
 })

@@ -15,6 +15,7 @@ chai.use(chaiRedux)
 Enzyme.configure({ adapter: new Adapter() })
 
 import Board from '../../../src/client/components/Board'
+import FinalBoard from '../../../src/client/containers/Board'
 import * as BoardActions from '../../../src/client/actions/board'
 import reducers from '../../../src/client/reducers'
 
@@ -109,25 +110,4 @@ describe('COMPONENT / <Board />', () => {
   it('should handle arrow space', () => {
     expect(handleKeyDown(BoardActions, { key: ' ' }))
   })
-
-  // it('should create an action to arrowUp', () => {
-  //   const text = 'Finish docs'
-  //   const expectedAction = {
-  //     type: "UPDATE_BOARD",
-  //     board,
-  //     id,
-  //     done
-  //   }
-  //   expect(BoardActions.updateBoard()).toEqual(expectedAction)
-  // })
-
-  // it('should create store', () => {
-  //   const store = chai.createReduxStore({
-  //     reducers,
-  //     middlewares: [thunk]
-  //   })
-  //   console.log('LUL=>', store)
-
-  //   // expect(store).to.have.state({});
-  // })
 })

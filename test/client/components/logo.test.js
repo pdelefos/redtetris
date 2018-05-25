@@ -4,13 +4,13 @@ import { expect } from 'chai'
 import Enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
-import Panel from '../../../src/client/components/Panel'
+import Logo from '../../../src/client/components/Logo'
 
 Enzyme.configure({ adapter: new Adapter() })
 
-describe('COMPONENT / <Panel />', () => {
+describe('COMPONENT / <Logo />', () => {
   it("shouldn't have Panel has a child", () => {
-    const wrapper = shallow(<Panel />)
-    expect(wrapper.find(Panel)).to.have.length(0)
+    const wrapper = shallow(<Logo />)
+    expect(wrapper.find('.logo--red').exists()).to.be.true
   })
 })
