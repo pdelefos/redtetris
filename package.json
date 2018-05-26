@@ -5,7 +5,7 @@
   "author": "pdelefos-dylandjian-corentinprune",
   "license": "MIT",
   "scripts": {
-    "clear": "rm -rf ./build .nyc_output",
+    "clear": "rm -rf ./build .nyc_output ./coverage",
     "babel-node": "babel-node --presets=@babel/preset-env",
     "client-dev": "webpack-dev-server --inline --config webpack/webpack.config.development.js",
     "client-dev-public": "yarn client-dev --host 0.0.0.0 --public 0.0.0.0:8080 --disable-host-check --port 8080",
