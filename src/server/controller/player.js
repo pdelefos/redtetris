@@ -28,6 +28,7 @@ class Player {
     this.nextPiece = null
     this.idx = 0
     this.done = false
+    this.winner = false
     this.refreshId = null
   }
 

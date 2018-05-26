@@ -348,13 +348,12 @@ class Manager {
             game.reset()
             this.io.to(currentPlayer.currentRoom).emit("updateGame", game)
             this.updateRoom(game.hashName)
-          }
-	  else
+          } else
             this.io.to(game.hashName).emit("updateBoard", {
-            board: currentPlayer.board.grid,
-            done: currentPlayer.done,
-            id: socket.id
-          })
+              board: currentPlayer.board.grid,
+              done: currentPlayer.done,
+              id: socket.id
+            })
           return false
         }
         currentPlayer.board.nextPiece = game.getNextPiece(socket.id)
