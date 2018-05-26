@@ -17,7 +17,6 @@ class Player {
     this.done = false
     this.lock = false
     this.refreshId = null
-    this.winner = false
   }
 
   reset = () => {
@@ -28,7 +27,6 @@ class Player {
     this.nextPiece = null
     this.idx = 0
     this.done = false
-    this.winner = false
     this.refreshId = null
   }
 
@@ -49,8 +47,8 @@ class Player {
   }
 
   joinGame = () => {
-    this.score = 0
     this.ready = false
+    this.score = 0
     this.board = null
   }
 

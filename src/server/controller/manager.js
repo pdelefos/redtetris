@@ -368,6 +368,7 @@ class Manager {
     let currentPlayer = this.players[socket.id]
     let game = this.rooms[currentPlayer.currentRoom].game
     game.generatePiecesArray()
+    game.resetWinner()
     currentPlayer.board.currentPiece = game.getNextPiece(socket.id)
     currentPlayer.board._setDefaultPosition()
     currentPlayer.board.nextPiece = game.getNextPiece(socket.id)

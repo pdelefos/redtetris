@@ -32,6 +32,12 @@ class Game {
     })
   }
 
+  resetWinner = () => {
+    Object.keys(this.players).map(playerId => {
+      this.players[playerId].winner = false
+    })
+  }
+
   updateStatus = (status = null) => {
     if (status) this.status = status
     else if (this.status !== "In game" && this.status !== "Starting") {
@@ -79,7 +85,7 @@ class Game {
     let nextPiece = this.pieces[idx]
     nextPiece.used++
     this.players[playerId].idx++
-    if (nextPiece.used == Object.keys(this.players).length) this.pieces[idx] = 0
+    //if (nextPiece.used == Object.keys(this.players).length) this.pieces[idx] = 0
     return new Piece(nextPiece.pieceName)
   }
 }
