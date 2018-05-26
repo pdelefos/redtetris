@@ -13,7 +13,7 @@ const Button = ({
 }) => {
   if (playerId == currentPlayerId) {
     if (gameStatus == "Starting")
-      return <button className="button button--disabled">Ready</button>
+      return <button className="button button--disabled">{!player.ready ? "Ready" : "Not ready"}</button>
     return (
       <button className="button" onClick={() => playerStatus()}>
         {!player.ready ? "Ready" : "Not ready"}

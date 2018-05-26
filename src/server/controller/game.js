@@ -18,6 +18,7 @@ class Game {
   }
 
   removePlayer = id => {
+    if (this.players[id].done) this.done--
     delete this.players[id]
     this.updateStatus()
   }
