@@ -182,7 +182,7 @@ class Manager {
           this.io.to(room.hashName).emit("updateGame", room.game)
           this.startGame(player.socket)
           this.updateRoom(room.hashName)
-        }).catch(err => this.notification.log(`[${socket.id}] Player left during countdown`))
+        }).catch(err => err)
       })
     } else this.io.to(room.hashName).emit("updateGame", room.game)
   }
