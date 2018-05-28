@@ -1,7 +1,7 @@
-import { constants } from "./const"
+import { constants } from './const'
 
 class Piece {
-  constructor(pieceName) {
+  constructor (pieceName) {
     this.pieceName = pieceName
     this.piece = constants[pieceName]
     this._tmpPiece = []
@@ -21,8 +21,9 @@ class Piece {
     if (
       this._pieceOutOfBoard(piecePosition) ||
       this._piecesCollide(piecePosition, currentBoard)
-    )
+    ) {
       return false
+    }
     this.piece = this._tmpPiece
   }
 
@@ -31,7 +32,7 @@ class Piece {
       for (let x = 0; x < this._tmpPiece[y].length; x++) {
         let outOfBoardRight = x + piecePosition.x >= constants.BOARD_COLS
         let outOfBoardLeft = x + piecePosition.x < 0
-        let outOfBoardBottom = y + piecePosition.y > constants.BOARD_ROWS
+        let outOfBoardBottom = y + piecePosition.y >= constants.BOARD_ROWS
         if (outOfBoardLeft || outOfBoardRight || outOfBoardBottom) return true
       }
     }
